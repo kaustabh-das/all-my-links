@@ -1,0 +1,45 @@
+.navbar {
+  width: 100%;
+  //   background-color: lightseagreen;
+  //   color: lightpink;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 3px solid #d7dce1;
+
+  .navbar-items {
+    width: 95%;
+    margin: 0.7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // background-color: lime;
+
+    .logo {
+      font-size: 35px;
+    }
+
+    .items {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-grow: 1;
+      //   background-color: maroon;
+      margin-left: 2rem;
+      font-size: 18px;
+
+      .items-value {
+        margin-right: 1.5rem;
+      }
+    }
+
+    .logout-button {
+      padding: 1rem;
+      background-color: mediumslateblue;
+      color: mintcream;
+      font-size: 1.2rem;
+      //   border: solid 3px ;
+      border-radius: 0.5rem;
+    }
+  }
+}

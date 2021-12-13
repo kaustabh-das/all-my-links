@@ -1,0 +1,17 @@
+.layout {
+  width: 100%;
+
+  .layout-body {
+    width: 100%;
+    display: flex;
+
+    .layout-body-left {
+      width: 70%;
+      background-color: brown;
+    }
+    .layout-body-right {
+      width: 30%;
+      background-color: burlywood;
+    }
+  }
+}
