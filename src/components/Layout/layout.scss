@@ -7,7 +7,37 @@
 
     .layout-body-left {
       width: 70%;
-      background-color: brown;
+      background-color: #ecf1f6;
+
+      .body-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 7rem;
+        background-color: #ffffff;
+        border-bottom: 3px solid #c4c5c8;
+
+        .user-details {
+          // margin: 0 auto;
+          display: flex;
+          // justify-content: center;
+          align-items: center;
+          // background-color: bisque;
+          width: 95%;
+
+          .user-img {
+            width: 5.5rem;
+            height: 5.5rem;
+            border-radius: 10rem;
+          }
+
+          .user-name {
+            margin-left: 1rem;
+            font-size: 1.5rem;
+          }
+        }
+      }
     }
     .layout-body-right {
       width: 30%;

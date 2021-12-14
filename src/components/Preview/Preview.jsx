@@ -16,7 +16,7 @@ const Preview = () => {
       <div className="preview-body">
         <div className="preview-items">
           {/* <h1>Preview</h1> */}
-          <img className="user-img" src={mypic} alt="user image" />
+          <img className="preview-user-img" src={mypic} alt="user image" />
           <p className="user-name">@username</p>
           <p className="user-bio">This is my bio.</p>
           <div className="user-links">

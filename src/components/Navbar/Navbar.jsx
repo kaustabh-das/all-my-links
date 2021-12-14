@@ -1,15 +1,24 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./navbar.scss";
 
 const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navbar-items">
-        <div className="logo"> Logo </div>
+        <div className="logo">
+          <Link to="/admin"> Logo </Link>
+        </div>
         <div className="items">
-          <p className="items-value">Links</p>
-          <p className="items-value">Appearance</p>
-          <p className="items-value">Settings</p>
+          <Link to="/admin" className="items-value">
+            Links
+          </Link>
+          <Link to="/admin/appearance" className="items-value">
+            Appearance
+          </Link>
+          <Link to="/admin/settings" className="items-value">
+            Settings
+          </Link>
         </div>
         <div className="logout-button">Log Out</div>
       </div>

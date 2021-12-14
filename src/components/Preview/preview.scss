@@ -1,9 +1,10 @@
 .preview {
+  border-left: 3px solid #c4c5c8;
+
   .my-link {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-left: 3px solid #d7dce1;
     border-bottom: 3px solid #d7dce1;
     background-color: #ffffff;
     color: black;
@@ -39,7 +40,7 @@
       color: black;
       background-color: rgb(142, 234, 250);
 
-      .user-img {
+      .preview-user-img {
         width: 6rem;
         height: 6rem;
         border-radius: 10rem;
@@ -66,5 +67,13 @@
         background-color: blanchedalmond;
       }
     }
+
+    // .preview-items::-webkit-scrollbar-track {
+    //   border-radius: 2rem;
+    // }
+
+    // .preview-items::-webkit-scrollbar-thumb {
+    //   border-radius: 2rem;
+    // }
   }
 }
