@@ -16,10 +16,22 @@ const Layout = (props) => {
               <p className="user-name">@username</p>
             </div>
           </div>
-          <div>{props.children}</div>
+          <div className="body-main">{props.children}</div>
         </div>
         <div className="layout-body-right">
-          <Preview />
+          <div className="preview-body">
+            <div className="my-link">
+              <p>
+                My Link:<span> </span>
+                <a href="http://localhost:3000/rasky" target="_blank">
+                  http://localhost:3000/rasky
+                </a>
+              </p>
+            </div>
+            <div className="preview-body">
+              <Preview />
+            </div>
+          </div>
         </div>
       </div>
     </div>

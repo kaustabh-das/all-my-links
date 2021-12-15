@@ -10,7 +10,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  // z-index: -0.5;
+  z-index: 1;
+
+  @media only screen and (max-width: 600px) {
+    margin-top: -166.4px;
+  }
 
   .user-model-body {
     position: relative;
@@ -23,5 +27,14 @@
     padding: 20px;
     border: 1px solid #999;
     overflow: auto;
+
+    .header-div {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      // margin: 1rem;
+      padding: 0.5rem;
+      background-color: rgb(214, 226, 43);
+    }
   }
 }

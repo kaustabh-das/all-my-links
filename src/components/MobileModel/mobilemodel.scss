@@ -1,0 +1,19 @@
+.mobile-model {
+  color: black;
+  width: 100vw;
+  // height: 71.5vh;
+  height: 100vh;
+  margin-top: -210.4px;
+  background-color: rgba(37, 37, 37, 0.8); //0.8 is the opacity.
+  // opacity: 0.8;
+  position: fixed;
+  display: flex;
+  //   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+
+  @media only screen and (max-width: 600px) {
+    margin-top: -203.4px;
+  }
+}

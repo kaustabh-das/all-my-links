@@ -17,6 +17,10 @@
 
     .logo {
       font-size: 35px;
+
+      @media only screen and (max-width: 600px) {
+        font-size: 27px;
+      }
     }
 
     .items {
@@ -28,8 +32,17 @@
       margin-left: 2rem;
       font-size: 18px;
 
+      @media only screen and (max-width: 600px) {
+        margin-left: 1.5rem;
+        font-size: 15px;
+      }
+
       .items-value {
         margin-right: 1.5rem;
+
+        @media only screen and (max-width: 600px) {
+          margin-right: 0.8rem;
+        }
       }
     }
 
@@ -40,6 +53,11 @@
       font-size: 1.2rem;
       //   border: solid 3px ;
       border-radius: 0.5rem;
+
+      @media only screen and (max-width: 600px) {
+        padding: 0.5rem;
+        font-size: 1rem;
+      }
     }
   }
 }

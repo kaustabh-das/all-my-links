@@ -1,79 +1,55 @@
-.preview {
-  border-left: 3px solid #c4c5c8;
+.preview-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  width: 70%;
+  height: 35rem;
+  padding: 1rem;
+  border: 12px solid #0a0b0d;
+  border-radius: 2rem;
+  //   border-radius: 0 4rem 4rem 0;
+  color: black;
+  background-color: rgb(142, 234, 250);
 
-  .my-link {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 3px solid #d7dce1;
-    background-color: #ffffff;
-    color: black;
-    width: 100%;
-    height: 4rem;
+  .close-btn {
+    text-align: center;
+    width: 5rem;
+    padding: 0.6rem;
+    border-radius: 1rem;
+    color: whitesmoke;
+    background-color: blueviolet;
+    position: absolute;
+    // right: 85px;
+    // top: 78px;
+    cursor: pointer;
   }
 
-  .preview-body {
+  .preview-user-img {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    margin-top: 3.5rem;
+  }
+
+  .user-name {
+    margin-top: 1rem;
+  }
+
+  .user-bio {
+    margin-top: 0.5rem;
+  }
+
+  .user-links {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    //   height: 89.3vh;
-    height: calc(
-      100vh - 79.2px - 64px
-    ); // 79.2px is the height of the navbar, 64px is the height of my-link div.
-    color: blue;
-    background-color: rgb(235, 238, 241);
-
-    .preview-items {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      width: 70%;
-      height: 80%;
-      padding: 1rem;
-      border: 12px solid #0a0b0d;
-      border-radius: 2rem;
-      //   border-radius: 0 4rem 4rem 0;
-      color: black;
-      background-color: rgb(142, 234, 250);
-
-      .preview-user-img {
-        width: 6rem;
-        height: 6rem;
-        border-radius: 10rem;
-        margin-top: 1.5rem;
-      }
-
-      .user-name {
-        margin-top: 1rem;
-      }
-
-      .user-bio {
-        margin-top: 0.5rem;
-      }
-
-      .user-links {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 1rem;
-        width: 95%;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-        border-radius: 2rem;
-        background-color: blanchedalmond;
-      }
-    }
-
-    // .preview-items::-webkit-scrollbar-track {
-    //   border-radius: 2rem;
-    // }
-
-    // .preview-items::-webkit-scrollbar-thumb {
-    //   border-radius: 2rem;
-    // }
+    margin-top: 1rem;
+    width: 95%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-radius: 2rem;
+    background-color: blanchedalmond;
   }
 }
