@@ -8,6 +8,7 @@
     .layout-body-left {
       width: 70%;
       background-color: #ecf1f6;
+      overflow-y: auto;
 
       @media only screen and (max-width: 1053px) {
         width: 50%;
@@ -62,8 +63,8 @@
         }
       }
       .body-main {
-        overflow-y: auto;
-        scrollbar-width: thin;
+        // overflow-y: auto;
+        // scrollbar-width: thin;
       }
     }
     .layout-body-right {

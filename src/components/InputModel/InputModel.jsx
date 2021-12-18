@@ -18,7 +18,7 @@ const InputModel = (props) => {
           </button>
         </div>
         <div className="body-div">
-          <form>
+          <form className="body-div-form">
             <label>
               Title:
               <input type="text" name="title" />
@@ -27,7 +27,7 @@ const InputModel = (props) => {
               Url:
               <input type="text" name="url" />
             </label>
-            <input type="submit" value="Submit" />
+            <input className="input-form-btn" type="submit" value="Submit" />
           </form>
         </div>
       </div>

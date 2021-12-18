@@ -39,44 +39,60 @@ const Admin = () => {
 
   return (
     <Layout>
+      {modalShow && (
+        <InputModel
+          onRequestClose={() => setModalShow(false)}
+          setModalShow={setModalShow}
+        />
+      )}
+      {previewShow && (
+        <MobileModel
+          onRequestClose={() => setPreviewShow(false)}
+          setPreviewShow={setPreviewShow}
+        />
+      )}
       <div className="admin_page">
         <div className="admin-body">
           <div className="create-btn" onClick={() => setModalShow(true)}>
             Add New Link
           </div>
-          {modalShow && (
-            <InputModel
-              onRequestClose={() => setModalShow(false)}
-              setModalShow={setModalShow}
-            />
-          )}
+
           <h1>Admin Page</h1>
-          <div className="info-div">
-            <div className="info-left-div"></div>
-            <div className="info-right-div">
-              <div className="info-top-div"></div>
-              <div className="info-bottom-div"></div>
+          <div className="info-parent-div">
+            <div className="info-div">
+              <div className="info-left-div"></div>
+              <div className="info-right-div">
+                <div className="info-top-div"></div>
+                <div className="info-bottom-div"></div>
+              </div>
             </div>
-          </div>
-          <div className="info-div">
-            <div className="info-left-div"></div>
-            <div className="info-right-div">
-              <div className="info-top-div"></div>
-              <div className="info-bottom-div"></div>
+            <div className="info-div">
+              <div className="info-left-div"></div>
+              <div className="info-right-div">
+                <div className="info-top-div"></div>
+                <div className="info-bottom-div"></div>
+              </div>
             </div>
-          </div>
-          <div className="info-div">
-            <div className="info-left-div"></div>
-            <div className="info-right-div">
-              <div className="info-top-div"></div>
-              <div className="info-bottom-div"></div>
+            <div className="info-div">
+              <div className="info-left-div"></div>
+              <div className="info-right-div">
+                <div className="info-top-div"></div>
+                <div className="info-bottom-div"></div>
+              </div>
             </div>
-          </div>
-          <div className="info-div">
-            <div className="info-left-div"></div>
-            <div className="info-right-div">
-              <div className="info-top-div"></div>
-              <div className="info-bottom-div"></div>
+            <div className="info-div">
+              <div className="info-left-div"></div>
+              <div className="info-right-div">
+                <div className="info-top-div"></div>
+                <div className="info-bottom-div"></div>
+              </div>
+            </div>
+            <div className="info-div">
+              <div className="info-left-div"></div>
+              <div className="info-right-div">
+                <div className="info-top-div"></div>
+                <div className="info-bottom-div"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -84,12 +100,6 @@ const Admin = () => {
           <div onClick={() => setPreviewShow(true)} className="mobile-preview">
             <h2>Preview</h2>
           </div>
-        )}
-        {previewShow && (
-          <MobileModel
-            onRequestClose={() => setPreviewShow(false)}
-            setPreviewShow={setPreviewShow}
-          />
         )}
       </div>
     </Layout>
