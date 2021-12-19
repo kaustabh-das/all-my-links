@@ -9,7 +9,7 @@
 
   .navbar-items {
     width: 95%;
-    margin: 0.7rem;
+    // margin: 0.7rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,7 +47,7 @@
     }
 
     .logout-button {
-      padding: 1rem;
+      padding: 0.8rem;
       background-color: mediumslateblue;
       color: mintcream;
       font-size: 1.2rem;

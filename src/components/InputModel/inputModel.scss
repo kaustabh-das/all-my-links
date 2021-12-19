@@ -35,10 +35,23 @@
       // margin: 1rem;
       padding: 0.5rem;
       background-color: rgb(214, 226, 43);
+
+      .input-close-btn {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        cursor: pointer;
+        background-color: white;
+        border: none;
+      }
+
+      .input-close-btn:hover {
+        color: whitesmoke;
+        background-color: red;
+      }
     }
 
     .body-div {
-      background-color: chartreuse;
+      // background-color: chartreuse;
 
       .body-div-form {
         display: flex;
