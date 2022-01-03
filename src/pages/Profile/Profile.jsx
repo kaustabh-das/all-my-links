@@ -12,7 +12,12 @@ const Profile = () => {
   console.log(find_user);
   return (
     <div className="profile-page">
-      {find_user ? <ProfileComp username={lowercase_username} /> : <Error />}
+      {/* {find_user ? <ProfileComp username={lowercase_username} /> : <Error />} */}
+      {lowercase_username ? (
+        <ProfileComp username={lowercase_username} />
+      ) : (
+        <Error />
+      )}
     </div>
   );
 };
