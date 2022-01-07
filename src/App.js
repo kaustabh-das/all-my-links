@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Admin from "./pages/Admin/Admin";
@@ -16,21 +17,11 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            <Route
-              path="/admin"
-              element={
-                <PrivateRoute>
-                  <Admin />
-                </PrivateRoute>
-              }
-            />
-            {/* <Route path="/admin">
-              <PrivateRoute>
-                <Admin />
-              </PrivateRoute>
-            </Route> */}
-            <Route path="/admin/appearance" element={<Appearance />} />
-            <Route path="/admin/settings" element={<Settings />} />
+            <Route element={<PrivateRoute />}>
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/admin/appearance" element={<Appearance />} />
+              <Route path="/admin/settings" element={<Settings />} />
+            </Route>
             <Route exact path="/" element={<Home />} />
             <Route path="/:username" element={<Profile />} />
             <Route path="/signup" element={<Signup />} />

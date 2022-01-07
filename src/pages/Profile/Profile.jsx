@@ -7,7 +7,14 @@ import "./app.profile.scss";
 const Profile = () => {
   const { username } = useParams();
   let lowercase_username = username.toLowerCase();
-  const users = ["rasky", "sima", "akankshya", "biswajit", "gurjyot"];
+  const users = [
+    "rasky",
+    "sima",
+    "akankshya",
+    "biswajit",
+    "gurjyot",
+    "abc@gmail.com",
+  ];
   let find_user = users.includes(lowercase_username); // includes() method always return a boolean value.
   console.log(find_user);
   return (
