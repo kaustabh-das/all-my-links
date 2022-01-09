@@ -31,9 +31,9 @@ const Profile = (props) => {
 
   const createUser = async () => {
     await setDoc(
-      doc(db, "users", "iam@gmail.com", "user-info", "LO77RLzKIcdhEXNA1oeZ"), // creating "iam@gmail.com" document_id manually.
+      doc(db, "users", "iam@gmail.com", "user-info", "LO77RLzKIcdhEXNA1oer"), // creating "iam@gmail.com" document_id manually.
       {
-        name: "Los Angeles",
+        name: "Los Angeles2",
         state: "CA",
         country: "USA",
       }
@@ -50,7 +50,7 @@ const Profile = (props) => {
         ...doc.data(),
         id: doc.id,
       }));
-      console.log(firebaseLinkData);
+      // console.log(firebaseLinkData);
       setUsers(
         firebaseLinkData.sort((a, b) => {
           return a.row_no - b.row_no;

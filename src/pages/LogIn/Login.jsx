@@ -44,6 +44,9 @@ const Login = () => {
         </label>
         <input disabled={loading} type="submit" />
       </form>
+      <div className="">
+        I don't have an account? <Link to="/signup">Sign Up</Link>
+      </div>
     </div>
   );
 };
