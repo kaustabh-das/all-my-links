@@ -1,11 +1,50 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import "./inputModel.scss";
 import { Menu as MenuIcon } from "react-feather";
 import { X as XIcon } from "react-feather";
+import { useAuth } from "../../contexts/AuthContext";
+import { db } from "../../firebase";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 // import { Button, Modal, Form } from "react-bootstrap";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 const InputModel = (props) => {
+  const { currentUser, logout } = useAuth();
+  const titleRef = useRef();
+  const linkRef = useRef();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const usersLinkCollectionInfoRef = collection(
+    db,
+    "users",
+    currentUser.email,
+    "user-links"
+  );
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      await addDoc(usersLinkCollectionInfoRef, {
+        title: titleRef.current.value,
+        link: linkRef.current.value,
+      });
+      props.setModalShow(false);
+    } catch {
+      setError("Something is went wrong....");
+    }
+    setLoading(false);
+  }
+
   return (
     <div className="user-model">
       <div className="user-model-body">
@@ -21,7 +60,7 @@ const InputModel = (props) => {
           </button>
         </div>
         <div className="body-div">
-          <form className="body-div-form">
+          <form className="body-div-form" onSubmit={handleSubmit}>
             {/* <label>
               Title:
               <input type="text" name="title" />
@@ -35,6 +74,7 @@ const InputModel = (props) => {
                 className="form-control"
                 id="exampleFormControlInput1"
                 placeholder="facebook"
+                ref={titleRef}
               />
             </div>
             <div className="mb-3">
@@ -46,13 +86,14 @@ const InputModel = (props) => {
                 className="form-control"
                 // id="exampleFormControlInput1"
                 placeholder="https://www.facebook.com/rasky.bro"
+                ref={linkRef}
               />
             </div>
             {/* <label>
               Url:
               <input type="text" name="url" />
             </label> */}
-            <div class="col-12">
+            <div className="col-12">
               <button className="btn btn-primary" type="submit">
                 Save
               </button>

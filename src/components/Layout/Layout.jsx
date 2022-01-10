@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { db } from "../../firebase";
 import {
@@ -17,6 +17,10 @@ import Mypic from "../../assets/kd.jpeg";
 
 const Layout = (props) => {
   const { currentUser, logout } = useAuth();
+
+  // const titleRef = useRef();
+  // const linkRef = useRef();
+
   const [usersInfo, setUsersInfo] = useState([]);
   const usersCollectionInfoRef = collection(
     db,
@@ -24,6 +28,22 @@ const Layout = (props) => {
     currentUser.email,
     "user-info"
   );
+
+  // const usersLinkCollectionInfoRef = collection(
+  //   db,
+  //   "users",
+  //   currentUser.email,
+  //   "user-links"
+  // );
+
+  // const clickMe = async (e) => {
+  //   e.preventDefault();
+  //   console.log("hello");
+  //   await addDoc(usersLinkCollectionInfoRef, {
+  //     title: "title",
+  //     link: "link",
+  //   });
+  // };
 
   useEffect(() => {
     const getUsersInfo = async () => {
@@ -44,6 +64,7 @@ const Layout = (props) => {
                 <div className="user-details">
                   <img className="user-img" src={Mypic} />
                   <p className="user-name">@username: {user.email}</p>
+                  {/* <button onClick={clickMe}>click me</button> */}
                 </div>
               );
             })}
