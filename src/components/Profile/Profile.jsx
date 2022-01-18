@@ -11,17 +11,23 @@ import {
   doc,
   setDoc,
 } from "firebase/firestore";
+import { useSelector, useDispatch } from "react-redux";
+import { getLinks, getUserInfo } from "../../actions/index";
 
 const Profile = (props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   // const docId = "C44xAIt6sliUonB9Sh9R";
   const docId = props.username;
+  const links = useSelector((state) => state.userLinkReducer.links);
+  const info = useSelector((state) => state.userInfoReducer.info);
 
-  const [users, setUsers] = useState([]);
-  const [usersInfo, setUsersInfo] = useState([]);
+  const [usersLink, setUsersLink] = useState([]);
+  // const [users, setUsers] = useState([]);
+  // const [usersInfo, setUsersInfo] = useState([]);
 
-  const usersCollectionLinkRef = collection(db, "users", docId, "user-links");
-  const usersCollectionInfoRef = collection(db, "users", docId, "user-info");
+  // const usersCollectionLinkRef = collection(db, "users", docId, "user-links");
+  // const usersCollectionInfoRef = collection(db, "users", docId, "user-info");
 
   // const usersCollectionRef = db
   //   .collection("users")
@@ -40,33 +46,48 @@ const Profile = (props) => {
     );
   };
 
+  // useEffect(() => {
+  //   const getUsersLink = async () => {
+  //     const data = await getDocs(usersCollectionLinkRef);
+  //     // console.log(data.docs);
+  //     // setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  //     let firebaseLinkData = [];
+  //     firebaseLinkData = data.docs.map((doc) => ({
+  //       ...doc.data(),
+  //       id: doc.id,
+  //     }));
+  //     // console.log(firebaseLinkData);
+  //     setUsers(
+  //       firebaseLinkData.sort((a, b) => {
+  //         return a.row_no - b.row_no;
+  //       })
+  //     );
+  //   };
+
+  //   const getUsersInfo = async () => {
+  //     const data = await getDocs(usersCollectionInfoRef);
+  //     setUsersInfo(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  //   };
+
+  //   getUsersLink();
+
+  //   getUsersInfo();
+  // }, []);
+
+  // let firebaseLinkData = [];
   useEffect(() => {
-    const getUsersLink = async () => {
-      const data = await getDocs(usersCollectionLinkRef);
-      // console.log(data.docs);
-      // setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      let firebaseLinkData = [];
-      firebaseLinkData = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      // console.log(firebaseLinkData);
-      setUsers(
-        firebaseLinkData.sort((a, b) => {
-          return a.row_no - b.row_no;
-        })
-      );
-    };
+    // setPage(useSelector((state) => state.changeThePage))
+    dispatch(getLinks(docId));
+    dispatch(getUserInfo(docId));
 
-    const getUsersInfo = async () => {
-      const data = await getDocs(usersCollectionInfoRef);
-      // console.log(data.docs);
-      setUsersInfo(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
+    // firebaseLinkData.push(...links);
 
-    getUsersLink();
-
-    getUsersInfo();
+    // setUsersLink(
+    //   firebaseLinkData.sort((a, b) => {
+    //     return a.row_no - b.row_no;
+    //   })
+    // );
+    // console.log(links[0]);
   }, []);
 
   return (
@@ -81,26 +102,28 @@ const Profile = (props) => {
       >
         Change to home page
       </button>
-      {usersInfo.map((user, index) => {
-        return (
-          <div>
-            <h3 key={index}>Username: {user.username}</h3>
-            <p key={index}>Email: {user.email}</p>
-          </div>
-        );
-      })}
-      {users.map((user, index) => {
-        return (
-          // {for (let i = 1; i<){
-          <div style={{ margin: "1rem" }}>
-            <h3 key={index}>Title: {user.title}</h3>
-            <p key={index}>link: {user.link}</p>
-            <p key={index}>Row_no: {user.row_no}</p>
-          </div>
-          // }}
-        );
-      })}
-      <button onClick={createUser}> Create User</button>
+      {info &&
+        info.map((user, index) => {
+          return (
+            <div>
+              <h3 key={index}>Username: {user.username}</h3>
+              <p key={index}>Email: {user.email}</p>
+            </div>
+          );
+        })}
+      {links &&
+        links.map((user, index) => {
+          return (
+            // {for (let i = 1; i<){
+            <div style={{ margin: "1rem" }}>
+              <h3 key={index}>Title: {user.title}</h3>
+              <p key={index}>link: {user.link}</p>
+              <p key={index}>Row_no: {user.row_no}</p>
+            </div>
+            // }}
+          );
+        })}
+      {/* <button onClick={createUser}> Create User</button> */}
     </div>
   );
 };

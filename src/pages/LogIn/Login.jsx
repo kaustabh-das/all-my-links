@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import app from "../../firebase";
 import "./app.loginpage.scss";
 
 const Login = () => {
@@ -10,6 +11,25 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // async function handleSubmit(e) {
+  //   e.preventDefault();
+
+  //   try {
+  //     setError("");
+  //     setLoading(true);
+  //     await login(emailRef.current.value, passwordRef.current.value);
+  //     // localStorage.setItem(
+  //     //   "userDetails",
+  //     //   JSON.stringify(emailRef.current.value, passwordRef.current.value)
+  //     // );
+  //     navigate("/admin");
+  //   } catch {
+  //     setError("Failed to log in");
+  //   }
+
+  //   setLoading(false);
+  // }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -25,6 +45,7 @@ const Login = () => {
 
     setLoading(false);
   }
+
   return (
     <div className="login-page">
       <h1>Login Page</h1>

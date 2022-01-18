@@ -60,6 +60,7 @@ const InputModel = (props) => {
           </button>
         </div>
         <div className="body-div">
+          {error && <p>{error}</p>}
           <form className="body-div-form" onSubmit={handleSubmit}>
             {/* <label>
               Title:
@@ -94,7 +95,11 @@ const InputModel = (props) => {
               <input type="text" name="url" />
             </label> */}
             <div className="col-12">
-              <button className="btn btn-primary" type="submit">
+              <button
+                className="btn btn-primary"
+                disabled={loading}
+                type="submit"
+              >
                 Save
               </button>
             </div>
