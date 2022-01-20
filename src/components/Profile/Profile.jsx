@@ -22,7 +22,7 @@ const Profile = (props) => {
   const links = useSelector((state) => state.userLinkReducer.links);
   const info = useSelector((state) => state.userInfoReducer.info);
 
-  const [usersLink, setUsersLink] = useState([]);
+  // const [usersLink, setUsersLink] = useState([]);
   // const [users, setUsers] = useState([]);
   // const [usersInfo, setUsersInfo] = useState([]);
 
@@ -112,13 +112,16 @@ const Profile = (props) => {
           );
         })}
       {links &&
-        links.map((user, index) => {
+        links.map((link, index) => {
           return (
             // {for (let i = 1; i<){
             <div style={{ margin: "1rem" }}>
-              <h3 key={index}>Title: {user.title}</h3>
-              <p key={index}>link: {user.link}</p>
-              <p key={index}>Row_no: {user.row_no}</p>
+              <h3 key={index}>Title: {link.title}</h3>
+              <a key={index} target="_blank" href={link.link}>
+                link: {link.link}
+              </a>
+              {/* <a target="_blank" href={link.link} /> */}
+              <p key={index}>Row_no: {link.row_no}</p>
             </div>
             // }}
           );

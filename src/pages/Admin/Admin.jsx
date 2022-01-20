@@ -4,7 +4,19 @@ import Layout from "../../components/Layout/Layout";
 import MobileModel from "../../components/MobileModel/MobileModel";
 // import Preview from "../../components/Preview/Preview";
 import "./app.adminpage.scss";
-
+import { useAuth } from "../../contexts/AuthContext";
+import { db } from "../../firebase";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  setDoc,
+} from "firebase/firestore";
+import { useSelector, useDispatch } from "react-redux";
+import { getLinks, getUserInfo, deleteUserLink } from "../../actions/index";
 import { MoreVertical as MoreVerticalIcon } from "react-feather";
 import { ToggleLeft as ToggleLeftIcon } from "react-feather";
 import { Trash as TrashIcon } from "react-feather";
@@ -13,8 +25,29 @@ import { Edit2 as Edit2Icon } from "react-feather";
 // import { Button, Modal } from "react-bootstrap";
 
 const Admin = () => {
+  const { currentUser, logout } = useAuth();
+  const dispatch = useDispatch();
+  const links = useSelector((state) => state.userLinkReducer.links);
+  const info = useSelector((state) => state.userInfoReducer.info);
+
   const [modalShow, setModalShow] = useState(false);
   const [previewShow, setPreviewShow] = useState(false);
+  const [refreshPage, setRefreshPage] = useState(false);
+
+  // const updateUser = async (id, age) => {
+  //   const userDoc = doc(db, "users", currentUser.email, "user-links", id);
+  //   const newFields = { age: age + 1 };
+  //   await updateDoc(userDoc, newFields);
+  // };
+
+  const deleteLink = async (id) => {
+    const userEmail = currentUser.email;
+    dispatch(deleteUserLink(id, userEmail));
+    setRefreshPage(!refreshPage);
+
+    // const userDoc = doc(db, "users", currentUser.email, "user-links", id);
+    // console.log(id);
+  };
 
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
@@ -42,6 +75,21 @@ const Admin = () => {
     windowDimensions.width < 600 && setPreviewShow(false);
   }, [windowDimensions.width]);
 
+  useEffect(() => {
+    // setPage(useSelector((state) => state.changeThePage))
+    dispatch(getLinks(currentUser.email));
+    dispatch(getUserInfo(currentUser.email));
+
+    // firebaseLinkData.push(...links);
+
+    // setUsersLink(
+    //   firebaseLinkData.sort((a, b) => {
+    //     return a.row_no - b.row_no;
+    //   })
+    // );
+    // console.log(links[0]);
+  }, [refreshPage]);
+
   return (
     <Layout>
       {modalShow && (
@@ -64,32 +112,42 @@ const Admin = () => {
 
           <h1>Admin Page</h1>
           <div className="info-parent-div">
-            <div className="info-div">
-              <div className="info-left-div">
-                <MoreVerticalIcon />
-              </div>
-              <div className="info-right-div">
-                <div className="info-top-div">
-                  <p>
-                    <span>Facebook</span>
-                    <span>
-                      <Edit2Icon className="edit-icon" />
-                    </span>
-                  </p>
-                  <ToggleLeftIcon />
-                </div>
-                <div className="info-bottom-div">
-                  <p>
-                    {" "}
-                    <span>https://www.facebook.com/rasky.bro</span>
-                    <span>
-                      <Edit2Icon className="edit-icon" />
-                    </span>
-                  </p>
-                  <TrashIcon className="trash-btn" />
-                </div>
-              </div>
-            </div>
+            {links &&
+              links.map((link, index) => {
+                return (
+                  <div className="info-div">
+                    <div className="info-left-div">
+                      <MoreVerticalIcon />
+                    </div>
+                    <div className="info-right-div">
+                      <div className="info-top-div">
+                        <p>
+                          <span>{link.title}</span>
+                          <span>
+                            <Edit2Icon className="edit-icon" />
+                          </span>
+                        </p>
+                        {/* <p>{link.id}</p> */}
+                        <ToggleLeftIcon />
+                      </div>
+                      <div className="info-bottom-div">
+                        <div>
+                          {" "}
+                          <a>{link.link}</a>
+                          <span>
+                            <Edit2Icon className="edit-icon" />
+                          </span>
+                        </div>
+                        <TrashIcon
+                          className="trash-btn"
+                          onClick={() => deleteLink(link.id)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+
             {/* <div className="info-div">
               <div className="info-left-div"></div>
               <div className="info-right-div">

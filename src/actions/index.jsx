@@ -4,7 +4,7 @@ import {
   GET_POST,
   CREATE_POST,
   UPDATE_POST,
-  DELETE_POST,
+  DELETE_LINKS,
 } from "./types";
 import {
   collection,
@@ -31,7 +31,7 @@ export const getLinks = (docId) => async (dispatch) => {
     ...doc.data(),
     id: doc.id,
   }));
-  //   console.log(result);
+  // console.log(result);
   //   if (result.status === 200) {
   dispatch({
     type: GET_LINKS,
@@ -51,6 +51,15 @@ export const getLinks = (docId) => async (dispatch) => {
   //     console.log(result.status);
   //     alert(data);
   //   }
+};
+
+export const deleteUserLink = (id, userEmail) => async () => {
+  const userDoc = doc(db, "users", userEmail, "user-links", id);
+  await deleteDoc(userDoc);
+  // dispatch({
+  //   type: GET_USERINFO,
+  //   payload: result,
+  // });
 };
 
 export const getUserInfo = (docId) => async (dispatch) => {
