@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { getLinks, getUserInfo } from "../../actions/index";
+import { useSelector, useDispatch } from "react-redux";
+import { useAuth } from "../../contexts/AuthContext";
 import "./preview.scss";
 import mypic from "../../assets/kd.jpeg";
 
 const Preview = (props) => {
+  const { currentUser, logout } = useAuth();
+  const dispatch = useDispatch();
+  const links = useSelector((state) => state.userLinkReducer.links);
+
+  useEffect(() => {
+    dispatch(getLinks(currentUser.email));
+    console.log(links);
+  }, []);
+
   return (
     <div className="preview-items">
       {/* <h1>Preview</h1> */}
@@ -20,10 +32,18 @@ const Preview = (props) => {
       <img className="preview-user-img" src={mypic} alt="user image" />
       <p className="user-name">@username</p>
       <p className="user-bio">This is my bio.</p>
-      <div className="user-links">
-        <p>Instagram</p>
-      </div>
-      <div className="user-links">
+      {/* <div> */}
+      {links.map((link, index) => {
+        return (
+          <div key={index} className="user-links">
+            <a href={link.link} target="_blank">
+              {link.title}
+            </a>
+          </div>
+        );
+      })}
+      {/* </div> */}
+      {/* <div className="user-links">
         <p>Instagram2</p>
       </div>
       <div className="user-links">
@@ -43,7 +63,7 @@ const Preview = (props) => {
       </div>
       <div className="user-links">
         <p>Instagram8</p>
-      </div>
+      </div> */}
     </div>
   );
 };

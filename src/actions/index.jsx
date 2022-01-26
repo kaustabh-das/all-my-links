@@ -2,7 +2,7 @@ import {
   GET_LINKS,
   GET_USERINFO,
   GET_POST,
-  CREATE_POST,
+  CREATE_LINKS,
   UPDATE_POST,
   DELETE_LINKS,
 } from "./types";
@@ -51,6 +51,24 @@ export const getLinks = (docId) => async (dispatch) => {
   //     console.log(result.status);
   //     alert(data);
   //   }
+};
+
+export const createUserLink = (title, link, userEmail) => async (dispatch) => {
+  const usersLinkCollectionInfoRef = collection(
+    db,
+    "users",
+    userEmail,
+    "user-links"
+  );
+  const result = await addDoc(usersLinkCollectionInfoRef, {
+    title: title,
+    link: link,
+  });
+
+  // dispatch({
+  //   type: CREATE_LINKS,
+  //   payload: result,
+  // });
 };
 
 export const deleteUserLink = (id, userEmail) => async () => {

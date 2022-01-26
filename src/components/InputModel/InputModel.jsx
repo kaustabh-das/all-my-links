@@ -13,36 +13,55 @@ import {
   doc,
   setDoc,
 } from "firebase/firestore";
+import { useSelector, useDispatch } from "react-redux";
+import { createUserLink } from "../../actions/index";
 // import { Button, Modal, Form } from "react-bootstrap";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 const InputModel = (props) => {
+  const dispatch = useDispatch();
   const { currentUser, logout } = useAuth();
   const titleRef = useRef();
   const linkRef = useRef();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const usersLinkCollectionInfoRef = collection(
-    db,
-    "users",
-    currentUser.email,
-    "user-links"
-  );
+  // const usersLinkCollectionInfoRef = collection(
+  //   db,
+  //   "users",
+  //   currentUser.email,
+  //   "user-links"
+  // );
+
+  // async function handleSubmit(e) {
+  //   e.preventDefault();
+  //   try {
+  //     setLoading(true);
+  //     await addDoc(usersLinkCollectionInfoRef, {
+  //       title: titleRef.current.value,
+  //       link: linkRef.current.value,
+  //     });
+  //     props.setModalShow(false);
+  //   } catch {
+  //     setError("Something is went wrong....");
+  //   }
+  //   setLoading(false);
+  // }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    try {
-      setLoading(true);
-      await addDoc(usersLinkCollectionInfoRef, {
-        title: titleRef.current.value,
-        link: linkRef.current.value,
-      });
-      props.setModalShow(false);
-    } catch {
-      setError("Something is went wrong....");
-    }
-    setLoading(false);
+    // try {
+    // setLoading(true);
+    let userEmail = currentUser.email;
+    let title = titleRef.current.value;
+    let link = linkRef.current.value;
+    dispatch(createUserLink(title, link, userEmail));
+    props.setModalShow(false);
+    props.setRefreshPage(!props.refreshPage);
+    // } catch {
+    //   setError("Something is went wrong....");
+    // }
+    // setLoading(false);
   }
 
   return (
@@ -97,7 +116,7 @@ const InputModel = (props) => {
             <div className="col-12">
               <button
                 className="btn btn-primary"
-                disabled={loading}
+                // disabled={loading}
                 type="submit"
               >
                 Save

@@ -105,9 +105,9 @@ const Profile = (props) => {
       {info &&
         info.map((user, index) => {
           return (
-            <div>
-              <h3 key={index}>Username: {user.username}</h3>
-              <p key={index}>Email: {user.email}</p>
+            <div key={index}>
+              <h3>Username: {user.username}</h3>
+              <p>Email: {user.email}</p>
             </div>
           );
         })}
@@ -115,13 +115,13 @@ const Profile = (props) => {
         links.map((link, index) => {
           return (
             // {for (let i = 1; i<){
-            <div style={{ margin: "1rem" }}>
-              <h3 key={index}>Title: {link.title}</h3>
-              <a key={index} target="_blank" href={link.link}>
+            <div key={index} style={{ margin: "1rem" }}>
+              <h3>Title: {link.title}</h3>
+              <a target="_blank" href={link.link}>
                 link: {link.link}
               </a>
               {/* <a target="_blank" href={link.link} /> */}
-              <p key={index}>Row_no: {link.row_no}</p>
+              <p>Row_no: {link.row_no}</p>
             </div>
             // }}
           );

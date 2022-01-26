@@ -11,7 +11,7 @@ const Navbar = () => {
         </div>
         <div className="items">
           <Link to="/admin" className="items-value">
-            Links
+            Admin
           </Link>
           <Link to="/admin/appearance" className="items-value">
             Appearance

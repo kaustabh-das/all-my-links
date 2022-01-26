@@ -2,7 +2,7 @@ import React from "react";
 import {
   GET_LINKS,
   // GET_USERINFO,
-  // CREATE_POST,
+  CREATE_LINKS,
   // UPDATE_POST,
   // DELETE_POST,
 } from "../actions/types";
@@ -21,6 +21,11 @@ const userLinkReducer = (state = initialState, { type, payload }) => {
         ...state,
         links: payload,
       };
+    // case CREATE_LINKS:
+    //   return {
+    //     ...state,
+    //     links: [payload, ...state.links],
+    //   };
     default:
       return state;
   }
