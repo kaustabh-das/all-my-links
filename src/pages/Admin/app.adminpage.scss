@@ -1,8 +1,9 @@
 .admin_page {
   // margin: 1rem;
-  // overflow-y: auto;
+  height: calc(100vh - 73.03px - 112px);
+  overflow-y: auto;
   @media only screen and (max-width: 600px) {
-    height: calc(100vh - 59.2px - 67.2px - 1rem);
+    height: calc(100vh - 59px - 67.19px);
   }
 
   .admin-body {
