@@ -7,8 +7,8 @@
 
     .layout-body-left {
       width: 70%;
-      background-color: #ecf1f6;
-      overflow-y: auto;
+      background-color: #ecf1f6; //admin page background
+      // overflow-y: auto;
 
       @media only screen and (max-width: 1053px) {
         width: 50%;
@@ -69,7 +69,7 @@
     }
     .layout-body-right {
       width: 30%;
-      background-color: rgb(170, 100, 8);
+      // background-color: rgb(170, 100, 8);
 
       @media only screen and (max-width: 1053px) {
         width: 50%;
@@ -80,7 +80,7 @@
       }
 
       .preview-body {
-        border-left: 2px solid #c4c5c8;
+        border-left: 1px solid #c4c5c8;
 
         .my-link {
           display: flex;
@@ -102,7 +102,7 @@
 
           // height: 89.3vh;
           height: calc(
-            100vh - 79.2px - 64px
+            100vh - 73.3px - 64px
           ); // 79.2px is the height of the navbar, 64px is the height of my-link div.
           color: blue;
           background-color: rgb(235, 238, 241);

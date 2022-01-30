@@ -90,13 +90,6 @@ const Admin = () => {
                 </div>
               </div>
             </div>
-            {/* <div className="info-div">
-              <div className="info-left-div"></div>
-              <div className="info-right-div">
-                <div className="info-top-div"></div>
-                <div className="info-bottom-div"></div>
-              </div>
-            </div>
             <div className="info-div">
               <div className="info-left-div"></div>
               <div className="info-right-div">
@@ -117,7 +110,14 @@ const Admin = () => {
                 <div className="info-top-div"></div>
                 <div className="info-bottom-div"></div>
               </div>
-            </div> */}
+            </div>
+            <div className="info-div">
+              <div className="info-left-div"></div>
+              <div className="info-right-div">
+                <div className="info-top-div"></div>
+                <div className="info-bottom-div"></div>
+              </div>
+            </div>
           </div>
         </div>
         {windowDimensions.width < 600 && (
