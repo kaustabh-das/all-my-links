@@ -9,17 +9,21 @@
   .admin-body {
     width: 100%;
     // overflow-y: scroll;
-    background-color: blueviolet;
+    // background-color: blueviolet;
+
+    .create-btn {
+      margin: 1rem;
+    }
 
     .info-parent-div {
       //
-      background-color: rgb(226, 116, 43);
+      // background-color: rgb(226, 116, 43);
       .info-div {
         display: flex;
         width: 70%;
         height: 7rem;
         margin: 1rem;
-        background-color: white;
+        // background-color: white;
         border-radius: 0.7rem;
 
         @media only screen and (max-width: 600px) {
