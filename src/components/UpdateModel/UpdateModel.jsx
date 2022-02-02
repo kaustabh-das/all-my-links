@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import "./inputModel.scss";
+import "./updateModel.scss";
 import { Menu as MenuIcon } from "react-feather";
 import { X as XIcon } from "react-feather";
 import { useAuth } from "../../contexts/AuthContext";
@@ -7,6 +7,7 @@ import { db } from "../../firebase";
 import {
   collection,
   getDocs,
+  getDoc,
   addDoc,
   updateDoc,
   deleteDoc,
@@ -18,45 +19,51 @@ import { createUserLink } from "../../actions/index";
 // import { Button, Modal, Form } from "react-bootstrap";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
-const InputModel = (props) => {
+const UpdateModel = (props) => {
   const dispatch = useDispatch();
   const { currentUser, logout } = useAuth();
   const titleRef = useRef();
   const linkRef = useRef();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [title, setTitle] = useState("");
+  const [links, setLinks] = useState("");
 
-  // const usersLinkCollectionInfoRef = collection(
-  //   db,
-  //   "users",
-  //   currentUser.email,
-  //   "user-links"
-  // );
+  const usersLinkCollectionInfoRef = doc(
+    db,
+    "users",
+    currentUser.email,
+    "user-links",
+    props.linkId
+  );
 
-  // async function handleSubmit(e) {
-  //   e.preventDefault();
-  //   try {
-  //     setLoading(true);
-  //     await addDoc(usersLinkCollectionInfoRef, {
-  //       title: titleRef.current.value,
-  //       link: linkRef.current.value,
-  //     });
-  //     props.setModalShow(false);
-  //   } catch {
-  //     setError("Something is went wrong....");
-  //   }
-  //   setLoading(false);
-  // }
+  async function getUserLinks() {
+    const data = await getDoc(usersLinkCollectionInfoRef);
+    console.log(data.data());
+    console.log(data.data().title);
+    setTitle(data.data().title);
+    setLinks(data.data().link);
+  }
+
+  useEffect(() => {
+    console.log("this inputmodel is for update");
+    getUserLinks();
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
     // try {
     // setLoading(true);
-    let userEmail = currentUser.email;
-    let title = titleRef.current.value;
-    let link = linkRef.current.value;
-    dispatch(createUserLink(title, link, userEmail));
-    props.setModalShow(false);
+    const userDoc = doc(
+      db,
+      "users",
+      currentUser.email,
+      "user-links",
+      props.linkId
+    );
+    const newDBTitle = { title: title, link: links };
+    await updateDoc(userDoc, newDBTitle);
+    props.setupdateModalShow(false);
     props.setRefreshPage(!props.refreshPage);
     // } catch {
     //   setError("Something is went wrong....");
@@ -64,16 +71,19 @@ const InputModel = (props) => {
     // setLoading(false);
   }
 
+  const updateLinkId = props.linkId;
+
   return (
     <div className="user-model">
       <div className="user-model-body">
         <div className="header-div">
-          <h1>Input Model</h1>
-          {/* <p>Link ID: {props.linkId}</p> */}
+          <h1>Update Model</h1>
+          <p>Link ID: {props.linkId}</p>
           <button
             className="input-close-btn"
             onClick={() => {
-              props.setModalShow(false);
+              props.setupdateModalShow(false);
+              //   closeWindow();
             }}
           >
             <XIcon />
@@ -92,10 +102,12 @@ const InputModel = (props) => {
               </label>
               <input
                 type="text"
+                value={title}
                 className="form-control"
                 id="exampleFormControlInput1"
                 placeholder="facebook"
-                ref={titleRef}
+                onChange={(e) => setTitle(e.target.value)}
+                // ref={titleRef}
               />
             </div>
             <div className="mb-3">
@@ -104,10 +116,12 @@ const InputModel = (props) => {
               </label>
               <input
                 type="text"
+                value={links}
                 className="form-control"
                 // id="exampleFormControlInput1"
                 placeholder="https://www.facebook.com/rasky.bro"
-                ref={linkRef}
+                onChange={(e) => setLinks(e.target.value)}
+                // ref={linkRef}
               />
             </div>
             {/* <label>
@@ -131,4 +145,4 @@ const InputModel = (props) => {
   );
 };
 
-export default InputModel;
+export default UpdateModel;

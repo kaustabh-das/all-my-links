@@ -1,6 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
-import { auth } from "../firebase";
+// import { auth } from "../firebase";
 import app from "../firebase";
+import {
+  getAuth,
+  setPersistence,
+  signInWithEmailAndPassword,
+  browserSessionPersistence,
+} from "firebase/auth";
+
+const auth = getAuth();
 
 const AuthContext = React.createContext();
 
@@ -16,10 +24,24 @@ export function AuthProvider({ children }) {
     return auth.createUserWithEmailAndPassword(email, password);
   }
 
-  function login(email, password) {
-    // app.auth().setPersistence(app.auth.Auth.Persistence.LOCAL);
-    return auth.signInWithEmailAndPassword(email, password);
-  }
+  const login = async (email, password) => {
+    // try {
+    //   // app.auth().setPersistence(app.auth.Auth.Persistence.LOCAL);
+    //   return auth.signInWithEmailAndPassword(email, password);
+    // } catch (err) {
+    //   console.log(err);
+    //   alert(err.message);
+    // }
+    setPersistence(auth, browserSessionPersistence)
+      .then(() => {
+        return signInWithEmailAndPassword(auth, email, password);
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+      });
+  };
 
   function logout() {
     return auth.signOut();

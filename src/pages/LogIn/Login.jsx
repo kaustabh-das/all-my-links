@@ -39,8 +39,9 @@ const Login = () => {
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
       navigate("/admin");
-    } catch {
-      setError("Failed to log in");
+    } catch (err) {
+      // setError("Failed to log in");
+      setError(err.message);
     }
 
     setLoading(false);

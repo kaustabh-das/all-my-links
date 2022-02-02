@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import InputModel from "../../components/InputModel/InputModel";
+import UpdateModel from "../../components/UpdateModel/UpdateModel";
 import Layout from "../../components/Layout/Layout";
 import MobileModel from "../../components/MobileModel/MobileModel";
 // import Preview from "../../components/Preview/Preview";
@@ -38,49 +39,58 @@ const Admin = () => {
   // const linkRef = useRef();
 
   const [modalShow, setModalShow] = useState(false);
+  const [updateModalShow, setupdateModalShow] = useState(false);
+  const [linkId, setLinkId] = useState();
   const [previewShow, setPreviewShow] = useState(false);
   const [refreshPage, setRefreshPage] = useState(false);
 
-  const updateLink = (index, e) => {
-    let newTitle = e.target.value;
-    let linkId = firebaseLinkArr[index].id;
-    // firebaseLinkArr[index].title = title;
-    const id = firebaseLinkData[index].id;
-    // setFirebaseLinkArr({
-    //   ...firebaseLinkArr,
-    //   index: { ...firebaseLinkArr[index], title: newTitle },
-    // });
-    // setFirebaseLinkArr( [...firebaseLinkArr, firebaseLinkArr[index]{title: newTitle}] );
-    firebaseLinkArr &&
-      firebaseLinkArr.map(async (arrLinks) => {
-        if (arrLinks.id === linkId) {
-          // firebaseLinkArr[index].title = newTitle;
-          // {
-          //   ...firebaseLinkArr,
-          //   index: { ...firebaseLinkArr[index], title: newTitle },
-          // }
-          console.log(firebaseLinkArr[index]);
-          const userDoc = doc(db, "users", currentUser.email, "user-links", id);
-          const newDBTitle = { title: newTitle };
-          await updateDoc(userDoc, newDBTitle);
+  // const updateLink = (index, e) => {
+  //   let newTitle = e.target.value;
+  //   let linkId = firebaseLinkArr[index].id;
+  //   // firebaseLinkArr[index].title = title;
+  //   const id = firebaseLinkData[index].id;
+  //   // setFirebaseLinkArr({
+  //   //   ...firebaseLinkArr,
+  //   //   index: { ...firebaseLinkArr[index], title: newTitle },
+  //   // });
+  //   // setFirebaseLinkArr( [...firebaseLinkArr, firebaseLinkArr[index]{title: newTitle}] );
+  //   firebaseLinkArr &&
+  //     firebaseLinkArr.map(async (arrLinks) => {
+  //       if (arrLinks.id === linkId) {
+  //         // firebaseLinkArr[index].title = newTitle;
+  //         // {
+  //         //   ...firebaseLinkArr,
+  //         //   index: { ...firebaseLinkArr[index], title: newTitle },
+  //         // }
+  //         console.log(firebaseLinkArr[index]);
+  //         const userDoc = doc(db, "users", currentUser.email, "user-links", id);
+  //         const newDBTitle = { title: newTitle };
+  //         await updateDoc(userDoc, newDBTitle);
 
-          setRefreshPage(!refreshPage);
-          console.log(arrLinks.title);
-        } else {
-          console.log("no");
-        }
-        // ? { ...arrLinks, title: newTitle }
-        // : console.log("no");
-        console.log(arrLinks.id);
-        console.log(linkId);
-      });
-    // console.log(firebaseLinkArr[index].title);
-    console.log(firebaseLinkArr);
-    // const id = firebaseLinkData[index].id;
-    // const userDoc = doc(db, "users", currentUser.email, "user-links", id);
-    // const newTitle = { title: title };
-    // await updateDoc(userDoc, newTitle);
-    // setRefreshPage(!refreshPage);
+  //         setRefreshPage(!refreshPage);
+  //         console.log(arrLinks.title);
+  //       } else {
+  //         console.log("no");
+  //       }
+  //       // ? { ...arrLinks, title: newTitle }
+  //       // : console.log("no");
+  //       console.log(arrLinks.id);
+  //       console.log(linkId);
+  //     });
+  //   // console.log(firebaseLinkArr[index].title);
+  //   console.log(firebaseLinkArr);
+  //   // const id = firebaseLinkData[index].id;
+  //   // const userDoc = doc(db, "users", currentUser.email, "user-links", id);
+  //   // const newTitle = { title: title };
+  //   // await updateDoc(userDoc, newTitle);
+  //   // setRefreshPage(!refreshPage);
+  // };
+
+  const updateLink = (userId) => {
+    // console.log(userId);
+    setLinkId(userId);
+    setupdateModalShow(true);
+    // console.log(updateModalShow);
   };
 
   const deleteLink = async (id) => {
@@ -150,6 +160,15 @@ const Admin = () => {
           setRefreshPage={setRefreshPage}
         />
       )}
+      {updateModalShow && (
+        <UpdateModel
+          onRequestClose={() => setupdateModalShow(false)}
+          setupdateModalShow={setupdateModalShow}
+          linkId={linkId}
+          refreshPage={refreshPage}
+          setRefreshPage={setRefreshPage}
+        />
+      )}
       {previewShow && (
         <MobileModel
           onRequestClose={() => setPreviewShow(false)}
@@ -175,7 +194,7 @@ const Admin = () => {
                       <form>
                         <div className="info-top-div">
                           <p>
-                            <input
+                            {/* <input
                               type="text"
                               value={link.title}
                               // ref={titleRef}
@@ -183,9 +202,13 @@ const Admin = () => {
                                 // console.log("jjo");
                                 updateLink(index, e)
                               }
-                            />
+                            /> */}
+                            <span>{link.title}</span>
                             <span>
-                              <Edit2Icon className="edit-icon" />
+                              <Edit2Icon
+                                className="edit-icon"
+                                onClick={() => updateLink(link.id)}
+                              />
                             </span>
                             <span>{index}</span>
                           </p>
@@ -196,9 +219,9 @@ const Admin = () => {
                           <div>
                             {" "}
                             <a>{link.link}</a>
-                            <span>
+                            {/* <span>
                               <Edit2Icon className="edit-icon" />
-                            </span>
+                            </span> */}
                           </div>
                           <TrashIcon
                             className="trash-btn"
