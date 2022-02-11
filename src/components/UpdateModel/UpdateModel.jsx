@@ -20,7 +20,7 @@ import { createUserLink } from "../../actions/index";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 const UpdateModel = (props) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { currentUser, logout } = useAuth();
   const titleRef = useRef();
   const linkRef = useRef();
@@ -39,8 +39,8 @@ const UpdateModel = (props) => {
 
   async function getUserLinks() {
     const data = await getDoc(usersLinkCollectionInfoRef);
-    console.log(data.data());
-    console.log(data.data().title);
+    // console.log(data.data());
+    // console.log(data.data().title);
     setTitle(data.data().title);
     setLinks(data.data().link);
   }

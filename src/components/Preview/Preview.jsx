@@ -2,17 +2,52 @@ import React, { useState, useRef, useEffect } from "react";
 import { getLinks, getUserInfo } from "../../actions/index";
 import { useSelector, useDispatch } from "react-redux";
 import { useAuth } from "../../contexts/AuthContext";
+import { db } from "../../firebase";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  setDoc,
+  onSnapshot,
+} from "firebase/firestore";
 import "./preview.scss";
 import mypic from "../../assets/kd.jpeg";
 
 const Preview = (props) => {
-  const { currentUser, logout } = useAuth();
-  const dispatch = useDispatch();
-  const links = useSelector((state) => state.userLinkReducer.links);
+  const { currentUser } = useAuth();
+  const [usersLink, setUsersLink] = useState([]);
+
+  const usersCollectionLinkRef = collection(
+    db,
+    "users",
+    currentUser.email,
+    "user-links"
+  );
 
   useEffect(() => {
-    dispatch(getLinks(currentUser.email));
-    console.log(links);
+    const getUsersLink = () => {
+      onSnapshot(
+        collection(db, "users", currentUser.email, "user-links"),
+        (querySnapshot) => {
+          const items = [];
+          querySnapshot.forEach((doc) => {
+            items.push(doc.data());
+          });
+          setUsersLink(
+            items.sort((a, b) => {
+              return a.row_no - b.row_no;
+            })
+          );
+        }
+        // (error) => {
+        //   // ...
+        // }
+      );
+    };
+    getUsersLink();
   }, []);
 
   return (
@@ -33,15 +68,16 @@ const Preview = (props) => {
       <p className="user-name">@username</p>
       <p className="user-bio">This is my bio.</p>
       {/* <div> */}
-      {links.map((link, index) => {
-        return (
-          <div key={index} className="user-links">
-            <a href={link.link} target="_blank">
-              {link.title}
-            </a>
-          </div>
-        );
-      })}
+      {usersLink &&
+        usersLink.map((link, index) => {
+          return (
+            <div key={index} className="user-links">
+              <a href={link.link} target="_blank">
+                {link.title}
+              </a>
+            </div>
+          );
+        })}
       {/* </div> */}
       {/* <div className="user-links">
         <p>Instagram2</p>

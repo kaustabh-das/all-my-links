@@ -16,24 +16,18 @@ import { getLinks, getUserInfo } from "../../actions/index";
 
 const Profile = (props) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const docId = "C44xAIt6sliUonB9Sh9R";
   const docId = props.username;
-  const links = useSelector((state) => state.userLinkReducer.links);
-  const info = useSelector((state) => state.userInfoReducer.info);
+  // const links = useSelector((state) => state.userLinkReducer.links);
+  // const info = useSelector((state) => state.userInfoReducer.info);
 
-  // const [usersLink, setUsersLink] = useState([]);
+  const [usersLink, setUsersLink] = useState([]);
   // const [users, setUsers] = useState([]);
-  // const [usersInfo, setUsersInfo] = useState([]);
+  const [usersInfo, setUsersInfo] = useState([]);
 
-  // const usersCollectionLinkRef = collection(db, "users", docId, "user-links");
-  // const usersCollectionInfoRef = collection(db, "users", docId, "user-info");
-
-  // const usersCollectionRef = db
-  //   .collection("users")
-  //   .doc("C44xAIt6sliUonB9Sh9R")
-  //   .collection("user-info")
-  //   .get();
+  const usersCollectionLinkRef = collection(db, "users", docId, "user-links");
+  const usersCollectionInfoRef = collection(db, "users", docId, "user-info");
 
   const createUser = async () => {
     await setDoc(
@@ -46,48 +40,32 @@ const Profile = (props) => {
     );
   };
 
-  // useEffect(() => {
-  //   const getUsersLink = async () => {
-  //     const data = await getDocs(usersCollectionLinkRef);
-  //     // console.log(data.docs);
-  //     // setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  //     let firebaseLinkData = [];
-  //     firebaseLinkData = data.docs.map((doc) => ({
-  //       ...doc.data(),
-  //       id: doc.id,
-  //     }));
-  //     // console.log(firebaseLinkData);
-  //     setUsers(
-  //       firebaseLinkData.sort((a, b) => {
-  //         return a.row_no - b.row_no;
-  //       })
-  //     );
-  //   };
-
-  //   const getUsersInfo = async () => {
-  //     const data = await getDocs(usersCollectionInfoRef);
-  //     setUsersInfo(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  //   };
-
-  //   getUsersLink();
-
-  //   getUsersInfo();
-  // }, []);
-
-  // let firebaseLinkData = [];
   useEffect(() => {
-    // setPage(useSelector((state) => state.changeThePage))
-    dispatch(getLinks(docId));
-    dispatch(getUserInfo(docId));
+    const getUsersLink = async () => {
+      const data = await getDocs(usersCollectionLinkRef);
+      // console.log(data.docs);
+      // setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      let firebaseLinkData = [];
+      firebaseLinkData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      // console.log(firebaseLinkData);
+      setUsersLink(
+        firebaseLinkData.sort((a, b) => {
+          return a.row_no - b.row_no;
+        })
+      );
+    };
 
-    // firebaseLinkData.push(...links);
+    const getUsersInfo = async () => {
+      const data = await getDocs(usersCollectionInfoRef);
+      setUsersInfo(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
 
-    // setUsersLink(
-    //   firebaseLinkData.sort((a, b) => {
-    //     return a.row_no - b.row_no;
-    //   })
-    // );
-    // console.log(links[0]);
+    getUsersLink();
+
+    getUsersInfo();
   }, []);
 
   return (
@@ -102,8 +80,8 @@ const Profile = (props) => {
       >
         Change to home page
       </button>
-      {info &&
-        info.map((user, index) => {
+      {usersInfo &&
+        usersInfo.map((user, index) => {
           return (
             <div key={index}>
               <h3>Username: {user.username}</h3>
@@ -111,8 +89,8 @@ const Profile = (props) => {
             </div>
           );
         })}
-      {links &&
-        links.map((link, index) => {
+      {usersLink &&
+        usersLink.map((link, index) => {
           return (
             // {for (let i = 1; i<){
             <div key={index} style={{ margin: "1rem" }}>

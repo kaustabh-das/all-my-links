@@ -4,6 +4,7 @@ import UpdateModel from "../../components/UpdateModel/UpdateModel";
 import Layout from "../../components/Layout/Layout";
 import MobileModel from "../../components/MobileModel/MobileModel";
 // import Preview from "../../components/Preview/Preview";
+import LoadingComp from "../../components/LoadingComp/LoadingComp";
 import "./app.adminpage.scss";
 import { useAuth } from "../../contexts/AuthContext";
 import { db } from "../../firebase";
@@ -27,64 +28,38 @@ import { Edit2 as Edit2Icon } from "react-feather";
 import { debounce } from "lodash";
 
 const Admin = () => {
-  let firebaseLinkData = [];
+  // let firebaseLinkData = [];
   const { currentUser, logout } = useAuth();
-  const dispatch = useDispatch();
-  const [firebaseLinkArr, setFirebaseLinkArr] = useState();
+  // const dispatch = useDispatch();
+  // const [firebaseLinkArr, setFirebaseLinkArr] = useState();
   // const links = useSelector((state) => state.userLinkReducer.links);
-  firebaseLinkData = useSelector((state) => state.userLinkReducer.links);
+  // firebaseLinkData = useSelector((state) => state.userLinkReducer.links);
   // const info = useSelector((state) => state.userInfoReducer.info);
 
   // const titleRef = useRef();
   // const linkRef = useRef();
+
+  const usersCollectionLinkRef = collection(
+    db,
+    "users",
+    currentUser.email,
+    "user-links"
+  );
+  const usersCollectionInfoRef = collection(
+    db,
+    "users",
+    currentUser.email,
+    "user-info"
+  );
 
   const [modalShow, setModalShow] = useState(false);
   const [updateModalShow, setupdateModalShow] = useState(false);
   const [linkId, setLinkId] = useState();
   const [previewShow, setPreviewShow] = useState(false);
   const [refreshPage, setRefreshPage] = useState(false);
-
-  // const updateLink = (index, e) => {
-  //   let newTitle = e.target.value;
-  //   let linkId = firebaseLinkArr[index].id;
-  //   // firebaseLinkArr[index].title = title;
-  //   const id = firebaseLinkData[index].id;
-  //   // setFirebaseLinkArr({
-  //   //   ...firebaseLinkArr,
-  //   //   index: { ...firebaseLinkArr[index], title: newTitle },
-  //   // });
-  //   // setFirebaseLinkArr( [...firebaseLinkArr, firebaseLinkArr[index]{title: newTitle}] );
-  //   firebaseLinkArr &&
-  //     firebaseLinkArr.map(async (arrLinks) => {
-  //       if (arrLinks.id === linkId) {
-  //         // firebaseLinkArr[index].title = newTitle;
-  //         // {
-  //         //   ...firebaseLinkArr,
-  //         //   index: { ...firebaseLinkArr[index], title: newTitle },
-  //         // }
-  //         console.log(firebaseLinkArr[index]);
-  //         const userDoc = doc(db, "users", currentUser.email, "user-links", id);
-  //         const newDBTitle = { title: newTitle };
-  //         await updateDoc(userDoc, newDBTitle);
-
-  //         setRefreshPage(!refreshPage);
-  //         console.log(arrLinks.title);
-  //       } else {
-  //         console.log("no");
-  //       }
-  //       // ? { ...arrLinks, title: newTitle }
-  //       // : console.log("no");
-  //       console.log(arrLinks.id);
-  //       console.log(linkId);
-  //     });
-  //   // console.log(firebaseLinkArr[index].title);
-  //   console.log(firebaseLinkArr);
-  //   // const id = firebaseLinkData[index].id;
-  //   // const userDoc = doc(db, "users", currentUser.email, "user-links", id);
-  //   // const newTitle = { title: title };
-  //   // await updateDoc(userDoc, newTitle);
-  //   // setRefreshPage(!refreshPage);
-  // };
+  const [usersLink, setUsersLink] = useState([]);
+  // const [usersInfo, setUsersInfo] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const updateLink = (userId) => {
     // console.log(userId);
@@ -95,11 +70,10 @@ const Admin = () => {
 
   const deleteLink = async (id) => {
     const userEmail = currentUser.email;
-    dispatch(deleteUserLink(id, userEmail));
+    const userDoc = doc(db, "users", userEmail, "user-links", id);
+    // console.log("delete me");
+    await deleteDoc(userDoc);
     setRefreshPage(!refreshPage);
-
-    // const userDoc = doc(db, "users", currentUser.email, "user-links", id);
-    // console.log(id);
   };
 
   function getWindowDimensions() {
@@ -129,29 +103,40 @@ const Admin = () => {
   }, [windowDimensions.width]);
 
   useEffect(() => {
-    // setPage(useSelector((state) => state.changeThePage))
-    dispatch(getLinks(currentUser.email));
-    dispatch(getUserInfo(currentUser.email));
+    // dispatch(getLinks(currentUser.email));
+    // dispatch(getUserInfo(currentUser.email));
 
-    // setUsersLink(
-    //   firebaseLinkData.sort((a, b) => {
-    //     return a.row_no - b.row_no;
-    //   })
-    // );
+    const getUsersLink = async () => {
+      setLoading(true);
+      const data = await getDocs(usersCollectionLinkRef);
+      // console.log(data.docs);
+      // setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      let firebaseLinkData = [];
+      firebaseLinkData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setLoading(false);
+      setUsersLink(
+        firebaseLinkData.sort((a, b) => {
+          return a.row_no - b.row_no;
+        })
+      );
+    };
+
+    // const getUsersInfo = async () => {
+    //   const data = await getDocs(usersCollectionInfoRef);
+    //   setUsersInfo(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    // };
+
+    getUsersLink();
+
+    // getUsersInfo();
   }, [refreshPage]);
-
-  useEffect(() => {
-    // setFirebaseLinkData(links);
-    // firebaseLinkData.push(...links);
-    // console.log(firebaseLinkData[0]);
-    // firebaseLinkData[0].title = "hjhj";
-    console.log(firebaseLinkData[0]);
-    setFirebaseLinkArr(firebaseLinkData);
-    console.log(firebaseLinkArr);
-  }, [firebaseLinkData]);
 
   return (
     <Layout>
+      {loading && <LoadingComp style={"loading-comp"} />}
       {modalShow && (
         <InputModel
           onRequestClose={() => setModalShow(false)}
@@ -183,8 +168,8 @@ const Admin = () => {
 
           <h1>Admin Page</h1>
           <div className="info-parent-div">
-            {firebaseLinkArr &&
-              firebaseLinkArr.map((link, index) => {
+            {usersLink &&
+              usersLink.map((link, index) => {
                 return (
                   <div key={index} className="info-div">
                     <div className="info-left-div">

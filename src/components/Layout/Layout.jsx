@@ -13,10 +13,12 @@ import {
 import "./layout.scss";
 import Navbar from "../Navbar/Navbar";
 import Preview from "../Preview/Preview";
+import LoadingComp from "../LoadingComp/LoadingComp";
 import Mypic from "../../assets/kd.jpeg";
 
 const Layout = (props) => {
   const { currentUser, logout } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   // const titleRef = useRef();
   // const linkRef = useRef();
@@ -36,32 +38,26 @@ const Layout = (props) => {
   //   "user-links"
   // );
 
-  // const clickMe = async (e) => {
-  //   e.preventDefault();
-  //   console.log("hello");
-  //   await addDoc(usersLinkCollectionInfoRef, {
-  //     title: "title",
-  //     link: "link",
-  //   });
-  // };
-
   useEffect(() => {
     const getUsersInfo = async () => {
+      setLoading(true);
       const data = await getDocs(usersCollectionInfoRef);
       // console.log(data.docs);
       setUsersInfo(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setLoading(false);
     };
     getUsersInfo();
   }, []);
   return (
     <div className="layout">
       <Navbar />
+      {loading && <LoadingComp style={"loading-comp-layout"} />}
       <div className="layout-body">
         <div className="layout-body-left">
           <div className="body-header">
             {usersInfo.map((user, index) => {
               return (
-                <div className="user-details">
+                <div key={index} className="user-details">
                   <img className="user-img" src={Mypic} />
                   <p className="user-name">@username: {user.email}</p>
                   {/* <button onClick={clickMe}>click me</button> */}

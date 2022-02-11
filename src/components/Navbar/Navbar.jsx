@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./navbar.scss";
+import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Navbar = () => {
+  const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch {
+      setError("Failed to log out");
+    }
+  };
+
   return (
     <div className="navbar">
       <div className="navbar-items">
@@ -20,7 +35,9 @@ const Navbar = () => {
             Settings
           </Link>
         </div>
-        <div className="logout-button">Log Out</div>
+        <div className="logout-button" onClick={handleLogout}>
+          Log Out
+        </div>
       </div>
     </div>
   );
