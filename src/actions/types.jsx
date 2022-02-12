@@ -4,3 +4,4 @@ export const GET_POST = "GET_POST";
 export const CREATE_LINKS = "CREATE_LINKS";
 export const UPDATE_POST = "UPDATE_POST";
 export const DELETE_LINKS = "DELETE_LINKS";
+export const LOADING_STATE = "LOADING_STATE";

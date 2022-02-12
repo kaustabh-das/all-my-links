@@ -11,8 +11,7 @@ import {
   doc,
   setDoc,
 } from "firebase/firestore";
-import { useSelector, useDispatch } from "react-redux";
-import { getLinks, getUserInfo } from "../../actions/index";
+import LoadingComp from "../LoadingComp/LoadingComp";
 
 const Profile = (props) => {
   const navigate = useNavigate();
@@ -25,6 +24,7 @@ const Profile = (props) => {
   const [usersLink, setUsersLink] = useState([]);
   // const [users, setUsers] = useState([]);
   const [usersInfo, setUsersInfo] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const usersCollectionLinkRef = collection(db, "users", docId, "user-links");
   const usersCollectionInfoRef = collection(db, "users", docId, "user-info");
@@ -42,6 +42,7 @@ const Profile = (props) => {
 
   useEffect(() => {
     const getUsersLink = async () => {
+      setLoading(true);
       const data = await getDocs(usersCollectionLinkRef);
       // console.log(data.docs);
       // setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
@@ -56,11 +57,14 @@ const Profile = (props) => {
           return a.row_no - b.row_no;
         })
       );
+      setLoading(false);
     };
 
     const getUsersInfo = async () => {
+      setLoading(true);
       const data = await getDocs(usersCollectionInfoRef);
       setUsersInfo(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setLoading(false);
     };
 
     getUsersLink();
@@ -70,6 +74,7 @@ const Profile = (props) => {
 
   return (
     <div className="profile">
+      {loading && <LoadingComp style={"loading-comp-profile"} />}
       <h1>This is {props.username}</h1>
       <button
         onClick={() => {

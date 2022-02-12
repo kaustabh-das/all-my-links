@@ -1,6 +1,7 @@
 import {
   GET_LINKS,
   GET_USERINFO,
+  LOADING_STATE,
   GET_POST,
   CREATE_LINKS,
   UPDATE_POST,
@@ -16,15 +17,27 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
+// import { result } from "lodash";
+
+export const loadingState = (argument) => (dispatch) => {
+  const loadingdata = argument;
+  dispatch({
+    type: LOADING_STATE,
+    payload: loadingdata,
+  });
+};
 
 // get all links
 export const getLinks = (docId) => async (dispatch) => {
+  // setLoading(true);
+  loadingState(true);
   //   const result = await axios.get("https://jsonplaceholder.typicode.com/posts");
 
   const usersCollectionLinkRef = collection(db, "users", docId, "user-links");
 
   const data = await getDocs(usersCollectionLinkRef);
-
+  loadingState(false);
+  // setLoading(false);
   // let firebaseLinkData = [];
   //   let result = [];
   const result = data.docs.map((doc) => ({

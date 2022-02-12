@@ -19,50 +19,52 @@ import { createUserLink } from "../../actions/index";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 const InputModel = (props) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const { currentUser, logout } = useAuth();
   const titleRef = useRef();
   const linkRef = useRef();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // const usersLinkCollectionInfoRef = collection(
-  //   db,
-  //   "users",
-  //   currentUser.email,
-  //   "user-links"
-  // );
-
-  // async function handleSubmit(e) {
-  //   e.preventDefault();
-  //   try {
-  //     setLoading(true);
-  //     await addDoc(usersLinkCollectionInfoRef, {
-  //       title: titleRef.current.value,
-  //       link: linkRef.current.value,
-  //     });
-  //     props.setModalShow(false);
-  //   } catch {
-  //     setError("Something is went wrong....");
-  //   }
-  //   setLoading(false);
-  // }
+  const usersLinkCollectionInfoRef = collection(
+    db,
+    "users",
+    currentUser.email,
+    "user-links"
+  );
 
   async function handleSubmit(e) {
     e.preventDefault();
-    // try {
-    // setLoading(true);
-    let userEmail = currentUser.email;
-    let title = titleRef.current.value;
-    let link = linkRef.current.value;
-    dispatch(createUserLink(title, link, userEmail));
+    try {
+      setLoading(true);
+      await addDoc(usersLinkCollectionInfoRef, {
+        title: titleRef.current.value,
+        link: linkRef.current.value,
+      });
+      // props.setModalShow(false);
+    } catch {
+      setError("Something is went wrong....");
+    }
     props.setModalShow(false);
     props.setRefreshPage(!props.refreshPage);
-    // } catch {
-    //   setError("Something is went wrong....");
-    // }
-    // setLoading(false);
+    setLoading(false);
   }
+
+  // async function handleSubmit(e) {
+  //   e.preventDefault();
+  //   // try {
+  //   // setLoading(true);
+  //   let userEmail = currentUser.email;
+  //   let title = titleRef.current.value;
+  //   let link = linkRef.current.value;
+  //   dispatch(createUserLink(title, link, userEmail));
+  //   props.setModalShow(false);
+  //   props.setRefreshPage(!props.refreshPage);
+  //   // } catch {
+  //   //   setError("Something is went wrong....");
+  //   // }
+  //   // setLoading(false);
+  // }
 
   return (
     <div className="user-model">
@@ -122,6 +124,7 @@ const InputModel = (props) => {
               >
                 Save
               </button>
+              {loading && <p>loading...</p>}
             </div>
             {/* <input className="input-form-btn" type="submit" value="Submit" /> */}
           </form>

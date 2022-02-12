@@ -52,26 +52,26 @@ const UpdateModel = (props) => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    // try {
-    // setLoading(true);
-    const userDoc = doc(
-      db,
-      "users",
-      currentUser.email,
-      "user-links",
-      props.linkId
-    );
-    const newDBTitle = { title: title, link: links };
-    await updateDoc(userDoc, newDBTitle);
+    try {
+      setLoading(true);
+      const userDoc = doc(
+        db,
+        "users",
+        currentUser.email,
+        "user-links",
+        props.linkId
+      );
+      const newDBTitle = { title: title, link: links };
+      await updateDoc(userDoc, newDBTitle);
+    } catch {
+      setError("Something is went wrong....");
+    }
     props.setupdateModalShow(false);
     props.setRefreshPage(!props.refreshPage);
-    // } catch {
-    //   setError("Something is went wrong....");
-    // }
-    // setLoading(false);
+    setLoading(false);
   }
 
-  const updateLinkId = props.linkId;
+  // const updateLinkId = props.linkId;
 
   return (
     <div className="user-model">
@@ -131,11 +131,12 @@ const UpdateModel = (props) => {
             <div className="col-12">
               <button
                 className="btn btn-primary"
-                // disabled={loading}
+                disabled={loading}
                 type="submit"
               >
                 Save
               </button>
+              {loading && <p>loading...</p>}
             </div>
             {/* <input className="input-form-btn" type="submit" value="Submit" /> */}
           </form>

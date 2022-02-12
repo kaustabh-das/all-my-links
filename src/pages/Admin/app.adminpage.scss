@@ -75,6 +75,27 @@
           }
         }
       }
+      .delete-notification {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 5rem;
+        width: 70%;
+        margin-left: 1rem;
+        background-color: #ff553b;
+
+        .delete-content {
+          // flex-direction: row;
+          color: rgb(240, 227, 227);
+
+          .delete-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0.2rem;
+          }
+        }
+      }
     }
 
     .create-btn {

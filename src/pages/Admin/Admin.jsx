@@ -17,8 +17,6 @@ import {
   doc,
   setDoc,
 } from "firebase/firestore";
-import { useSelector, useDispatch } from "react-redux";
-import { getLinks, getUserInfo, deleteUserLink } from "../../actions/index";
 import { MoreVertical as MoreVerticalIcon } from "react-feather";
 import { ToggleLeft as ToggleLeftIcon } from "react-feather";
 import { Trash as TrashIcon } from "react-feather";
@@ -28,16 +26,7 @@ import { Edit2 as Edit2Icon } from "react-feather";
 import { debounce } from "lodash";
 
 const Admin = () => {
-  // let firebaseLinkData = [];
-  const { currentUser, logout } = useAuth();
-  // const dispatch = useDispatch();
-  // const [firebaseLinkArr, setFirebaseLinkArr] = useState();
-  // const links = useSelector((state) => state.userLinkReducer.links);
-  // firebaseLinkData = useSelector((state) => state.userLinkReducer.links);
-  // const info = useSelector((state) => state.userInfoReducer.info);
-
-  // const titleRef = useRef();
-  // const linkRef = useRef();
+  const { currentUser } = useAuth();
 
   const usersCollectionLinkRef = collection(
     db,
@@ -103,9 +92,6 @@ const Admin = () => {
   }, [windowDimensions.width]);
 
   useEffect(() => {
-    // dispatch(getLinks(currentUser.email));
-    // dispatch(getUserInfo(currentUser.email));
-
     const getUsersLink = async () => {
       setLoading(true);
       const data = await getDocs(usersCollectionLinkRef);
@@ -124,14 +110,7 @@ const Admin = () => {
       );
     };
 
-    // const getUsersInfo = async () => {
-    //   const data = await getDocs(usersCollectionInfoRef);
-    //   setUsersInfo(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    // };
-
     getUsersLink();
-
-    // getUsersInfo();
   }, [refreshPage]);
 
   return (
@@ -165,21 +144,20 @@ const Admin = () => {
           <div className="create-btn" onClick={(e) => setModalShow(true)}>
             Add New Link
           </div>
-
-          <h1>Admin Page</h1>
           <div className="info-parent-div">
             {usersLink &&
               usersLink.map((link, index) => {
                 return (
-                  <div key={index} className="info-div">
-                    <div className="info-left-div">
-                      <MoreVerticalIcon />
-                    </div>
-                    <div className="info-right-div">
-                      <form>
-                        <div className="info-top-div">
-                          <p>
-                            {/* <input
+                  <div className="link-card">
+                    <div key={index} className="info-div">
+                      <div className="info-left-div">
+                        <MoreVerticalIcon />
+                      </div>
+                      <div className="info-right-div">
+                        <form>
+                          <div className="info-top-div">
+                            <p>
+                              {/* <input
                               type="text"
                               value={link.title}
                               // ref={titleRef}
@@ -188,65 +166,46 @@ const Admin = () => {
                                 updateLink(index, e)
                               }
                             /> */}
-                            <span>{link.title}</span>
-                            <span>
-                              <Edit2Icon
-                                className="edit-icon"
-                                onClick={() => updateLink(link.id)}
-                              />
-                            </span>
-                            <span>{index}</span>
-                          </p>
-                          {/* <p>{link.id}</p> */}
-                          <ToggleLeftIcon />
-                        </div>
-                        <div className="info-bottom-div">
-                          <div>
-                            {" "}
-                            <a>{link.link}</a>
-                            {/* <span>
+                              <span>{link.title}</span>
+                              <span>
+                                <Edit2Icon
+                                  className="edit-icon"
+                                  onClick={() => updateLink(link.id)}
+                                />
+                              </span>
+                              <span>{index}</span>
+                            </p>
+                            {/* <p>{link.id}</p> */}
+                            <ToggleLeftIcon />
+                          </div>
+                          <div className="info-bottom-div">
+                            <div>
+                              {" "}
+                              <a>{link.link}</a>
+                              {/* <span>
                               <Edit2Icon className="edit-icon" />
                             </span> */}
+                            </div>
+                            <TrashIcon
+                              className="trash-btn"
+                              onClick={() => deleteLink(link.id)}
+                            />
                           </div>
-                          <TrashIcon
-                            className="trash-btn"
-                            onClick={() => deleteLink(link.id)}
-                          />
+                        </form>
+                      </div>
+                    </div>
+                    <div className="delete-notification">
+                      <div className="delete-content">
+                        <p>Delete Notification</p>
+                        <div className="delete-button">
+                          <button>Delete</button>
+                          <button>Cancel</button>
                         </div>
-                      </form>
+                      </div>
                     </div>
                   </div>
                 );
               })}
-
-            {/* <div className="info-div">
-              <div className="info-left-div"></div>
-              <div className="info-right-div">
-                <div className="info-top-div"></div>
-                <div className="info-bottom-div"></div>
-              </div>
-            </div>
-            <div className="info-div">
-              <div className="info-left-div"></div>
-              <div className="info-right-div">
-                <div className="info-top-div"></div>
-                <div className="info-bottom-div"></div>
-              </div>
-            </div>
-            <div className="info-div">
-              <div className="info-left-div"></div>
-              <div className="info-right-div">
-                <div className="info-top-div"></div>
-                <div className="info-bottom-div"></div>
-              </div>
-            </div>
-            <div className="info-div">
-              <div className="info-left-div"></div>
-              <div className="info-right-div">
-                <div className="info-top-div"></div>
-                <div className="info-bottom-div"></div>
-              </div>
-            </div> */}
           </div>
         </div>
         {windowDimensions.width < 600 && (
