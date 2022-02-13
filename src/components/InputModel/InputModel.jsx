@@ -50,22 +50,6 @@ const InputModel = (props) => {
     setLoading(false);
   }
 
-  // async function handleSubmit(e) {
-  //   e.preventDefault();
-  //   // try {
-  //   // setLoading(true);
-  //   let userEmail = currentUser.email;
-  //   let title = titleRef.current.value;
-  //   let link = linkRef.current.value;
-  //   dispatch(createUserLink(title, link, userEmail));
-  //   props.setModalShow(false);
-  //   props.setRefreshPage(!props.refreshPage);
-  //   // } catch {
-  //   //   setError("Something is went wrong....");
-  //   // }
-  //   // setLoading(false);
-  // }
-
   return (
     <div className="user-model">
       <div className="user-model-body">

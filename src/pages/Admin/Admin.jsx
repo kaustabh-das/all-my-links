@@ -5,6 +5,7 @@ import Layout from "../../components/Layout/Layout";
 import MobileModel from "../../components/MobileModel/MobileModel";
 // import Preview from "../../components/Preview/Preview";
 import LoadingComp from "../../components/LoadingComp/LoadingComp";
+import DeleteAlert from "../../components/DeleteAlert/DeleteAlert";
 import "./app.adminpage.scss";
 import { useAuth } from "../../contexts/AuthContext";
 import { db } from "../../firebase";
@@ -16,6 +17,7 @@ import {
   deleteDoc,
   doc,
   setDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import { MoreVertical as MoreVerticalIcon } from "react-feather";
 import { ToggleLeft as ToggleLeftIcon } from "react-feather";
@@ -44,11 +46,13 @@ const Admin = () => {
   const [modalShow, setModalShow] = useState(false);
   const [updateModalShow, setupdateModalShow] = useState(false);
   const [linkId, setLinkId] = useState();
+  const [title, setTitle] = useState();
   const [previewShow, setPreviewShow] = useState(false);
   const [refreshPage, setRefreshPage] = useState(false);
   const [usersLink, setUsersLink] = useState([]);
   // const [usersInfo, setUsersInfo] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [deleteCard, setDeleteCard] = useState(false);
 
   const updateLink = (userId) => {
     // console.log(userId);
@@ -57,12 +61,10 @@ const Admin = () => {
     // console.log(updateModalShow);
   };
 
-  const deleteLink = async (id) => {
-    const userEmail = currentUser.email;
-    const userDoc = doc(db, "users", userEmail, "user-links", id);
-    // console.log("delete me");
-    await deleteDoc(userDoc);
-    setRefreshPage(!refreshPage);
+  const handelDelete = (id, title) => {
+    setLinkId(id);
+    setTitle(title);
+    setDeleteCard(true);
   };
 
   function getWindowDimensions() {
@@ -113,6 +115,31 @@ const Admin = () => {
     getUsersLink();
   }, [refreshPage]);
 
+  // useEffect(() => {
+  //   const getUsersLink = () => {
+  //     setLoading(true);
+  //     onSnapshot(
+  //       collection(db, "users", currentUser.email, "user-links"),
+  //       (querySnapshot) => {
+  //         const items = [];
+  //         querySnapshot.forEach((doc) => {
+  //           items.push(doc.data());
+  //         });
+  //         setUsersLink(
+  //           items.sort((a, b) => {
+  //             return a.row_no - b.row_no;
+  //           })
+  //         );
+  //       }
+  //       // (error) => {
+  //       //   // ...
+  //       // }
+  //     );
+  //     setLoading(false);
+  //   };
+  //   getUsersLink();
+  // }, []);
+
   return (
     <Layout>
       {loading && <LoadingComp style={"loading-comp"} />}
@@ -137,6 +164,16 @@ const Admin = () => {
         <MobileModel
           onRequestClose={() => setPreviewShow(false)}
           setPreviewShow={setPreviewShow}
+        />
+      )}
+      {deleteCard && (
+        <DeleteAlert
+          onRequestClose={() => setDeleteCard(false)}
+          setDeleteCard={setDeleteCard}
+          refreshPage={refreshPage}
+          setRefreshPage={setRefreshPage}
+          linkId={linkId}
+          title={title}
         />
       )}
       <div className="admin_page">
@@ -182,27 +219,26 @@ const Admin = () => {
                             <div>
                               {" "}
                               <a>{link.link}</a>
+                              <span> </span>
+                              <span>{link.id}</span>
                               {/* <span>
                               <Edit2Icon className="edit-icon" />
                             </span> */}
                             </div>
                             <TrashIcon
+                              // onClick={() => setDeleteCard(!deleteCard)}
+                              onClick={() => handelDelete(link.id, link.title)}
                               className="trash-btn"
-                              onClick={() => deleteLink(link.id)}
                             />
                           </div>
                         </form>
                       </div>
                     </div>
-                    <div className="delete-notification">
-                      <div className="delete-content">
-                        <p>Delete Notification</p>
-                        <div className="delete-button">
-                          <button>Delete</button>
-                          <button>Cancel</button>
-                        </div>
-                      </div>
-                    </div>
+                    {/* <div className="delete-card"> */}
+                    {/* {deleteCard && (
+                      
+                    )} */}
+                    {/* </div> */}
                   </div>
                 );
               })}
