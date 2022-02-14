@@ -17,6 +17,7 @@ const Signup = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
+  const usernameRef = useRef();
   const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -45,10 +46,12 @@ const Signup = () => {
         {
           name: "Los Angeles2",
           email: emailRef.current.value,
+          username: usernameRef.current.value,
         }
       );
       navigate("/admin");
     } catch {
+      // setError(err);
       setError("Failed to create an account");
     }
 
@@ -63,6 +66,10 @@ const Signup = () => {
           <label>
             Email:
             <input type="email" ref={emailRef} />
+          </label>
+          <label>
+            Username:
+            <input type="text" ref={usernameRef} />
           </label>
           <label>
             Password:

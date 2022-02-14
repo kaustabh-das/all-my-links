@@ -57,6 +57,14 @@
             margin-left: 0.3rem;
           }
 
+          .toggle-btn-true {
+            background-color: greenyellow;
+          }
+
+          .toggle-btn-false {
+            background-color: gray;
+          }
+
           .info-bottom-div {
             display: flex;
             justify-content: space-between;

@@ -29,16 +29,16 @@ const Profile = (props) => {
   const usersCollectionLinkRef = collection(db, "users", docId, "user-links");
   const usersCollectionInfoRef = collection(db, "users", docId, "user-info");
 
-  const createUser = async () => {
-    await setDoc(
-      doc(db, "users", "iam@gmail.com", "user-info", "LO77RLzKIcdhEXNA1oer"), // creating "iam@gmail.com" document_id manually.
-      {
-        name: "Los Angeles2",
-        state: "CA",
-        country: "USA",
-      }
-    );
-  };
+  // const createUser = async () => {
+  //   await setDoc(
+  //     doc(db, "users", "iam@gmail.com", "user-info", "LO77RLzKIcdhEXNA1oer"), // creating "iam@gmail.com" document_id manually.
+  //     {
+  //       name: "Los Angeles2",
+  //       state: "CA",
+  //       country: "USA",
+  //     }
+  //   );
+  // };
 
   useEffect(() => {
     const getUsersLink = async () => {
@@ -96,18 +96,20 @@ const Profile = (props) => {
         })}
       {usersLink &&
         usersLink.map((link, index) => {
-          return (
-            // {for (let i = 1; i<){
-            <div key={index} style={{ margin: "1rem" }}>
-              <h3>Title: {link.title}</h3>
-              <a target="_blank" href={link.link}>
-                link: {link.link}
-              </a>
-              {/* <a target="_blank" href={link.link} /> */}
-              <p>Row_no: {link.row_no}</p>
-            </div>
-            // }}
-          );
+          if (link.status) {
+            return (
+              // {for (let i = 1; i<){
+              <div key={index} style={{ margin: "1rem" }}>
+                <h3>Title: {link.title}</h3>
+                <a target="_blank" href={link.link}>
+                  link: {link.link}
+                </a>
+                {/* <a target="_blank" href={link.link} /> */}
+                <p>Row_no: {link.row_no}</p>
+              </div>
+              // }}
+            );
+          }
         })}
       {/* <button onClick={createUser}> Create User</button> */}
     </div>

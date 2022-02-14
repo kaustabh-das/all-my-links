@@ -40,6 +40,7 @@ const InputModel = (props) => {
       await addDoc(usersLinkCollectionInfoRef, {
         title: titleRef.current.value,
         link: linkRef.current.value,
+        status: false,
       });
       // props.setModalShow(false);
     } catch {

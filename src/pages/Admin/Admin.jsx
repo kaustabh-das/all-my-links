@@ -53,6 +53,29 @@ const Admin = () => {
   // const [usersInfo, setUsersInfo] = useState([]);
   const [loading, setLoading] = useState(false);
   const [deleteCard, setDeleteCard] = useState(false);
+  // const [toggleBtn, setToggleBtn] = useState(false);
+
+  const toggleBtnFun = async (userId, status) => {
+    // try {
+    setLoading(true);
+    // setToggleBtn(!toggleBtn);
+    if (status) {
+      const userDoc = doc(db, "users", currentUser.email, "user-links", userId);
+      const newDBTitle = { status: false };
+      await updateDoc(userDoc, newDBTitle);
+      setRefreshPage(!refreshPage);
+    } else {
+      const userDoc = doc(db, "users", currentUser.email, "user-links", userId);
+      const newDBTitle = { status: true };
+      await updateDoc(userDoc, newDBTitle);
+      setRefreshPage(!refreshPage);
+    }
+    // }
+    // catch {
+    //   setError("Something is went wrong....");
+    // }
+    setLoading(false);
+  };
 
   const updateLink = (userId) => {
     // console.log(userId);
@@ -211,19 +234,30 @@ const Admin = () => {
                                 />
                               </span>
                               <span>{index}</span>
+                              {/* <span>{link.status}</span> */}
                             </p>
+
                             {/* <p>{link.id}</p> */}
-                            <ToggleLeftIcon />
+                            <div className={`toggle-btn-${link.status}`}>
+                              <ToggleLeftIcon
+                                onClick={() =>
+                                  toggleBtnFun(link.id, link.status)
+                                }
+                              />
+                            </div>
                           </div>
                           <div className="info-bottom-div">
                             <div>
                               {" "}
                               <a>{link.link}</a>
                               <span> </span>
-                              <span>{link.id}</span>
+                              {/* <span>{link.id}</span> */}
                               {/* <span>
                               <Edit2Icon className="edit-icon" />
                             </span> */}
+                            </div>
+                            <div>
+                              Checkbox: <input type="checkbox" id="myCheck" />
                             </div>
                             <TrashIcon
                               // onClick={() => setDeleteCard(!deleteCard)}

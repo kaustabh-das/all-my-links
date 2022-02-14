@@ -15,13 +15,17 @@ import "./deleteAlert.scss";
 const DeleteAlert = (props) => {
   const { currentUser } = useAuth();
 
+  const [loading, setLoading] = useState(false);
+
   const deleteLink = async (id) => {
+    setLoading(true);
     const userEmail = currentUser.email;
     const userDoc = doc(db, "users", userEmail, "user-links", id);
     // console.log("delete me");
     await deleteDoc(userDoc);
     props.setRefreshPage(!props.refreshPage);
     props.setDeleteCard(false);
+    setLoading(false);
   };
 
   return (
@@ -32,6 +36,7 @@ const DeleteAlert = (props) => {
           <button onClick={() => deleteLink(props.linkId)}>Delete</button>
           <button onClick={() => props.setDeleteCard(false)}>Cancel</button>
         </div>
+        {loading && <p>loading...</p>}
       </div>
     </div>
   );
