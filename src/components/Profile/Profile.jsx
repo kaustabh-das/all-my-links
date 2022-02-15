@@ -70,6 +70,7 @@ const Profile = (props) => {
     getUsersLink();
 
     getUsersInfo();
+    // console.log(usersLink[0].status);
   }, []);
 
   return (
@@ -96,6 +97,7 @@ const Profile = (props) => {
         })}
       {usersLink &&
         usersLink.map((link, index) => {
+          // <p>Sensative Content: {link.sensative}</p>;
           if (link.status) {
             return (
               // {for (let i = 1; i<){
@@ -106,6 +108,8 @@ const Profile = (props) => {
                 </a>
                 {/* <a target="_blank" href={link.link} /> */}
                 <p>Row_no: {link.row_no}</p>
+                {link.sensative && <p>Sensative Content: {link.sensative}</p>}
+                {/* {console.log("hhioj")} */}
               </div>
               // }}
             );

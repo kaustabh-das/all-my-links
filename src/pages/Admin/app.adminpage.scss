@@ -75,6 +75,18 @@
             height: 3.5rem;
             background-color: rgb(163, 155, 240);
 
+            .sensative-content-true {
+              width: 1.2rem;
+              height: 1.2rem;
+              background-color: darkgreen;
+            }
+
+            .sensative-content-false {
+              width: 1.2rem;
+              height: 1.2rem;
+              background-color: gray;
+            }
+
             .trash-btn {
               color: red;
               // padding: 0.2rem;

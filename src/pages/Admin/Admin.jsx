@@ -61,13 +61,35 @@ const Admin = () => {
     // setToggleBtn(!toggleBtn);
     if (status) {
       const userDoc = doc(db, "users", currentUser.email, "user-links", userId);
-      const newDBTitle = { status: false };
-      await updateDoc(userDoc, newDBTitle);
+      const newDBStatus = { status: false };
+      await updateDoc(userDoc, newDBStatus);
       setRefreshPage(!refreshPage);
     } else {
       const userDoc = doc(db, "users", currentUser.email, "user-links", userId);
-      const newDBTitle = { status: true };
-      await updateDoc(userDoc, newDBTitle);
+      const newDBStatus = { status: true };
+      await updateDoc(userDoc, newDBStatus);
+      setRefreshPage(!refreshPage);
+    }
+    // }
+    // catch {
+    //   setError("Something is went wrong....");
+    // }
+    setLoading(false);
+  };
+
+  const sensitiveBtnFun = async (userId, sensative) => {
+    // try {
+    setLoading(true);
+    // setToggleBtn(!toggleBtn);
+    if (sensative) {
+      const userDoc = doc(db, "users", currentUser.email, "user-links", userId);
+      const newDBSensative = { sensative: false };
+      await updateDoc(userDoc, newDBSensative);
+      setRefreshPage(!refreshPage);
+    } else {
+      const userDoc = doc(db, "users", currentUser.email, "user-links", userId);
+      const newDBSensative = { sensative: true };
+      await updateDoc(userDoc, newDBSensative);
       setRefreshPage(!refreshPage);
     }
     // }
@@ -234,7 +256,7 @@ const Admin = () => {
                                 />
                               </span>
                               <span>{index}</span>
-                              {/* <span>{link.status}</span> */}
+                              <span>{link.sensative}</span>
                             </p>
 
                             {/* <p>{link.id}</p> */}
@@ -256,8 +278,18 @@ const Admin = () => {
                               <Edit2Icon className="edit-icon" />
                             </span> */}
                             </div>
-                            <div>
-                              Checkbox: <input type="checkbox" id="myCheck" />
+                            <div
+                              style={{
+                                border: "2px solid black",
+                                width: "1.2rem",
+                                height: "1.2rem",
+                              }}
+                              onClick={() =>
+                                sensitiveBtnFun(link.id, link.sensative)
+                              }
+                              className={`sensative-content-${link.sensative}`}
+                            >
+                              {/* Checkbox: <input type="checkbox" id="myCheck" /> */}
                             </div>
                             <TrashIcon
                               // onClick={() => setDeleteCard(!deleteCard)}

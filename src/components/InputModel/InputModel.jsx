@@ -41,6 +41,7 @@ const InputModel = (props) => {
         title: titleRef.current.value,
         link: linkRef.current.value,
         status: false,
+        sensative: false,
       });
       // props.setModalShow(false);
     } catch {

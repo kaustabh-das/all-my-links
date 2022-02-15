@@ -10,7 +10,7 @@ import {
   doc,
   setDoc,
 } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db, app } from "../../firebase";
 import "./app.signup.scss";
 
 const Signup = () => {
@@ -35,6 +35,7 @@ const Signup = () => {
       setLoading(true);
       console.log(emailRef.current.value);
       await signup(emailRef.current.value, passwordRef.current.value);
+
       await setDoc(
         doc(
           db,
@@ -49,6 +50,11 @@ const Signup = () => {
           username: usernameRef.current.value,
         }
       );
+
+      // await setDoc(doc(db, "users", "usernameDB", usernameRef.current.value), {
+      //   email: emailRef.current.value,
+      // });
+
       navigate("/admin");
     } catch {
       // setError(err);
