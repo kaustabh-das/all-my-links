@@ -12,6 +12,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 import LoadingComp from "../LoadingComp/LoadingComp";
+import ProfileLinkCard from "../ProfileLinkCard/ProfileLinkCard";
 
 const Profile = (props) => {
   const navigate = useNavigate();
@@ -96,22 +97,14 @@ const Profile = (props) => {
           );
         })}
       {usersLink &&
-        usersLink.map((link, index) => {
+        usersLink.map((links, index) => {
+          const { title, link, id } = links;
           // <p>Sensative Content: {link.sensative}</p>;
-          if (link.status) {
+          if (links.status) {
             return (
-              // {for (let i = 1; i<){
-              <div key={index} style={{ margin: "1rem" }}>
-                <h3>Title: {link.title}</h3>
-                <a target="_blank" href={link.link}>
-                  link: {link.link}
-                </a>
-                {/* <a target="_blank" href={link.link} /> */}
-                <p>Row_no: {link.row_no}</p>
-                {link.sensative && <p>Sensative Content: {link.sensative}</p>}
-                {/* {console.log("hhioj")} */}
-              </div>
-              // }}
+              <>
+                <ProfileLinkCard key={id} {...links} />
+              </>
             );
           }
         })}

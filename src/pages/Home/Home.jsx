@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { db } from "../../firebase";
 import {
   collection,
@@ -55,6 +56,9 @@ const Home = () => {
           Search
         </button>
       </form>
+      <div className="">
+        Already have an account? <Link to="/login">Log In</Link>
+      </div>
     </div>
   );
 };

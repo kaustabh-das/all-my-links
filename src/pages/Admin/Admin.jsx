@@ -3,6 +3,7 @@ import InputModel from "../../components/InputModel/InputModel";
 import UpdateModel from "../../components/UpdateModel/UpdateModel";
 import Layout from "../../components/Layout/Layout";
 import MobileModel from "../../components/MobileModel/MobileModel";
+import AdminLinkCard from "../../components/AdminLinkCard/AdminLinkCard";
 // import Preview from "../../components/Preview/Preview";
 import LoadingComp from "../../components/LoadingComp/LoadingComp";
 import DeleteAlert from "../../components/DeleteAlert/DeleteAlert";
@@ -19,10 +20,11 @@ import {
   setDoc,
   onSnapshot,
 } from "firebase/firestore";
-import { MoreVertical as MoreVerticalIcon } from "react-feather";
-import { ToggleLeft as ToggleLeftIcon } from "react-feather";
-import { Trash as TrashIcon } from "react-feather";
-import { Edit2 as Edit2Icon } from "react-feather";
+// import { MoreVertical as MoreVerticalIcon } from "react-feather";
+// import { ToggleLeft as ToggleLeftIcon } from "react-feather";
+// import { Trash as TrashIcon } from "react-feather";
+// import { Edit2 as Edit2Icon } from "react-feather";
+
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import { Button, Modal } from "react-bootstrap";
 import { debounce } from "lodash";
@@ -55,62 +57,62 @@ const Admin = () => {
   const [deleteCard, setDeleteCard] = useState(false);
   // const [toggleBtn, setToggleBtn] = useState(false);
 
-  const toggleBtnFun = async (userId, status) => {
-    // try {
-    setLoading(true);
-    // setToggleBtn(!toggleBtn);
-    if (status) {
-      const userDoc = doc(db, "users", currentUser.email, "user-links", userId);
-      const newDBStatus = { status: false };
-      await updateDoc(userDoc, newDBStatus);
-      setRefreshPage(!refreshPage);
-    } else {
-      const userDoc = doc(db, "users", currentUser.email, "user-links", userId);
-      const newDBStatus = { status: true };
-      await updateDoc(userDoc, newDBStatus);
-      setRefreshPage(!refreshPage);
-    }
-    // }
-    // catch {
-    //   setError("Something is went wrong....");
-    // }
-    setLoading(false);
-  };
+  // const toggleBtnFun = async (userId, status) => {
+  //   // try {
+  //   setLoading(true);
+  //   // setToggleBtn(!toggleBtn);
+  //   if (status) {
+  //     const userDoc = doc(db, "users", currentUser.email, "user-links", userId);
+  //     const newDBStatus = { status: false };
+  //     await updateDoc(userDoc, newDBStatus);
+  //     setRefreshPage(!refreshPage);
+  //   } else {
+  //     const userDoc = doc(db, "users", currentUser.email, "user-links", userId);
+  //     const newDBStatus = { status: true };
+  //     await updateDoc(userDoc, newDBStatus);
+  //     setRefreshPage(!refreshPage);
+  //   }
+  //   // }
+  //   // catch {
+  //   //   setError("Something is went wrong....");
+  //   // }
+  //   setLoading(false);
+  // };
 
-  const sensitiveBtnFun = async (userId, sensative) => {
-    // try {
-    setLoading(true);
-    // setToggleBtn(!toggleBtn);
-    if (sensative) {
-      const userDoc = doc(db, "users", currentUser.email, "user-links", userId);
-      const newDBSensative = { sensative: false };
-      await updateDoc(userDoc, newDBSensative);
-      setRefreshPage(!refreshPage);
-    } else {
-      const userDoc = doc(db, "users", currentUser.email, "user-links", userId);
-      const newDBSensative = { sensative: true };
-      await updateDoc(userDoc, newDBSensative);
-      setRefreshPage(!refreshPage);
-    }
-    // }
-    // catch {
-    //   setError("Something is went wrong....");
-    // }
-    setLoading(false);
-  };
+  // const sensitiveBtnFun = async (userId, sensative) => {
+  //   // try {
+  //   setLoading(true);
+  //   // setToggleBtn(!toggleBtn);
+  //   if (sensative) {
+  //     const userDoc = doc(db, "users", currentUser.email, "user-links", userId);
+  //     const newDBSensative = { sensative: false };
+  //     await updateDoc(userDoc, newDBSensative);
+  //     setRefreshPage(!refreshPage);
+  //   } else {
+  //     const userDoc = doc(db, "users", currentUser.email, "user-links", userId);
+  //     const newDBSensative = { sensative: true };
+  //     await updateDoc(userDoc, newDBSensative);
+  //     setRefreshPage(!refreshPage);
+  //   }
+  //   // }
+  //   // catch {
+  //   //   setError("Something is went wrong....");
+  //   // }
+  //   setLoading(false);
+  // };
 
-  const updateLink = (userId) => {
-    // console.log(userId);
-    setLinkId(userId);
-    setupdateModalShow(true);
-    // console.log(updateModalShow);
-  };
+  // const updateLink = (userId) => {
+  //   // console.log(userId);
+  //   setLinkId(userId);
+  //   setupdateModalShow(true);
+  //   // console.log(updateModalShow);
+  // };
 
-  const handelDelete = (id, title) => {
-    setLinkId(id);
-    setTitle(title);
-    setDeleteCard(true);
-  };
+  // const handelDelete = (id, title) => {
+  //   setLinkId(id);
+  //   setTitle(title);
+  //   setDeleteCard(true);
+  // };
 
   function getWindowDimensions() {
     const { innerWidth: width, innerHeight: height } = window;
@@ -138,13 +140,13 @@ const Admin = () => {
     windowDimensions.width < 600 && setPreviewShow(false);
   }, [windowDimensions.width]);
 
+  let firebaseLinkData = [];
   useEffect(() => {
     const getUsersLink = async () => {
       setLoading(true);
       const data = await getDocs(usersCollectionLinkRef);
       // console.log(data.docs);
       // setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      let firebaseLinkData = [];
       firebaseLinkData = data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
@@ -228,84 +230,99 @@ const Admin = () => {
           </div>
           <div className="info-parent-div">
             {usersLink &&
-              usersLink.map((link, index) => {
+              usersLink.map((links, index) => {
+                const { title, link, id } = links;
                 return (
-                  <div className="link-card">
-                    <div key={index} className="info-div">
-                      <div className="info-left-div">
-                        <MoreVerticalIcon />
-                      </div>
-                      <div className="info-right-div">
-                        <form>
-                          <div className="info-top-div">
-                            <p>
-                              {/* <input
-                              type="text"
-                              value={link.title}
-                              // ref={titleRef}
-                              onChange={(e) =>
-                                // console.log("jjo");
-                                updateLink(index, e)
-                              }
-                            /> */}
-                              <span>{link.title}</span>
-                              <span>
-                                <Edit2Icon
-                                  className="edit-icon"
-                                  onClick={() => updateLink(link.id)}
-                                />
-                              </span>
-                              <span>{index}</span>
-                              <span>{link.sensative}</span>
-                            </p>
+                  <>
+                    {/* {console.log(id)} */}
+                    <AdminLinkCard
+                      key={id}
+                      {...links}
+                      refreshPage={refreshPage}
+                      setRefreshPage={setRefreshPage}
+                      setLoading={setLoading}
+                      setLinkId={setLinkId}
+                      setTitle={setTitle}
+                      setDeleteCard={setDeleteCard}
+                      setupdateModalShow={setupdateModalShow}
+                    />
+                  </>
+                  // <div className="link-card">
+                  //   <div key={index} className="info-div">
+                  //     <div className="info-left-div">
+                  //       <MoreVerticalIcon />
+                  //     </div>
+                  //     <div className="info-right-div">
+                  //       <form>
+                  //         <div className="info-top-div">
+                  //           <p>
+                  //             {/* <input
+                  //             type="text"
+                  //             value={link.title}
+                  //             // ref={titleRef}
+                  //             onChange={(e) =>
+                  //               // console.log("jjo");
+                  //               updateLink(index, e)
+                  //             }
+                  //           /> */}
+                  //             <span>{link.title}</span>
+                  //             <span>
+                  //               <Edit2Icon
+                  //                 className="edit-icon"
+                  //                 onClick={() => updateLink(link.id)}
+                  //               />
+                  //             </span>
+                  //             <span>{index}</span>
+                  //             <span>{link.sensative}</span>
+                  //           </p>
 
-                            {/* <p>{link.id}</p> */}
-                            <div className={`toggle-btn-${link.status}`}>
-                              <ToggleLeftIcon
-                                onClick={() =>
-                                  toggleBtnFun(link.id, link.status)
-                                }
-                              />
-                            </div>
-                          </div>
-                          <div className="info-bottom-div">
-                            <div>
-                              {" "}
-                              <a>{link.link}</a>
-                              <span> </span>
-                              {/* <span>{link.id}</span> */}
-                              {/* <span>
-                              <Edit2Icon className="edit-icon" />
-                            </span> */}
-                            </div>
-                            <div
-                              style={{
-                                border: "2px solid black",
-                                width: "1.2rem",
-                                height: "1.2rem",
-                              }}
-                              onClick={() =>
-                                sensitiveBtnFun(link.id, link.sensative)
-                              }
-                              className={`sensative-content-${link.sensative}`}
-                            >
-                              {/* Checkbox: <input type="checkbox" id="myCheck" /> */}
-                            </div>
-                            <TrashIcon
-                              // onClick={() => setDeleteCard(!deleteCard)}
-                              onClick={() => handelDelete(link.id, link.title)}
-                              className="trash-btn"
-                            />
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                    {/* <div className="delete-card"> */}
-                    {/* {deleteCard && (
-                      
-                    )} */}
-                    {/* </div> */}
-                  </div>
+                  //           {/* <p>{link.id}</p> */}
+                  //           <div className={`toggle-btn-${link.status}`}>
+                  //             <ToggleLeftIcon
+                  //               onClick={() =>
+                  //                 toggleBtnFun(link.id, link.status)
+                  //               }
+                  //             />
+                  //           </div>
+                  //         </div>
+                  //         <div className="info-bottom-div">
+                  //           <div>
+                  //             {" "}
+                  //             <a>{link.link}</a>
+                  //             <span> </span>
+                  //             {/* <span>{link.id}</span> */}
+                  //             {/* <span>
+                  //             <Edit2Icon className="edit-icon" />
+                  //           </span> */}
+                  //           </div>
+                  //           <div
+                  //             style={{
+                  //               border: "2px solid black",
+                  //               width: "1.2rem",
+                  //               height: "1.2rem",
+                  //             }}
+                  //             onClick={() =>
+                  //               sensitiveBtnFun(link.id, link.sensative)
+                  //             }
+                  //             className={`sensative-content-${link.sensative}`}
+                  //           >
+                  //             {/* Checkbox: <input type="checkbox" id="myCheck" /> */}
+                  //           </div>
+                  //           <TrashIcon
+                  //             // onClick={() => setDeleteCard(!deleteCard)}
+                  //             onClick={() => handelDelete(link.id, link.title)}
+                  //             className="trash-btn"
+                  //           />
+                  //         </div>
+                  //       </form>
+                  //     </div>
+                  //   </div>
+                  //   {/* <div className="delete-card"> */}
+                  //   {/* {deleteCard && (
+
+                  //   )} */}
+                  //   {/* </div> */}
+                  // </div>
                 );
               })}
           </div>
