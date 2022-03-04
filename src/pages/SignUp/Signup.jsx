@@ -34,7 +34,6 @@ const Signup = () => {
       setError("");
       setLoading(true);
       console.log(emailRef.current.value);
-      await signup(emailRef.current.value, passwordRef.current.value);
 
       await setDoc(
         doc(
@@ -46,14 +45,18 @@ const Signup = () => {
         ),
         {
           name: "Los Angeles2",
+          theme: "default",
           email: emailRef.current.value,
           username: usernameRef.current.value,
         }
       );
 
-      // await setDoc(doc(db, "users", "usernameDB", usernameRef.current.value), {
-      //   email: emailRef.current.value,
-      // });
+      await setDoc(doc(db, "usernameDB", usernameRef.current.value), {
+        email: emailRef.current.value,
+        username: usernameRef.current.value,
+      });
+
+      await signup(emailRef.current.value, passwordRef.current.value);
 
       navigate("/admin");
     } catch {

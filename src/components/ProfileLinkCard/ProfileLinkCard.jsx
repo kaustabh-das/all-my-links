@@ -1,6 +1,7 @@
 import React from "react";
 
 const ProfileLinkCard = ({ title, link, sensative, status }) => {
+  // console.log(title);
   return (
     <div style={{ margin: "1rem" }}>
       <h3>Title: {title}</h3>

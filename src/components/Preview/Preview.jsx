@@ -19,13 +19,22 @@ import mypic from "../../assets/kd.jpeg";
 const Preview = (props) => {
   const { currentUser } = useAuth();
   const [usersLink, setUsersLink] = useState([]);
+  const [usersInfo, setUsersInfo] = useState([]);
+  const [getTheme, setGetTheme] = useState();
 
-  const usersCollectionLinkRef = collection(
-    db,
-    "users",
-    currentUser.email,
-    "user-links"
-  );
+  // const usersCollectionLinkRef = collection(
+  //   db,
+  //   "users",
+  //   currentUser.email,
+  //   "user-links"
+  // );
+
+  // const usersCollectionInfoRef = collection(
+  //   db,
+  //   "users",
+  //   currentUser.email,
+  //   "user-info"
+  // );
 
   useEffect(() => {
     const getUsersLink = () => {
@@ -47,11 +56,39 @@ const Preview = (props) => {
         // }
       );
     };
+
+    const getUsersInfo = () => {
+      onSnapshot(
+        collection(db, "users", currentUser.email, "user-info"),
+        (querySnapshot) => {
+          const items = [];
+          querySnapshot.forEach((doc) => {
+            items.push(doc.data());
+          });
+          setUsersInfo(
+            items.sort((a, b) => {
+              return a.row_no - b.row_no;
+            })
+          );
+          setGetTheme(items[0].theme);
+          // console.log(items[0].theme);
+        }
+        // (error) => {
+        //   // ...
+        // }
+      );
+    };
+
     getUsersLink();
+    getUsersInfo();
+  }, []);
+
+  useEffect(() => {
+    // console.log(usersInfo[0].theme);
   }, []);
 
   return (
-    <div className="preview-items">
+    <div className={`preview-items-${getTheme}`}>
       {/* <h1>Preview</h1> */}
       {props.display && (
         <div
@@ -63,10 +100,16 @@ const Preview = (props) => {
           <h2>Close</h2>
         </div>
       )}
-
-      <img className="preview-user-img" src={mypic} alt="user image" />
-      <p className="user-name">@username</p>
-      <p className="user-bio">This is my bio.</p>
+      {usersInfo &&
+        usersInfo.map((user, index) => {
+          return (
+            <div key={index}>
+              <img className="preview-user-img" src={mypic} alt="user image" />
+              <p className="user-name">{user.username}</p>
+              <p className="user-bio">This is my bio.</p>
+            </div>
+          );
+        })}
       {/* <div> */}
       {usersLink &&
         usersLink.map((link, index) => {

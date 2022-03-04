@@ -24,6 +24,7 @@ const Layout = (props) => {
   // const linkRef = useRef();
 
   const [usersInfo, setUsersInfo] = useState([]);
+
   const usersCollectionInfoRef = collection(
     db,
     "users",
@@ -45,6 +46,7 @@ const Layout = (props) => {
       // console.log(data.docs);
       setUsersInfo(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       setLoading(false);
+      // console.log(items[0]);
     };
     getUsersInfo();
   }, []);
@@ -59,7 +61,7 @@ const Layout = (props) => {
               return (
                 <div key={index} className="user-details">
                   <img className="user-img" src={Mypic} />
-                  <p className="user-name">@username: {user.email}</p>
+                  <p className="user-name">@username: {user.username}</p>
                   {/* <button onClick={clickMe}>click me</button> */}
                 </div>
               );
@@ -70,12 +72,20 @@ const Layout = (props) => {
         <div className="layout-body-right">
           <div className="preview-body">
             <div className="my-link">
-              <p>
-                My Link:<span> </span>
-                <a href="http://localhost:3000/rasky" target="_blank">
-                  http://localhost:3000/rasky
-                </a>
-              </p>
+              {usersInfo.map((user, index) => {
+                return (
+                  <p key={index}>
+                    My Link:<span> </span>
+                    <a
+                      href={`http://localhost:3000/${user.username}`}
+                      target="_blank"
+                    >
+                      http://localhost:3000/{user.username}
+                    </a>
+                    {/* {console.log(usersInfo.username)} */}
+                  </p>
+                );
+              })}
             </div>
             <div className="preview-body">
               <Preview />

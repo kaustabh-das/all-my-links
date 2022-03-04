@@ -65,6 +65,7 @@ const UpdateModel = (props) => {
       await updateDoc(userDoc, newDBTitle);
     } catch {
       setError("Something is went wrong....");
+      console.log("Something is went wrong....");
     }
     props.setupdateModalShow(false);
     props.setRefreshPage(!props.refreshPage);

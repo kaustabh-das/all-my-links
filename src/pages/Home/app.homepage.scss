@@ -1,3 +1,11 @@
 .homepage {
   color: red;
+
+  .message-hide {
+    display: none;
+  }
+
+  .message-dislpay {
+    display: block;
+  }
 }

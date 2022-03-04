@@ -18,7 +18,10 @@ const Profile = (props) => {
   const navigate = useNavigate();
   // const dispatch = useDispatch();
   // const docId = "C44xAIt6sliUonB9Sh9R";
-  const docId = props.username;
+
+  const docId = props.email;
+  // const docId = props.username;
+
   // const links = useSelector((state) => state.userLinkReducer.links);
   // const info = useSelector((state) => state.userInfoReducer.info);
 
@@ -42,6 +45,7 @@ const Profile = (props) => {
   // };
 
   useEffect(() => {
+    console.log(docId);
     const getUsersLink = async () => {
       setLoading(true);
       const data = await getDocs(usersCollectionLinkRef);
@@ -72,6 +76,8 @@ const Profile = (props) => {
 
     getUsersInfo();
     // console.log(usersLink[0].status);
+    // console.log(usersLink);
+    // console.log(usersInfo);
   }, []);
 
   return (
@@ -93,9 +99,11 @@ const Profile = (props) => {
             <div key={index}>
               <h3>Username: {user.username}</h3>
               <p>Email: {user.email}</p>
+              {/* <p>ID: {user.id}</p> */}
             </div>
           );
         })}
+      {/* {console.log(usersInfo)} */}
       {usersLink &&
         usersLink.map((links, index) => {
           const { title, link, id } = links;
