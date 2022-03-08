@@ -1,54 +1,85 @@
 .appearance_page {
-  padding: 0;
-  margin: 0;
+  // padding: 0;
+  // margin: 0;
+  // color: violet;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  // flex-direction: column;
   height: calc(100vh - 73.03px - 112px);
   overflow-y: auto;
-  color: violet;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+
+  .profile-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    min-height: 3rem;
+    padding: 1rem;
+    background-color: blue;
+
+    .profile-header {
+      width: 95%;
+      background-color: aqua;
+    }
+    .profile-inputs {
+      width: 95%;
+      margin-top: 1rem;
+    }
+  }
 
   .theme-section {
-    width: 95%;
-    // height: 10vh;
-    margin-top: 3rem;
-    // background-color: lightseagreen;
+    padding: 0;
+    margin: 0;
+    color: violet;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    background-color: goldenrod;
 
-    .default {
-      width: 25%;
-      height: 30vh;
-      background-color: rgb(142, 234, 250);
-      border-radius: 1rem;
-      margin: 1rem;
-    }
+    .theme-cards {
+      width: 95%;
+      // height: 10vh;
+      margin-top: 1.5rem;
+      // background-color: lightseagreen;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
 
-    .pink {
-      width: 25%;
-      height: 30vh;
-      background-color: palevioletred;
-      border-radius: 1rem;
-      margin: 1rem;
-    }
+      .default {
+        width: 25%;
+        height: 30vh;
+        background-color: rgb(142, 234, 250);
+        border-radius: 1rem;
+        margin: 1rem;
+      }
 
-    .green {
-      width: 25%;
-      height: 30vh;
-      background-color: greenyellow;
-      border-radius: 1rem;
-      margin: 1rem;
-    }
+      .pink {
+        width: 25%;
+        height: 30vh;
+        background-color: palevioletred;
+        border-radius: 1rem;
+        margin: 1rem;
+      }
 
-    .blue {
-      width: 25%;
-      height: 30vh;
-      background-color: blue;
-      border-radius: 1rem;
-      margin: 1rem;
+      .green {
+        width: 25%;
+        height: 30vh;
+        background-color: greenyellow;
+        border-radius: 1rem;
+        margin: 1rem;
+      }
+
+      .blue {
+        width: 25%;
+        height: 30vh;
+        background-color: blue;
+        border-radius: 1rem;
+        margin: 1rem;
+      }
     }
   }
 }

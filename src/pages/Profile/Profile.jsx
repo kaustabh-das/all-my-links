@@ -52,7 +52,7 @@ const Profile = () => {
       }));
       setAllUsername(items);
       // console.log(lowercase_username);
-      // console.log(items);
+      console.log(items);
       const searchresult = items.find((x) => x.username === lowercase_username);
       // console.log(searchresult);
       setUsernameData(searchresult);

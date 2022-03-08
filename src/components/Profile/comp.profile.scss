@@ -1,3 +1,11 @@
-.profile {
+.profile-default {
   color: rgb(1, 29, 1);
+  background-color: rgb(142, 234, 250);
+  min-height: 100vh;
+}
+
+.profile-pink {
+  color: rgb(1, 29, 1);
+  background-color: palevioletred;
+  min-height: 100vh;
 }

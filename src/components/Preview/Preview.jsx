@@ -106,7 +106,7 @@ const Preview = (props) => {
             <div key={index}>
               <img className="preview-user-img" src={mypic} alt="user image" />
               <p className="user-name">{user.username}</p>
-              <p className="user-bio">This is my bio.</p>
+              <p className="user-bio">{user.bio}</p>
             </div>
           );
         })}

@@ -44,6 +44,10 @@ const Profile = (props) => {
   //   );
   // };
 
+  const getTheme = () => {
+    console.log(usersInfo[0]);
+  };
+
   useEffect(() => {
     console.log(docId);
     const getUsersLink = async () => {
@@ -75,49 +79,56 @@ const Profile = (props) => {
     getUsersLink();
 
     getUsersInfo();
+    getTheme();
     // console.log(usersLink[0].status);
     // console.log(usersLink);
-    // console.log(usersInfo);
   }, []);
 
   return (
-    <div className="profile">
-      {loading && <LoadingComp style={"loading-comp-profile"} />}
-      <h1>This is {props.username}</h1>
-      <button
-        onClick={() => {
-          //   navigate("/"); // Redirecting to home page.
-          //   navigate(1); // Redirecting to next page.
-          navigate(-1); // Redirecting to previous page.
-        }}
-      >
-        Change to home page
-      </button>
+    <>
       {usersInfo &&
         usersInfo.map((user, index) => {
           return (
-            <div key={index}>
-              <h3>Username: {user.username}</h3>
-              <p>Email: {user.email}</p>
-              {/* <p>ID: {user.id}</p> */}
+            <div className={`profile-${user.theme}`} key={index}>
+              {loading && <LoadingComp style={"loading-comp-profile"} />}
+              <h1>This is {props.username}</h1>
+              <button
+                onClick={() => {
+                  //   navigate("/"); // Redirecting to home page.
+                  //   navigate(1); // Redirecting to next page.
+                  navigate(-1); // Redirecting to previous page.
+                }}
+              >
+                Change to home page
+              </button>
+              {/* {usersInfo &&
+        usersInfo.map((user, index) => {
+          return ( */}
+              <div>
+                <h3>Username: {user.username}</h3>
+                <p>Email: {user.email}</p>
+                {/* <p>ID: {user.id}</p> */}
+              </div>
+              {/* );
+        })} */}
+              {/* {console.log(usersInfo)} */}
+              {usersLink &&
+                usersLink.map((links, index) => {
+                  const { title, link, id } = links;
+                  // <p>Sensative Content: {link.sensative}</p>;
+                  if (links.status) {
+                    return (
+                      <>
+                        <ProfileLinkCard key={id} {...links} />
+                      </>
+                    );
+                  }
+                })}
+              {/* <button onClick={createUser}> Create User</button> */}
             </div>
           );
         })}
-      {/* {console.log(usersInfo)} */}
-      {usersLink &&
-        usersLink.map((links, index) => {
-          const { title, link, id } = links;
-          // <p>Sensative Content: {link.sensative}</p>;
-          if (links.status) {
-            return (
-              <>
-                <ProfileLinkCard key={id} {...links} />
-              </>
-            );
-          }
-        })}
-      {/* <button onClick={createUser}> Create User</button> */}
-    </div>
+    </>
   );
 };
 

@@ -9,6 +9,7 @@ import {
   deleteDoc,
   doc,
   setDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import "./layout.scss";
 import Navbar from "../Navbar/Navbar";
@@ -42,9 +43,26 @@ const Layout = (props) => {
   useEffect(() => {
     const getUsersInfo = async () => {
       setLoading(true);
-      const data = await getDocs(usersCollectionInfoRef);
-      // console.log(data.docs);
-      setUsersInfo(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      // const data = await getDocs(usersCollectionInfoRef);
+      // // console.log(data.docs);
+      // setUsersInfo(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      onSnapshot(
+        collection(db, "users", currentUser.email, "user-info"),
+        (querySnapshot) => {
+          const items = [];
+          querySnapshot.forEach((doc) => {
+            items.push(doc.data());
+          });
+          setUsersInfo(
+            items.sort((a, b) => {
+              return a.row_no - b.row_no;
+            })
+          );
+        }
+        // (error) => {
+        //   // ...
+        // }
+      );
       setLoading(false);
       // console.log(items[0]);
     };

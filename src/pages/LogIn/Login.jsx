@@ -54,7 +54,7 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <label>
           Email:
-          <input type="email" ref={emailRef} />
+          <input type="email" ref={emailRef} required />
         </label>
         <label>
           Password:
@@ -62,6 +62,7 @@ const Login = () => {
             type="password"
             ref={passwordRef}
             placeholder="Enter your password"
+            required
           />
         </label>
         <input disabled={loading} type="submit" />

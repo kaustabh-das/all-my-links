@@ -41,6 +41,7 @@ const Home = () => {
         items.push(doc.data());
         setSearchUsername(items);
       });
+      console.log(items);
     });
     // console.log(searchUsername);
   }, []);
