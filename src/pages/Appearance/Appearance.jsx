@@ -50,10 +50,10 @@ const Appearance = () => {
           // );
           setUsername(items[0].username);
           setBio(items[0].bio);
-          console.log(items);
+          // console.log(items);
           setDBUsername(items[0].username);
           setDBBio(items[0].bio);
-          console.log(dbUsername);
+          // console.log(dbUsername);
         }
         // (error) => {
         //   // ...
