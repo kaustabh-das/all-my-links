@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
 import { useAuth } from "../../contexts/AuthContext";
 import { db } from "../../firebase";
@@ -19,6 +20,7 @@ import LoadingComp from "../../components/LoadingComp/LoadingComp";
 
 const Settings = () => {
   const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
   const docId = "LO77RLzKIcdhEXNA1oer";
 
   const nameRef = useRef();
@@ -97,6 +99,15 @@ const Settings = () => {
     setEmail(dbEmail);
   };
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch {
+      setError("Failed to log out");
+    }
+  };
+
   return (
     // <Layout>
     //   <div className="settings_page">
@@ -107,6 +118,10 @@ const Settings = () => {
       <Navbar />
       <div className="setting-main-page">
         <h3>Setting</h3>
+        <div className="logout-button" onClick={handleLogout}>
+          <p>Log Out</p>
+        </div>
+        <p>{error}</p>
         <div className="setting-info-body">
           <form onSubmit={handleSubmit}>
             {/* <div className="mb-3">

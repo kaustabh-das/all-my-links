@@ -1,11 +1,12 @@
 .navbar {
   width: 100%;
-  //   background-color: lightseagreen;
-  //   color: lightpink;
+  height: 5rem;
+  background-color: #1322c2;
+  // color: #ffedc8;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 3px solid #d7dce1;
+  // border-bottom: 3px solid #d7dce1;
 
   .navbar-items {
     width: 95%;
@@ -16,7 +17,9 @@
     // background-color: lime;
 
     .logo {
-      font-size: 35px;
+      font-size: 38px;
+      font-weight: bold;
+      // color: #ffedc8;
 
       @media only screen and (max-width: 600px) {
         font-size: 27px;
@@ -39,6 +42,8 @@
 
       .items-value {
         margin-right: 1.5rem;
+        font-size: 1.3rem;
+        color: #ffedc8;
 
         @media only screen and (max-width: 600px) {
           margin-right: 0.8rem;
@@ -46,19 +51,28 @@
       }
     }
 
-    .logout-button {
-      padding: 0.8rem;
-      background-color: mediumslateblue;
-      color: mintcream;
-      font-size: 1.2rem;
-      //   border: solid 3px ;
-      border-radius: 0.5rem;
-      cursor: pointer;
-
-      @media only screen and (max-width: 600px) {
-        padding: 0.5rem;
-        font-size: 1rem;
-      }
+    .nav-bell {
+      width: 1.8rem;
+      margin-right: 1.5rem;
     }
+
+    .nav-message {
+      width: 1.7rem;
+    }
+
+    // .logout-button {
+    //   padding: 0.8rem;
+    //   background-color: mediumslateblue;
+    //   color: mintcream;
+    //   font-size: 1.2rem;
+    //   //   border: solid 3px ;
+    //   border-radius: 0.5rem;
+    //   cursor: pointer;
+
+    //   @media only screen and (max-width: 600px) {
+    //     padding: 0.5rem;
+    //     font-size: 1rem;
+    //   }
+    // }
   }
 }

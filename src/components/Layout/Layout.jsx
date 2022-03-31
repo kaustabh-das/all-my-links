@@ -25,6 +25,7 @@ const Layout = (props) => {
   // const linkRef = useRef();
 
   const [usersInfo, setUsersInfo] = useState([]);
+  // const [profilePic, setProfilePic] = useState(Mypic);
 
   const usersCollectionInfoRef = collection(
     db,
@@ -78,7 +79,11 @@ const Layout = (props) => {
             {usersInfo.map((user, index) => {
               return (
                 <div key={index} className="user-details">
-                  <img className="user-img" src={Mypic} />
+                  {user.profilePicLink ? (
+                    <img className="user-img" src={user.profilePicLink} />
+                  ) : (
+                    <img className="user-img" src={Mypic} />
+                  )}
                   <p className="user-name">@username: {user.username}</p>
                   {/* <button onClick={clickMe}>click me</button> */}
                 </div>

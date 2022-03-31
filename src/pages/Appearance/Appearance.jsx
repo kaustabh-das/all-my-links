@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import Layout from "../../components/Layout/Layout";
 import { useAuth } from "../../contexts/AuthContext";
-import { db } from "../../firebase";
+import { db, storage } from "../../firebase";
 import {
   collection,
   getDocs,
@@ -13,8 +13,15 @@ import {
   setDoc,
   onSnapshot,
 } from "firebase/firestore";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  uploadBytesResumable,
+} from "firebase/storage";
 import "./app.appearancepage.scss";
 import LoadingComp from "../../components/LoadingComp/LoadingComp";
+import Mypic from "../../assets/kd.jpeg";
 
 const Appearance = () => {
   const { currentUser, logout } = useAuth();
@@ -25,6 +32,9 @@ const Appearance = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // const [profilePic, setProfilePic] = useState(Mypic);
+  const [usersInfo, setUsersInfo] = useState([]);
 
   const [dbUsername, setDBUsername] = useState();
   const [dbBio, setDBBio] = useState();
@@ -43,11 +53,12 @@ const Appearance = () => {
           querySnapshot.forEach((doc) => {
             items.push(doc.data());
           });
-          // setUsersInfo(
-          //   items.sort((a, b) => {
-          //     return a.row_no - b.row_no;
-          //   })
-          // );
+          setUsersInfo(
+            items.sort((a, b) => {
+              return a.row_no - b.row_no;
+            })
+          );
+          // setProfilePic(items[0].profilePicLink);
           setUsername(items[0].username);
           setBio(items[0].bio);
           // console.log(items);
@@ -114,18 +125,120 @@ const Appearance = () => {
     setLoading(false);
   };
 
+  // const handelImageChange = (e) => {
+  //   if (e.target.files[0]) {
+  //     setProfilePic(e.target.files[0]);
+  //   }
+  // };
+
+  // const uploadPic = () => {
+  //   const imageRef = ref(storage, "myProfilepic");
+  //   uploadBytes(imageRef, profilePic)
+  //     .then(() => {
+  //       getDownloadURL(imageRef)
+  //         .then((url) => {
+  //           // setUrl(url);
+  //           setProfilePic(url);
+  //         })
+  //         .catch((error) => {
+  //           console.log(error.message, "error getting the image url");
+  //         });
+  //       setProfilePic(Mypic);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.message);
+  //     });
+  // };
+
+  const handelImageChange = (e) => {
+    e.preventDefault();
+    const file = e.target[0].files[0];
+    uploadFiles(file);
+  };
+
+  const uploadFiles = (file) => {
+    const userInfoDoc = "LO77RLzKIcdhEXNA1oer";
+    //
+    if (!file) return;
+    setLoading(true);
+    const sotrageRef = ref(storage, `profilepic/${file.name}`);
+    const uploadTask = uploadBytesResumable(sotrageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const prog = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        // setProgress(prog);
+      },
+      (error) => console.log(error),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          try {
+            setLoading(true);
+            const userDoc = doc(
+              db,
+              "users",
+              currentUser.email,
+              "user-info",
+              userInfoDoc
+            );
+            const newUserProfilePic = { profilePicLink: downloadURL };
+            await updateDoc(userDoc, newUserProfilePic);
+          } catch {
+            // setError("Something is went wrong....");
+            console.log("Something is went wrong....");
+          }
+          setLoading(false);
+          console.log("File available at", downloadURL);
+        });
+      }
+    );
+  };
+
   return (
     <Layout>
-      {loading && <LoadingComp />}
+      {loading && <LoadingComp style={"loading-comp-profile"} />}
       <div className="appearance_page">
         <div className="profile-section">
           <div className="profile-header">
             <h1>Profile</h1>
           </div>
           <div className="profile-inputs">
-            {/* <div className="profile-image">
-              <img />
-            </div> */}
+            <div className="profile-image">
+              {usersInfo.map((user, index) => {
+                return (
+                  <>
+                    {/* <img className="profile-pic" src={profilePic} /> */}
+                    {user.profilePicLink ? (
+                      <img
+                        key={index}
+                        className="profile-pic"
+                        src={user.profilePicLink}
+                      />
+                    ) : (
+                      <img key={index} className="profile-pic" src={Mypic} />
+                    )}
+                  </>
+                );
+              })}
+
+              <form onSubmit={handelImageChange}>
+                <input
+                  // className="profile-pic-btn"
+                  type="file"
+                  // onChange={handelImageChange}
+                  accept="image/*"
+                />
+                {/* <div className="profile-pic-btn" onClick={uploadPic}>
+                <p>Upload Picture</p>
+              </div> */}
+                <button className="profile-pic-btn" type="submit">
+                  Upload pic
+                </button>
+              </form>
+            </div>
             {/* {usersInfo &&
               usersInfo.map((user, index) => {
                 return ( */}

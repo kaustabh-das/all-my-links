@@ -14,13 +14,14 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import "./preview.scss";
-import mypic from "../../assets/kd.jpeg";
+import Mypic from "../../assets/kd.jpeg";
 
 const Preview = (props) => {
   const { currentUser } = useAuth();
   const [usersLink, setUsersLink] = useState([]);
   const [usersInfo, setUsersInfo] = useState([]);
   const [getTheme, setGetTheme] = useState();
+  // const [profilePic, setProfilePic] = useState(Mypic);
 
   // const usersCollectionLinkRef = collection(
   //   db,
@@ -104,7 +105,12 @@ const Preview = (props) => {
         usersInfo.map((user, index) => {
           return (
             <div key={index}>
-              <img className="preview-user-img" src={mypic} alt="user image" />
+              {/* <img className="preview-user-img" src={mypic} alt="user image" /> */}
+              {user.profilePicLink ? (
+                <img className="preview-user-img" src={user.profilePicLink} />
+              ) : (
+                <img className="preview-user-img" src={Mypic} />
+              )}
               <p className="user-name">{user.username}</p>
               <p className="user-bio">{user.bio}</p>
             </div>

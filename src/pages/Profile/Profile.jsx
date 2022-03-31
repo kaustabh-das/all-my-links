@@ -16,24 +16,27 @@ import {
 } from "firebase/firestore";
 import ProfileComp from "../../components/Profile/Profile";
 import Error from "../Error/Error";
+import LoadingComp from "../../components/LoadingComp/LoadingComp";
 import "./app.profile.scss";
 
 const Profile = () => {
   const { username } = useParams();
   const [allUsername, setAllUsername] = useState([]);
   const [usernameData, setUsernameData] = useState();
+  const [loading, setLoading] = useState();
   let lowercase_username = username.toLowerCase();
-  const users = [
-    "rasky",
-    "sima",
-    "akankshya",
-    "biswajit",
-    "gurjyot",
-    "abc@gmail.com",
-  ];
+
+  // const users = [
+  //   "rasky",
+  //   "sima",
+  //   "akankshya",
+  //   "biswajit",
+  //   "gurjyot",
+  //   "abc@gmail.com",
+  // ];
   const userNameRef = collection(db, "usernameDB");
 
-  let find_user;
+  // let find_user;
   // let searchresult;
 
   // const showData = () => {
@@ -45,6 +48,7 @@ const Profile = () => {
     let items = [];
 
     const getUserNames = async () => {
+      setLoading(true);
       const data = await getDocs(userNameRef);
       items = data.docs.map((doc) => ({
         ...doc.data(),
@@ -62,6 +66,7 @@ const Profile = () => {
       } else {
         console.log("error page");
       }
+      setLoading(false);
     };
     getUserNames();
     // showData();
@@ -76,6 +81,7 @@ const Profile = () => {
 
   return (
     <div className="profile-page">
+      {loading && <LoadingComp style={"loading-comp-profile"} />}
       {usernameData ? (
         <ProfileComp
           email={usernameData.email}

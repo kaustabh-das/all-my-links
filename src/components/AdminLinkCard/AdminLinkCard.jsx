@@ -106,8 +106,7 @@ const AdminLinkCard = ({
         <div className="info-right-div">
           <form>
             <div className="info-top-div">
-              <p>
-                {/* <input
+              {/* <input
                               type="text"
                               value={link.title}
                               // ref={titleRef}
@@ -116,16 +115,24 @@ const AdminLinkCard = ({
                                 updateLink(index, e)
                               }
                             /> */}
-                <span>{title}</span>
+              <div className="info-top-div-content">
                 <span>
+                  <span className="link-title">Title:</span>
+                  {title}
+                </span>
+                <span>
+                  <span className="link-url">Url:</span>
+                  <a>{link}</a>
+                </span>
+              </div>
+              {/* <span>
                   <Edit2Icon
                     className="edit-icon"
                     onClick={() => updateLink(id)}
                   />
-                </span>
-                <span>{index}</span>
-                <span>{sensative}</span>
-              </p>
+                </span> */}
+              {/* <span>{index}</span>
+                <span>{sensative}</span> */}
 
               {/* <p>{link.id}</p> */}
               <div className={`toggle-btn-${status}`}>
@@ -135,23 +142,28 @@ const AdminLinkCard = ({
             <div className="info-bottom-div">
               <div>
                 {" "}
-                <a>{link}</a>
+                {/* <a>{link}</a> */}
                 <span> </span>
                 {/* <span>{link.id}</span> */}
                 {/* <span>
                               <Edit2Icon className="edit-icon" />
                             </span> */}
               </div>
+              <p>Sensative Content:</p>
               <div
                 style={{
                   border: "2px solid black",
                   width: "1.2rem",
                   height: "1.2rem",
+                  marginLeft: "0.5rem",
                 }}
                 onClick={() => sensitiveBtnFun(id, sensative)}
                 className={`sensative-content-${sensative}`}
               >
                 {/* Checkbox: <input type="checkbox" id="myCheck" /> */}
+              </div>
+              <div className="edit-btn" onClick={() => updateLink(id)}>
+                <p>Edit</p>
               </div>
               <TrashIcon
                 // onClick={() => setDeleteCard(!deleteCard)}
@@ -162,11 +174,6 @@ const AdminLinkCard = ({
           </form>
         </div>
       </div>
-      {/* <div className="delete-card"> */}
-      {/* {deleteCard && (
-
-                    )} */}
-      {/* </div> */}
     </div>
   );
 };

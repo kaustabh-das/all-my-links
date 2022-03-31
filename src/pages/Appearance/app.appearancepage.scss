@@ -26,6 +26,35 @@
     .profile-inputs {
       width: 95%;
       margin-top: 1rem;
+
+      .profile-image {
+        display: flex;
+        align-items: center;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+
+        .profile-pic {
+          width: 5.5rem;
+          height: 5.5rem;
+          border-radius: 10rem;
+        }
+
+        .profile-pic-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-left: 1rem;
+          background-color: whitesmoke;
+          height: 3rem;
+          width: 9rem;
+          font-size: 1.2rem;
+          border-radius: 0.5rem;
+        }
+        .profile-pic-btn:hover {
+          background-color: lightblue;
+          cursor: pointer;
+        }
+      }
     }
   }
 

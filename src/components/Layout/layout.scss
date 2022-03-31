@@ -7,7 +7,8 @@
 
     .layout-body-left {
       width: 70%;
-      background-color: #ecf1f6; //admin page background
+      // background-color: #ecf1f6; //admin page background
+      background-color: #e5e5e5;
       // overflow-y: auto;
 
       @media only screen and (max-width: 1053px) {
@@ -24,9 +25,10 @@
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 7rem;
+        height: 5.5rem;
         background-color: #ffffff;
-        border-bottom: 3px solid #c4c5c8;
+        // border-bottom: 3px solid #c4c5c8;
+        border-bottom: 3px solid #d7d7d8;
 
         @media only screen and (max-width: 600px) {
           height: 4.2rem;
@@ -41,8 +43,8 @@
           width: 95%;
 
           .user-img {
-            width: 5.5rem;
-            height: 5.5rem;
+            width: 4.5rem;
+            height: 4.5rem;
             border-radius: 10rem;
 
             @media only screen and (max-width: 600px) {
@@ -86,11 +88,12 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          border-bottom: 3px solid #d7dce1;
+          // border-bottom: 3px solid #d7dce1;
+          border-bottom: 3px solid #d7d7d8;
           background-color: #ffffff;
           color: black;
           width: 100%;
-          height: 4rem;
+          height: 5.5rem;
         }
 
         .preview-body {
@@ -102,10 +105,11 @@
 
           // height: 89.3vh;
           height: calc(
-            100vh - 73.3px - 64px
+            100vh - 88px - 80px
           ); // 79.2px is the height of the navbar, 64px is the height of my-link div.
           color: blue;
-          background-color: rgb(235, 238, 241);
+          // background-color: rgb(235, 238, 241);
+          background-color: #e5e5e5;
         }
       }
     }

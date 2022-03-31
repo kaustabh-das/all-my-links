@@ -75,6 +75,7 @@ const Signup = () => {
             email: emailRef.current.value,
             username: storeUsername.toLowerCase(),
             bio: "",
+            profilePicLink: "",
           }
         );
 
