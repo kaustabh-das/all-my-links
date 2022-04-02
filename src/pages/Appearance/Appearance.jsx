@@ -203,7 +203,7 @@ const Appearance = () => {
       <div className="appearance_page">
         <div className="profile-section">
           <div className="profile-header">
-            <h1>Profile</h1>
+            <p>Profile</p>
           </div>
           <div className="profile-inputs">
             <div className="profile-image">
@@ -237,6 +237,11 @@ const Appearance = () => {
                 <button className="profile-pic-btn" type="submit">
                   Upload pic
                 </button>
+                {usersInfo.map((user, index) => {
+                  return (
+                    <>{user.profilePicLink && <button>Remove Pic</button>}</>
+                  );
+                })}
               </form>
             </div>
             {/* {usersInfo &&
@@ -291,7 +296,9 @@ const Appearance = () => {
           </div>
         </div>
         <div className="theme-section">
-          <h1>Theme</h1>
+          <div className="theme-section-header">
+            <p>Theme</p>
+          </div>
           <div className="theme-cards">
             <div
               className="default"
@@ -299,6 +306,7 @@ const Appearance = () => {
             ></div>
             <div className="pink" onClick={() => changeTheme("pink")}></div>
             <div className="green"></div>
+            <div className="blue"></div>
             <div className="blue"></div>
           </div>
         </div>

@@ -8,6 +8,8 @@
   // flex-direction: column;
   height: calc(100vh - 88px - 80px);
   overflow-y: auto;
+  // margin: 0 auto;
+  // width: 100%;
 
   .profile-section {
     display: flex;
@@ -17,15 +19,19 @@
     width: 100%;
     min-height: 3rem;
     padding: 1rem;
-    background-color: blue;
+    background-color: #e5e5e5;
 
     .profile-header {
       width: 95%;
-      background-color: aqua;
+      font-size: 1.9rem;
+      font-weight: 500;
+      // background-color: aqua;
     }
     .profile-inputs {
       width: 95%;
-      margin-top: 1rem;
+      margin-top: 0.8rem;
+      background-color: #ffffff;
+      padding: 1rem;
 
       .profile-image {
         display: flex;
@@ -59,27 +65,35 @@
   }
 
   .theme-section {
-    padding: 0;
-    margin: 0;
-    color: violet;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: goldenrod;
+    width: 100%;
+    min-height: 3rem;
+    padding: 1rem;
+    background-color: #e5e5e5;
+
+    .theme-section-header {
+      width: 95%;
+      font-size: 1.9rem;
+      font-weight: 500;
+    }
 
     .theme-cards {
       width: 95%;
-      // height: 10vh;
+      // height: auto;
       margin-top: 1.5rem;
       // background-color: lightseagreen;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
+      background-color: #ffffff;
+      padding: 1rem;
 
       .default {
-        width: 25%;
+        width: 13rem;
         height: 30vh;
         background-color: rgb(142, 234, 250);
         border-radius: 1rem;
@@ -87,7 +101,7 @@
       }
 
       .pink {
-        width: 25%;
+        width: 13rem;
         height: 30vh;
         background-color: palevioletred;
         border-radius: 1rem;
@@ -95,7 +109,7 @@
       }
 
       .green {
-        width: 25%;
+        width: 13rem;
         height: 30vh;
         background-color: greenyellow;
         border-radius: 1rem;
@@ -103,7 +117,7 @@
       }
 
       .blue {
-        width: 25%;
+        width: 13rem;
         height: 30vh;
         background-color: blue;
         border-radius: 1rem;
