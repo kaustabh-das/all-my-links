@@ -15,6 +15,7 @@ import {
 } from "firebase/firestore";
 import "./preview.scss";
 import Mypic from "../../assets/kd.jpeg";
+import Avatar from "../../assets/avatar.png";
 
 const Preview = (props) => {
   const { currentUser } = useAuth();
@@ -109,7 +110,7 @@ const Preview = (props) => {
               {user.profilePicLink ? (
                 <img className="preview-user-img" src={user.profilePicLink} />
               ) : (
-                <img className="preview-user-img" src={Mypic} />
+                <img className="preview-user-img" src={Avatar} />
               )}
               <p className="user-name">{user.username}</p>
               <p className="user-bio">{user.bio}</p>

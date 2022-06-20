@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { db } from "../../firebase";
+import Body from "../../components/Body/Body";
+import Hero from "../../components/Hero/Hero";
 import {
   collection,
   getDocs,
@@ -74,7 +76,7 @@ const Home = () => {
 
   return (
     <div className="homepage">
-      <h1>Home page</h1>
+      {/* <h1>Home page</h1>
       <form onSubmit={handleSubmit}>
         <label>
           <input
@@ -104,7 +106,9 @@ const Home = () => {
       </div>
       <div className="">
         Already have an account? <Link to="/login">Log In</Link>
-      </div>
+      </div> */}
+      <Hero />
+      <Body />
     </div>
   );
 };

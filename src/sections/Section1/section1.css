@@ -1,0 +1,117 @@
+.section1 {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  /* height: 10vh; */
+  margin: 0 auto;
+  padding: 1rem;
+  margin-bottom: 5rem;
+  /* background-color: slateblue; */
+}
+.section1-left {
+  width: 45%;
+  /* height: 51vh; */
+  /* border-radius: 25vh; */
+  /* background-color: violet; */
+}
+.section1-left-circle {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 25rem;
+  height: 25rem;
+  border-radius: 25vh;
+  background-color: #fecfd0;
+  background-image: url("../../images/section1-img.svg");
+  /* background-image: url("../../images/try.svg"); */
+  background-size: 12rem;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+}
+/* .section1-img {
+  width: 10.5rem;
+} */
+.section1-right {
+  width: 50%;
+  /* background-color: tomato; */
+}
+.section1-header {
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  font-weight: 500;
+  font-size: 75px;
+  line-height: 55px;
+  letter-spacing: -0.02em;
+  color: #130f49;
+}
+.section1-desc {
+  font-size: 23px;
+  margin-top: 2rem;
+  line-height: 30px;
+  letter-spacing: -0.01em;
+  color: #130f49;
+}
+.section1-buttom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  height: 3rem;
+  margin-top: 1rem;
+  background: #cce8fd;
+  border-radius: 20px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 35px;
+  letter-spacing: -0.01em;
+  color: #130f49;
+}
+
+@media screen and (max-width: 1265px) {
+  .section1 {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    margin-top: 7vh;
+  }
+  .section1-left {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    /* background-color: gold; */
+  }
+  .section1-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+    /* background-color: fuchsia; */
+  }
+}
+
+@media screen and (max-width: 527px) {
+  .section1-left {
+    /* height: 40vh; */
+  }
+  .section1-left-circle {
+    width: 17rem;
+    height: 17rem;
+    background-size: 10rem;
+  }
+  .section1-header {
+    font-size: 40px;
+    line-height: 45px;
+    margin-top: 1rem;
+  }
+  .section1-desc {
+    font-size: 14px;
+    line-height: 25px;
+    margin-top: 0.5rem;
+  }
+  .section1-buttom {
+    font-size: 15px;
+  }
+}

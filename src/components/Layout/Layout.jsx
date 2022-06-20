@@ -16,6 +16,7 @@ import Navbar from "../Navbar/Navbar";
 import Preview from "../Preview/Preview";
 import LoadingComp from "../LoadingComp/LoadingComp";
 import Mypic from "../../assets/kd.jpeg";
+import Avatar from "../../assets/avatar.png";
 
 const Layout = (props) => {
   const { currentUser, logout } = useAuth();
@@ -82,7 +83,7 @@ const Layout = (props) => {
                   {user.profilePicLink ? (
                     <img className="user-img" src={user.profilePicLink} />
                   ) : (
-                    <img className="user-img" src={Mypic} />
+                    <img className="user-img" src={Avatar} />
                   )}
                   <p className="user-name">@username: {user.username}</p>
                   {/* <button onClick={clickMe}>click me</button> */}

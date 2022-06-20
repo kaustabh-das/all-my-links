@@ -1,0 +1,28 @@
+.profile-link-card-default {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  margin: 1.4rem;
+  min-height: 2.5rem;
+  cursor: pointer;
+}
+
+.profile-link-card-pink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(149, 90, 204);
+  margin: 1.4rem;
+  min-height: 2.5rem;
+  cursor: pointer;
+}
+
+.profile-link-card-title {
+  padding: 0px;
+  margin: 0px;
+  line-height: 1.5;
+  //   width: 100%;
+  font-weight: 500;
+  font-size: 17px;
+}

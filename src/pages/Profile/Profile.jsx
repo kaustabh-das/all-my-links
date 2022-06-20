@@ -90,11 +90,6 @@ const Profile = () => {
       ) : (
         <Error />
       )}
-      {/* {lowercase_username ? (
-        <ProfileComp username={lowercase_username} />
-      ) : (
-        <Error />
-      )} */}
     </div>
   );
 };

@@ -18,10 +18,12 @@ import {
   uploadBytes,
   getDownloadURL,
   uploadBytesResumable,
+  deleteObject,
 } from "firebase/storage";
 import "./app.appearancepage.scss";
 import LoadingComp from "../../components/LoadingComp/LoadingComp";
 import Mypic from "../../assets/kd.jpeg";
+import Avatar from "../../assets/avatar.png";
 
 const Appearance = () => {
   const { currentUser, logout } = useAuth();
@@ -32,8 +34,11 @@ const Appearance = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [usernameError, setUsernameError] = useState();
 
-  // const [profilePic, setProfilePic] = useState(Mypic);
+  const [imageName, setImageName] = useState();
+
+  const [profilePic, setProfilePic] = useState();
   const [usersInfo, setUsersInfo] = useState([]);
 
   const [dbUsername, setDBUsername] = useState();
@@ -42,6 +47,7 @@ const Appearance = () => {
   const [username, setUsername] = useState();
   const [bio, setBio] = useState();
 
+  const [searchUsername, setSearchUsername] = useState([]);
   // let dbUsername = "";
 
   useEffect(() => {
@@ -61,10 +67,11 @@ const Appearance = () => {
           // setProfilePic(items[0].profilePicLink);
           setUsername(items[0].username);
           setBio(items[0].bio);
+          setProfilePic(items[0].profilePicLink);
           // console.log(items);
           setDBUsername(items[0].username);
           setDBBio(items[0].bio);
-          // console.log(dbUsername);
+          // console.log(profilePic);
         }
         // (error) => {
         //   // ...
@@ -73,6 +80,15 @@ const Appearance = () => {
     };
 
     getUsersInfo();
+
+    // onSnapshot(collection(db, "usernameDB"), (querySnapshot) => {
+    //   const items = [];
+    //   querySnapshot.forEach((doc) => {
+    //     items.push(doc.data());
+    //     setSearchUsername(items);
+    //   });
+    //   console.log(items);
+    // });
   }, []);
 
   // useEffect(() => {
@@ -87,6 +103,12 @@ const Appearance = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userInfoDoc = "LO77RLzKIcdhEXNA1oer";
+    // const searchresult = searchUsername.find(
+    //   (x) => x.username === usernameRef.current.value
+    // );
+    // if (searchresult) {
+    //   setUsernameError("This username is not avaliable");
+    // } else {
     try {
       setLoading(true);
       const userDoc = doc(
@@ -106,6 +128,7 @@ const Appearance = () => {
       setError("Something is went wrong....");
       console.log("Something is went wrong....");
     }
+    // }
     setDBUsername(username);
     setDBBio(bio);
     setLoading(false);
@@ -152,15 +175,49 @@ const Appearance = () => {
 
   const handelImageChange = (e) => {
     e.preventDefault();
+    // console.log(profilePic);
     const file = e.target[0].files[0];
     uploadFiles(file);
   };
 
   const uploadFiles = (file) => {
     const userInfoDoc = "LO77RLzKIcdhEXNA1oer";
-    //
     if (!file) return;
     setLoading(true);
+    if (profilePic) {
+      const desertRef = ref(storage, `profilepic/${imageName}`);
+
+      // Delete the file
+      deleteObject(desertRef)
+        .then(async () => {
+          // File deleted successfully
+          try {
+            // setLoading(true);
+            const userDoc = doc(
+              db,
+              "users",
+              currentUser.email,
+              "user-info",
+              userInfoDoc
+            );
+            const newUserProfilePic = { profilePicLink: "" };
+            await updateDoc(userDoc, newUserProfilePic);
+            console.log("image deleted sucessfully...");
+          } catch {
+            // setError("Something is went wrong....");
+            console.log("Something is went wrong....");
+          }
+          // setLoading(false);
+        })
+        .catch((error) => {
+          // Uh-oh, an error occurred!
+          // console.log(imageName);
+          console.log("Something is went wrong....");
+        });
+      // deleteFile();
+      // console.log("There is a profilelink in db");
+    }
+    setImageName(file.name);
     const sotrageRef = ref(storage, `profilepic/${file.name}`);
     const uploadTask = uploadBytesResumable(sotrageRef, file);
 
@@ -176,7 +233,7 @@ const Appearance = () => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
           try {
-            setLoading(true);
+            // setLoading(true);
             const userDoc = doc(
               db,
               "users",
@@ -195,6 +252,41 @@ const Appearance = () => {
         });
       }
     );
+    // setLoading(false);
+  };
+
+  const deleteFile = () => {
+    const userInfoDoc = "LO77RLzKIcdhEXNA1oer";
+    // Create a reference to the file to delete
+    const desertRef = ref(storage, `profilepic/${imageName}`);
+
+    // Delete the file
+    deleteObject(desertRef)
+      .then(async () => {
+        // File deleted successfully
+        try {
+          setLoading(true);
+          const userDoc = doc(
+            db,
+            "users",
+            currentUser.email,
+            "user-info",
+            userInfoDoc
+          );
+          const newUserProfilePic = { profilePicLink: "" };
+          await updateDoc(userDoc, newUserProfilePic);
+          console.log("image deleted sucessfully...");
+        } catch {
+          // setError("Something is went wrong....");
+          console.log("Something is went wrong....");
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        // Uh-oh, an error occurred!
+        console.log(imageName);
+        console.log("Something is went wrong....");
+      });
   };
 
   return (
@@ -218,7 +310,7 @@ const Appearance = () => {
                         src={user.profilePicLink}
                       />
                     ) : (
-                      <img key={index} className="profile-pic" src={Mypic} />
+                      <img key={index} className="profile-pic" src={Avatar} />
                     )}
                   </>
                 );
@@ -237,12 +329,16 @@ const Appearance = () => {
                 <button className="profile-pic-btn" type="submit">
                   Upload pic
                 </button>
-                {usersInfo.map((user, index) => {
-                  return (
-                    <>{user.profilePicLink && <button>Remove Pic</button>}</>
-                  );
-                })}
               </form>
+              {usersInfo.map((user, index) => {
+                return (
+                  <>
+                    {user.profilePicLink && (
+                      <button onClick={deleteFile}>Remove Pic</button>
+                    )}
+                  </>
+                );
+              })}
             </div>
             {/* {usersInfo &&
               usersInfo.map((user, index) => {
@@ -250,8 +346,9 @@ const Appearance = () => {
             <div className="profile-data">
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
+                  {searchUsername && <p>{searchUsername}</p>}
                   <label for="exampleFormControlInput1" className="form-label">
-                    Username :
+                    Username(username should be permanent) :
                   </label>
                   <input
                     type="text"

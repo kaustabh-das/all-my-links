@@ -1,17 +1,35 @@
 import React from "react";
+import "./comp.profilelinkcard.scss";
 
-const ProfileLinkCard = ({ title, link, sensative, status }) => {
+const ProfileLinkCard = ({
+  title,
+  link,
+  id,
+  sensative,
+  status,
+  theme,
+  setSensitiveContent,
+  setProfileLinkCardId,
+}) => {
   // console.log(title);
+  const openInNewTab = (url) => {
+    if (sensative) {
+      setSensitiveContent(true);
+      setProfileLinkCardId(id);
+    } else {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
-    <div style={{ margin: "1rem" }}>
-      <h3>Title: {title}</h3>
-      <a target="_blank" href={link}>
-        link: {link}
-      </a>
-      {/* <a target="_blank" href={link.link} /> */}
-      {/* <p>Row_no: {row_no}</p> */}
-      {sensative && <p>Sensative Content: {sensative}</p>}
-      {/* {console.log("hhioj")} */}
+    <div className="profile-link-card-container">
+      <div
+        className={`profile-link-card-${theme}`}
+        onClick={() => openInNewTab(link)}
+      >
+        <p className="profile-link-card-title">{title}</p>
+        {/* {sensative && <p>Warning</p>} */}
+      </div>
     </div>
   );
 };

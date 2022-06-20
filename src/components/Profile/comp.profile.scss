@@ -1,11 +1,94 @@
 .profile-default {
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
+  padding-top: 5rem;
+  // padding-left: 5rem;
   color: rgb(1, 29, 1);
   background-color: rgb(142, 234, 250);
   min-height: 100vh;
 }
 
 .profile-pink {
-  color: rgb(1, 29, 1);
   background-color: palevioletred;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
+  padding-top: 5rem;
+  // padding-left: 5rem;
+  color: rgb(1, 29, 1);
   min-height: 100vh;
+}
+
+.profile-view-section {
+  width: 50%;
+  // background-color: gray;
+
+  .sensitive-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: whitesmoke;
+    background-color: rgb(4, 0, 11);
+    margin-left: 1.4rem;
+    margin-right: 1.4rem;
+    margin-top: -1rem;
+    padding: 0.8rem;
+
+    .sensitive-content-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 1rem;
+      width: 25%;
+      // background-color: aquamarine;
+
+      .buttons {
+        padding: 0.2rem;
+      }
+
+      .button-close:hover {
+        background-color: red;
+        border: none;
+        color: whitesmoke;
+        padding: 0.3rem;
+      }
+
+      .button-continue:hover {
+        background-color: green;
+        border: none;
+        color: whitesmoke;
+        padding: 0.3rem;
+      }
+    }
+  }
+}
+
+.profile-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // justify-content: center;
+}
+
+.user-img {
+  width: 6.5rem;
+  height: 6.5rem;
+  border-radius: 10rem;
+  // margin-bottom: 0.5rem;
+
+  @media only screen and (max-width: 600px) {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 10rem;
+  }
+}
+
+.profile-page-fotter {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 18px;
 }
