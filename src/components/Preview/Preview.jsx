@@ -120,36 +120,16 @@ const Preview = (props) => {
       {/* <div> */}
       {usersLink &&
         usersLink.map((link, index) => {
-          return (
-            <div key={index} className="user-links">
-              <a href={link.link} target="_blank">
-                {link.title}
-              </a>
-            </div>
-          );
+          if (link.status) {
+            return (
+              <div key={index} className="user-links">
+                <a href={link.link} target="_blank">
+                  {link.title}
+                </a>
+              </div>
+            );
+          }
         })}
-      {/* </div> */}
-      {/* <div className="user-links">
-        <p>Instagram2</p>
-      </div>
-      <div className="user-links">
-        <p>Instagram3</p>
-      </div>
-      <div className="user-links">
-        <p>Instagram4</p>
-      </div>
-      <div className="user-links">
-        <p>Instagram5</p>
-      </div>
-      <div className="user-links">
-        <p>Instagram6</p>
-      </div>
-      <div className="user-links">
-        <p>Instagram7</p>
-      </div>
-      <div className="user-links">
-        <p>Instagram8</p>
-      </div> */}
     </div>
   );
 };
