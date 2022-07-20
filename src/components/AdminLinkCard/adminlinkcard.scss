@@ -8,8 +8,12 @@
     margin: 1rem;
     // background-color: white;
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 700px) {
       width: 90%;
+    }
+
+    @media only screen and (max-width: 1056px) {
+      height: 7.5rem;
     }
 
     .info-left-div {
@@ -35,6 +39,11 @@
         height: 6rem;
         background-color: rgb(236, 236, 148);
         border-top-right-radius: 1.5rem;
+
+        @media only screen and (max-width: 1056px) {
+          height: 4.5rem;
+          font-size: 90%;
+        }
 
         .info-top-div-content {
           display: flex;
@@ -75,16 +84,32 @@
         background-color: rgb(163, 155, 240);
         border-bottom-right-radius: 1.5rem;
 
-        .sensative-content-true {
-          width: 1.2rem;
-          height: 1.2rem;
-          background-color: rgb(17, 192, 17);
+        @media only screen and (max-width: 1056px) {
+          // height: 20%;
+          font-size: 90%;
         }
 
-        .sensative-content-false {
-          width: 1.2rem;
-          height: 1.2rem;
-          background-color: gray;
+        .info-sc-btn {
+          display: flex;
+          justify-content: start;
+          align-items: center;
+
+          .sc {
+            display: inline-block;
+            // width: 7rem;
+          }
+
+          .sensative-content-true {
+            width: 1.2rem;
+            height: 1.2rem;
+            background-color: rgb(17, 192, 17);
+          }
+
+          .sensative-content-false {
+            width: 1.2rem;
+            height: 1.2rem;
+            background-color: gray;
+          }
         }
 
         .edit-btn {
@@ -99,6 +124,15 @@
           background-color: #1322c2;
           margin-left: 2rem;
           margin-right: 2rem;
+
+          @media only screen and (max-width: 1056px) {
+            width: 4rem;
+            font-size: 1rem;
+          }
+
+          @media only screen and (max-width: 700px) {
+            width: 3.5rem;
+          }
         }
 
         .trash-btn {

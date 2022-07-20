@@ -86,14 +86,14 @@
       margin-top: 1.5rem;
       // background-color: lightseagreen;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       flex-wrap: wrap;
       background-color: #ffffff;
       padding: 1rem;
 
       .default {
-        width: 13rem;
+        width: 11rem;
         height: 30vh;
         background-color: rgb(142, 234, 250);
         border-radius: 1rem;
@@ -101,7 +101,7 @@
       }
 
       .pink {
-        width: 13rem;
+        width: 11rem;
         height: 30vh;
         background-color: palevioletred;
         border-radius: 1rem;
@@ -109,7 +109,7 @@
       }
 
       .green {
-        width: 13rem;
+        width: 11rem;
         height: 30vh;
         background-color: greenyellow;
         border-radius: 1rem;
@@ -117,7 +117,7 @@
       }
 
       .blue {
-        width: 13rem;
+        width: 11rem;
         height: 30vh;
         background-color: blue;
         border-radius: 1rem;

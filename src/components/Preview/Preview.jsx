@@ -16,6 +16,7 @@ import {
 import "./preview.scss";
 import Mypic from "../../assets/kd.jpeg";
 import Avatar from "../../assets/avatar.png";
+import CloseBtn from "../../assets/closebtn.svg";
 
 const Preview = (props) => {
   const { currentUser } = useAuth();
@@ -99,8 +100,15 @@ const Preview = (props) => {
             props.setPreviewShow(false);
           }}
         >
-          <h2>Close</h2>
+          <p>Close</p>
+          {/* <CloseBtn /> */}
         </div>
+
+        // <CloseBtn
+        //   onClick={() => {
+        //     props.setPreviewShow(false);
+        //   }}
+        // />
       )}
       {usersInfo &&
         usersInfo.map((user, index) => {

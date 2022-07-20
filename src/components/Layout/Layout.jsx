@@ -91,6 +91,22 @@ const Layout = (props) => {
               );
             })}
           </div>
+          <div className="my-link-responsive">
+            {usersInfo.map((user, index) => {
+              return (
+                <p key={index}>
+                  My Link:<span> </span>
+                  <a
+                    href={`http://localhost:3000/${user.username}`}
+                    target="_blank"
+                  >
+                    http://localhost:3000/{user.username}
+                  </a>
+                  {/* {console.log(usersInfo.username)} */}
+                </p>
+              );
+            })}
+          </div>
           <div className="body-main">{props.children}</div>
         </div>
         <div className="layout-body-right">

@@ -125,16 +125,6 @@ const AdminLinkCard = ({
                   <a>{link}</a>
                 </span>
               </div>
-              {/* <span>
-                  <Edit2Icon
-                    className="edit-icon"
-                    onClick={() => updateLink(id)}
-                  />
-                </span> */}
-              {/* <span>{index}</span>
-                <span>{sensative}</span> */}
-
-              {/* <p>{link.id}</p> */}
               <div className={`toggle-btn-${status}`}>
                 <ToggleLeftIcon onClick={() => toggleBtnFun(id, status)} />
               </div>
@@ -144,23 +134,21 @@ const AdminLinkCard = ({
                 {" "}
                 {/* <a>{link}</a> */}
                 <span> </span>
-                {/* <span>{link.id}</span> */}
-                {/* <span>
-                              <Edit2Icon className="edit-icon" />
-                            </span> */}
               </div>
-              <p>Sensative Content:</p>
-              <div
-                style={{
-                  border: "2px solid black",
-                  width: "1.2rem",
-                  height: "1.2rem",
-                  marginLeft: "0.5rem",
-                }}
-                onClick={() => sensitiveBtnFun(id, sensative)}
-                className={`sensative-content-${sensative}`}
-              >
-                {/* Checkbox: <input type="checkbox" id="myCheck" /> */}
+              <div className="info-sc-btn">
+                <p className="sc">Sensative Content:</p>
+                <div
+                  style={{
+                    border: "2px solid black",
+                    width: "1.2rem",
+                    height: "1.2rem",
+                    marginLeft: "0.5rem",
+                  }}
+                  onClick={() => sensitiveBtnFun(id, sensative)}
+                  className={`sensative-content-${sensative}`}
+                >
+                  {/* Checkbox: <input type="checkbox" id="myCheck" /> */}
+                </div>
               </div>
               <div className="edit-btn" onClick={() => updateLink(id)}>
                 <p>Edit</p>

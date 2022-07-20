@@ -1,5 +1,5 @@
 .admin_page {
-  margin-top: 1rem;
+  // margin-top: 1rem;
   height: calc(100vh - 73.03px - 112px);
   overflow-y: auto;
   margin-left: 2rem;
@@ -13,16 +13,9 @@
     // overflow-y: scroll;
     // background-color: blueviolet;
 
-    .create-btn {
-      margin: 1rem;
-    }
-
-    .info-parent-div {
-      //
-      // background-color: rgb(226, 116, 43);
-
-      // border-radius: 2rem;
-    }
+    // .create-btn {
+    //   margin: 1rem;
+    // }
 
     .create-btn {
       display: flex;
@@ -37,9 +30,34 @@
       font-size: 1.3rem;
       cursor: pointer;
       margin-bottom: 1.5rem;
+      margin: 1rem;
 
-      @media only screen and (max-width: 600px) {
+      @media only screen and (max-width: 1056px) {
+        width: 75%;
+      }
+
+      @media only screen and (max-width: 700px) {
         width: 90%;
+      }
+    }
+
+    .info-parent-div {
+      //
+      // background-color: rgb(226, 116, 43);
+
+      // border-radius: 2rem;
+      .admin_page-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        width: 100%;
+        height: 5rem;
+
+        @media only screen and (max-width: 1052px) {
+          height: 5rem;
+          font-size: 1.1rem;
+        }
       }
     }
   }
@@ -49,11 +67,16 @@
     width: 8rem;
     padding: 1rem;
     border-radius: 2rem;
+    font-size: 1.2rem;
     color: whitesmoke;
     background-color: blueviolet;
     position: fixed;
     right: 20px;
     bottom: 20px;
     cursor: pointer;
+
+    // @media only screen and (max-width: 350px) {
+    //   width: 90%;
+    // }
   }
 }

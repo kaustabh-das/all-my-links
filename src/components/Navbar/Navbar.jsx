@@ -5,6 +5,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import Bell from "../../assets/bell.svg";
 import Message from "../../assets/message.svg";
+import Line from "../../assets/3line.svg";
 
 const Navbar = () => {
   const { currentUser, logout } = useAuth();
@@ -58,11 +59,16 @@ const Navbar = () => {
         {/* <div className="logout-button" onClick={handleLogout}>
           Log Out
         </div> */}
-        <div>
-          <img className="nav-bell" src={Bell} />
-        </div>
-        <div>
-          <img className="nav-message" src={Message} />
+        <div className="nav-icon">
+          <div>
+            <img className="nav-bell" src={Bell} />
+          </div>
+          <div>
+            <img className="nav-message" src={Message} />
+          </div>
+          <div>
+            <img className="nav-line" src={Line} />
+          </div>
         </div>
       </div>
     </div>

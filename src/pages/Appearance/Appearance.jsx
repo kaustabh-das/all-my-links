@@ -404,7 +404,8 @@ const Appearance = () => {
             <div className="pink" onClick={() => changeTheme("pink")}></div>
             <div className="green"></div>
             <div className="blue"></div>
-            <div className="blue"></div>
+            {/* <div className="blue"></div>
+            <div className="blue"></div> */}
           </div>
         </div>
       </div>
