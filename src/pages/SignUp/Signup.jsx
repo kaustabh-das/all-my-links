@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { db, app } from "../../firebase";
 import "./app.signup.scss";
+import AircraftSvg from "../../assets/signup.svg";
 
 const Signup = () => {
   const emailRef = useRef();
@@ -35,13 +36,15 @@ const Signup = () => {
         items.push(doc.data());
         setSearchUsername(items);
       });
-      console.log(items);
+      // console.log(items);
     });
     // console.log(searchUsername);
   }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    // setError("");
 
     const searchresult = searchUsername.find(
       (x) => x.username === usernameRef.current.value
@@ -97,40 +100,71 @@ const Signup = () => {
   }
   return (
     <div className="signup-page">
-      <h1>Sign Up page</h1>
-      <div>
-        {error && <p>{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <label>
-            Full Name:
-            <input type="text" ref={fullnameRef} required />
-          </label>
-          <label>
-            Email:
-            <input type="email" ref={emailRef} required />
-          </label>
-          <label>
-            Username:
-            <input type="text" ref={usernameRef} required />
-          </label>
-          <label>
-            Password:
-            <input
-              type="password"
-              ref={passwordRef}
-              placeholder="password should be of atleast 6 characters"
-              required
-            />
-          </label>
-          <label>
-            Password Confermation:
-            <input type="password" ref={passwordConfirmRef} required />
-          </label>
-          <input disabled={loading} type="submit" />
-        </form>
+      <div className="signup-left-side">
+        <div className="signup-logo">
+          <p>AfterClick</p>
+        </div>
+        <div className="signup-content">
+          <div className="signup-header">
+            <p id="signup-header">Sign Up</p>
+            <p>If you already have an account register</p>
+            <span>You can </span>
+            <Link to="/login">Login here!</Link>
+          </div>
+          <div className="signup-form">
+            <div className="error-message">{error && <p>{error}</p>}</div>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label>
+                  Full Name:
+                  <input type="text" ref={fullnameRef} required />
+                </label>
+              </div>
+              <div>
+                <label>
+                  Email:
+                  <input type="email" ref={emailRef} required />
+                </label>
+              </div>
+              <div>
+                <label>
+                  Username:
+                  <input type="text" ref={usernameRef} required />
+                </label>
+              </div>
+              <div>
+                <label>
+                  Password:
+                  <input
+                    type="password"
+                    ref={passwordRef}
+                    placeholder="password should be of atleast 6 characters"
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label>
+                  Password Confermation:
+                  <input type="password" ref={passwordConfirmRef} required />
+                </label>
+              </div>
+              <div>
+                {/* <input
+                    disabled={loading}
+                    type="submit"
+                    // placeholder="Register"
+                  /> */}
+                <button disabled={loading} type="submit">
+                  Register
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <div className="">
-        Already have an account? <Link to="/login">Log In</Link>
+      <div className="signup-right-side">
+        <img style={{ width: "100%" }} src={AircraftSvg} />
       </div>
     </div>
   );
