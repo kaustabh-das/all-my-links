@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 import { db, app } from "../../firebase";
 import "./app.signup.scss";
-import AircraftSvg from "../../assets/signup.svg";
+import SignUpSvg from "../../assets/signup.svg";
 
 const Signup = () => {
   const emailRef = useRef();
@@ -109,7 +109,9 @@ const Signup = () => {
             <p id="signup-header">Sign Up</p>
             <p>If you already have an account register</p>
             <span>You can </span>
-            <Link to="/login">Login here!</Link>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              Login here !
+            </Link>
           </div>
           <div className="signup-form">
             <div className="error-message">{error && <p>{error}</p>}</div>
@@ -164,7 +166,7 @@ const Signup = () => {
         </div>
       </div>
       <div className="signup-right-side">
-        <img style={{ width: "100%" }} src={AircraftSvg} />
+        <img style={{ width: "100%" }} src={SignUpSvg} />
       </div>
     </div>
   );

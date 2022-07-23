@@ -5,12 +5,14 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import Bell from "../../assets/bell.svg";
 import Message from "../../assets/message.svg";
-import Line from "../../assets/3line.svg";
+import Line from "../../assets/align-justify.svg";
+import X from "../../assets/x.svg";
 
 const Navbar = () => {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
+  const [line, setLine] = useState(false);
 
   // const handleLogout = async () => {
   //   try {
@@ -20,6 +22,31 @@ const Navbar = () => {
   //     setError("Failed to log out");
   //   }
   // };
+
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height,
+    };
+  }
+
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions()
+  );
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // useEffect(() => {
+  //   windowDimensions.width < 600 && setPreviewShow(false);
+  // }, [windowDimensions.width]);
 
   return (
     <div className="navbar">
@@ -66,9 +93,26 @@ const Navbar = () => {
           <div>
             <img className="nav-message" src={Message} />
           </div>
-          <div>
-            <img className="nav-line" src={Line} />
-          </div>
+          {windowDimensions.width < 700 && (
+            <>
+              {line ? (
+                <img
+                  onClick={() => setLine(true)}
+                  className="nav-line"
+                  src={X}
+                />
+              ) : (
+                <img
+                  onClick={() => setLine(false)}
+                  className="nav-line"
+                  src={Line}
+                />
+              )}
+            </>
+            // <div>
+            //   <img className="nav-line" src={Line} />
+            // </div>
+          )}
         </div>
       </div>
     </div>

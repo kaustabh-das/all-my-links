@@ -114,16 +114,23 @@ const Layout = (props) => {
             <div className="my-link">
               {usersInfo.map((user, index) => {
                 return (
-                  <p key={index}>
-                    My Link:<span> </span>
-                    <a
-                      href={`http://localhost:3000/${user.username}`}
-                      target="_blank"
-                    >
-                      http://localhost:3000/{user.username}
-                    </a>
-                    {/* {console.log(usersInfo.username)} */}
-                  </p>
+                  <>
+                    <div>
+                      <p key={index}>My Link:</p>
+                    </div>
+                    <div>
+                      <p>
+                        <a
+                          id="my-link-id"
+                          href={`http://localhost:3000/${user.username}`}
+                          target="_blank"
+                        >
+                          <snap> http://localhost:3000/{user.username}</snap>
+                        </a>
+                        {/* {console.log(usersInfo.username)} */}
+                      </p>
+                    </div>
+                  </>
                 );
               })}
             </div>

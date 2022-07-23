@@ -80,6 +80,10 @@
   color: black;
   background-color: palevioletred;
 
+  @media only screen and (max-width: 1053px) {
+    width: 80%;
+  }
+
   .close-btn {
     text-align: center;
     width: 5rem;
@@ -112,13 +116,20 @@
   .user-links {
     display: flex;
     justify-content: center;
+    font-size: 0.9rem;
     align-items: center;
     margin-top: 1rem;
     width: 95%;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
     border-radius: 2rem;
     background-color: blanchedalmond;
+
+    @media only screen and (max-width: 1053px) {
+      font-size: 0.75rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
   }
 }
 

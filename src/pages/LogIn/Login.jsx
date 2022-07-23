@@ -3,6 +3,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import app from "../../firebase";
 import "./app.loginpage.scss";
+import LoginSvg from "../../assets/login.svg";
 
 const Login = () => {
   const emailRef = useRef();
@@ -49,26 +50,54 @@ const Login = () => {
 
   return (
     <div className="login-page">
-      <h1>Login Page</h1>
-      {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input type="email" ref={emailRef} required />
-        </label>
-        <label>
-          Password:
-          <input
-            type="password"
-            ref={passwordRef}
-            placeholder="Enter your password"
-            required
-          />
-        </label>
-        <input disabled={loading} type="submit" />
-      </form>
-      <div className="">
-        I don't have an account? <Link to="/signup">Sign Up</Link>
+      <div className="login-left-side">
+        <div className="login-logo">
+          <p>AfterClick</p>
+        </div>
+        <div className="login-content">
+          <div className="login-header">
+            <p id="login-header">Log In</p>
+            <p>If you don't have an account register</p>
+            <span>You can </span>
+            <Link to="/signup" style={{ textDecoration: "none" }}>
+              <span>Register here !</span>
+            </Link>
+          </div>
+          <div className="login-form">
+            <div className="error-message">{error && <p>{error}</p>}</div>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label>
+                  Email:
+                  <input
+                    type="email"
+                    ref={emailRef}
+                    placeholder="Enter your Email Id"
+                    required
+                  />
+                </label>
+              </div>
+              <div>
+                <label>
+                  Password:
+                  <input
+                    type="password"
+                    ref={passwordRef}
+                    placeholder="Enter your password"
+                    required
+                  />
+                </label>
+              </div>
+              {/* <input disabled={loading} type="submit" /> */}
+              <button disabled={loading} type="submit">
+                Login
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div className="login-right-side">
+        <img style={{ width: "100%" }} src={LoginSvg} />
       </div>
     </div>
   );

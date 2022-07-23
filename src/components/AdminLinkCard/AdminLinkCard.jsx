@@ -136,10 +136,11 @@ const AdminLinkCard = ({
                 <span> </span>
               </div>
               <div className="info-sc-btn">
-                <p className="sc">Sensative Content:</p>
+                <div className="sc">Sensative Content:</div>
                 <div
                   style={{
-                    border: "2px solid black",
+                    // border: "2px solid black",
+                    borderRadius: "0.2rem",
                     width: "1.2rem",
                     height: "1.2rem",
                     marginLeft: "0.5rem",
