@@ -12,6 +12,10 @@
     height: 95vh;
     background-color: #ffffff;
 
+    @media only screen and (max-width: 700px) {
+      width: 90%;
+    }
+
     .signup-logo {
       font-size: 2.1rem;
       font-weight: 700;
@@ -28,7 +32,10 @@
       .signup-header {
         width: 80%;
         background-color: #ffffff;
-        margin: 2.5rem;
+        margin-top: 2.5rem;
+        margin-left: 2.5rem;
+        margin-right: 2.5rem;
+        margin-bottom: 1rem;
 
         #signup-header {
           font-size: 1.5rem;
@@ -47,6 +54,53 @@
           color: red;
           // background-color: aqua;
         }
+
+        // .error-message-true {
+        //   display: none;
+        // }
+
+        .input-box {
+          margin: 15px 0 12px 0;
+          width: caalc(100% /2 -20px);
+
+          .details {
+            // display: block;
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+          }
+        }
+
+        .input-box input {
+          height: 2.2rem;
+          width: 100%;
+          // outline: none;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          padding-left: 15px;
+          font-size: 16px;
+          border-bottom-width: 2px;
+          transition: all 0.3s ease;
+        }
+
+        .input-box input:focus,
+        .input-box input:valid {
+          border-color: none;
+        }
+
+        .signup-btn {
+          width: 100%;
+          height: 2.5rem;
+          border: none;
+          border-radius: 5px;
+          background-color: #1322c2;
+          color: #ffedc8;
+          margin-top: 0.5rem;
+        }
+
+        .signup-btn:hover {
+          background-color: #3746eb;
+          color: #ffffff;
+        }
       }
     }
   }
@@ -59,5 +113,14 @@
     height: 95vh;
     // background-color: #0071f2;
     border-radius: 1rem;
+
+    @media only screen and (max-width: 1052px) {
+      padding-top: 10rem;
+      align-items: flex-start;
+    }
+
+    @media only screen and (max-width: 700px) {
+      display: none;
+    }
   }
 }

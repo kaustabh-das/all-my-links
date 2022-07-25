@@ -93,6 +93,7 @@ const Signup = () => {
       } catch {
         // setError(err);
         setError("Failed to create an account");
+        // setError(true);
       }
     }
 
@@ -114,42 +115,36 @@ const Signup = () => {
             </Link>
           </div>
           <div className="signup-form">
-            <div className="error-message">{error && <p>{error}</p>}</div>
+            {error && (
+              <div className={`error-message`}>
+                <p>"Sorry, failed to create an account"</p>
+              </div>
+            )}
             <form onSubmit={handleSubmit}>
-              <div>
-                <label>
-                  Full Name:
-                  <input type="text" ref={fullnameRef} required />
-                </label>
+              <div className="input-box">
+                <label className="details">Full Name:</label>
+                <input type="text" ref={fullnameRef} required />
               </div>
-              <div>
-                <label>
-                  Email:
-                  <input type="email" ref={emailRef} required />
-                </label>
+              <div className="input-box">
+                <label className="details">Email:</label>
+                <input type="email" ref={emailRef} required />
               </div>
-              <div>
-                <label>
-                  Username:
-                  <input type="text" ref={usernameRef} required />
-                </label>
+              <div className="input-box">
+                <label className="details">Username:</label>
+                <input type="text" ref={usernameRef} required />
               </div>
-              <div>
-                <label>
-                  Password:
-                  <input
-                    type="password"
-                    ref={passwordRef}
-                    placeholder="password should be of atleast 6 characters"
-                    required
-                  />
-                </label>
+              <div className="input-box">
+                <label className="details">Password:</label>
+                <input
+                  type="password"
+                  ref={passwordRef}
+                  placeholder="password should be of atleast 6 characters"
+                  required
+                />
               </div>
-              <div>
-                <label>
-                  Password Confermation:
-                  <input type="password" ref={passwordConfirmRef} required />
-                </label>
+              <div className="input-box">
+                <label className="details">Password Confermation:</label>
+                <input type="password" ref={passwordConfirmRef} required />
               </div>
               <div>
                 {/* <input
@@ -157,7 +152,7 @@ const Signup = () => {
                     type="submit"
                     // placeholder="Register"
                   /> */}
-                <button disabled={loading} type="submit">
+                <button className="signup-btn" disabled={loading} type="submit">
                   Register
                 </button>
               </div>

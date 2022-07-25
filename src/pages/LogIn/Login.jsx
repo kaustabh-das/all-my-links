@@ -9,7 +9,7 @@ const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { login } = useAuth();
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -42,7 +42,8 @@ const Login = () => {
       navigate("/admin");
     } catch (err) {
       // setError("Failed to log in");
-      setError(err.message);
+      // setError(err.message);
+      setError(true);
     }
 
     setLoading(false);
@@ -64,32 +65,35 @@ const Login = () => {
             </Link>
           </div>
           <div className="login-form">
-            <div className="error-message">{error && <p>{error}</p>}</div>
+            <div className={`error-message-${error}`}>
+              {error && (
+                <p>
+                  The email and password you entered did not match our record.
+                  please check and try again.
+                </p>
+              )}
+            </div>
             <form onSubmit={handleSubmit}>
-              <div>
-                <label>
-                  Email:
-                  <input
-                    type="email"
-                    ref={emailRef}
-                    placeholder="Enter your Email Id"
-                    required
-                  />
-                </label>
+              <div className="input-box">
+                <label className="details">Email:</label>
+                <input
+                  type="email"
+                  ref={emailRef}
+                  placeholder="Enter your Email Id"
+                  required
+                />
               </div>
-              <div>
-                <label>
-                  Password:
-                  <input
-                    type="password"
-                    ref={passwordRef}
-                    placeholder="Enter your password"
-                    required
-                  />
-                </label>
+              <div className="input-box">
+                <label className="details">Password:</label>
+                <input
+                  type="password"
+                  ref={passwordRef}
+                  placeholder="Enter your password"
+                  required
+                />
               </div>
               {/* <input disabled={loading} type="submit" /> */}
-              <button disabled={loading} type="submit">
+              <button className="login-btn" disabled={loading} type="submit">
                 Login
               </button>
             </form>
