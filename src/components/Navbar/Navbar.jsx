@@ -12,7 +12,7 @@ const Navbar = () => {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
   // const [error, setError] = useState("");
-  const [line, setLine] = useState(false);
+  const [line, setLine] = useState(true);
 
   // const handleLogout = async () => {
   //   try {
@@ -98,14 +98,15 @@ const Navbar = () => {
               {line ? (
                 <img
                   onClick={() => setLine(true)}
+                  // onClick={() => console.log("hello")}
                   className="nav-line"
-                  src={X}
+                  src={Line}
                 />
               ) : (
                 <img
                   onClick={() => setLine(false)}
                   className="nav-line"
-                  src={Line}
+                  src={X}
                 />
               )}
             </>
@@ -115,6 +116,7 @@ const Navbar = () => {
           )}
         </div>
       </div>
+      <div className="navbar-responsive-items"></div>
     </div>
   );
 };

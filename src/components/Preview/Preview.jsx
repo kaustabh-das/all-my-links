@@ -113,7 +113,7 @@ const Preview = (props) => {
       {usersInfo &&
         usersInfo.map((user, index) => {
           return (
-            <div key={index}>
+            <div className="preview-profile-data" key={index}>
               {/* <img className="preview-user-img" src={mypic} alt="user image" /> */}
               {user.profilePicLink ? (
                 <img className="preview-user-img" src={user.profilePicLink} />

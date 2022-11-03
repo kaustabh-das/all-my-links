@@ -325,10 +325,13 @@ const Admin = () => {
                   // </div>
                 );
               })}
-            <div className="admin_page-footer">
-              <p>AfterClick</p>
-            </div>
           </div>
+          {/* <div className="admin_page-footer">
+            <footer>AfterClick</footer>
+          </div> */}
+        </div>
+        <div className="admin_page-footer">
+          <footer>AfterClick</footer>
         </div>
         {windowDimensions.width < 700 && (
           <div onClick={() => setPreviewShow(true)} className="mobile-preview">

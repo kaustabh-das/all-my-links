@@ -4,7 +4,7 @@
   // height: 71.5vh;
   height: 100vh;
   // margin-top: -207.4px;
-  margin-top: calc(-73.03px - 112px);
+  margin-top: calc(-80px - 88px);
   background-color: rgba(37, 37, 37, 0.8); //0.8 is the opacity.
   // opacity: 0.8;
   position: fixed;
@@ -26,7 +26,7 @@
     height: auto;
     max-height: 70vh;
     background: #fff;
-    border-radius: 4px;
+    border-radius: 0.6rem;
     padding: 20px;
     border: 1px solid #999;
     overflow: auto;
@@ -37,7 +37,8 @@
       width: 100%;
       // margin: 1rem;
       padding: 0.5rem;
-      background-color: rgb(214, 226, 43);
+      // background-color: rgb(214, 226, 43);
+      font-size: 2rem;
 
       .input-close-btn {
         padding-left: 0.5rem;

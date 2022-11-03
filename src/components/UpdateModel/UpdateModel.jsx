@@ -78,8 +78,8 @@ const UpdateModel = (props) => {
     <div className="user-model">
       <div className="user-model-body">
         <div className="header-div">
-          <h1>Update Model</h1>
-          <p>Link ID: {props.linkId}</p>
+          <p>Edit...</p>
+          {/* <p>Link ID: {props.linkId}</p> */}
           <button
             className="input-close-btn"
             onClick={() => {

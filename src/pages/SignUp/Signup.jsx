@@ -36,7 +36,7 @@ const Signup = () => {
         items.push(doc.data());
         setSearchUsername(items);
       });
-      // console.log(items);
+      console.log(items);
     });
     // console.log(searchUsername);
   }, []);
@@ -49,6 +49,7 @@ const Signup = () => {
     const searchresult = searchUsername.find(
       (x) => x.username === usernameRef.current.value
     );
+    console.log(searchresult);
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match");
@@ -90,7 +91,7 @@ const Signup = () => {
         await signup(emailRef.current.value, passwordRef.current.value);
 
         navigate("/admin");
-      } catch {
+      } catch (err) {
         // setError(err);
         setError("Failed to create an account");
         // setError(true);
@@ -117,7 +118,8 @@ const Signup = () => {
           <div className="signup-form">
             {error && (
               <div className={`error-message`}>
-                <p>"Sorry, failed to create an account"</p>
+                {/* <p>"Sorry, failed to create an account"</p> */}
+                <p>{error}</p>
               </div>
             )}
             <form onSubmit={handleSubmit}>

@@ -122,6 +122,15 @@
             // width: 5rem;
             flex-direction: column;
           }
+
+          #my-link-id {
+            display: inline-block;
+            width: 14rem;
+            // background-color: #1322c2;
+            white-space: nowrap;
+            overflow: hidden !important;
+            text-overflow: ellipsis;
+          }
         }
 
         .preview-body {

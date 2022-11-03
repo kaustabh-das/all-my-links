@@ -9,6 +9,8 @@
 
   .admin-body {
     width: 100%;
+    // background-color: rgb(226, 116, 43);
+    min-height: 66vh;
     // margin-left: 2rem;
     // overflow-y: scroll;
     // background-color: blueviolet;
@@ -44,23 +46,29 @@
     .info-parent-div {
       //
       // background-color: rgb(226, 116, 43);
+      // height: 30rem;
 
       // border-radius: 2rem;
-      .admin_page-footer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.5rem;
-        width: 100%;
-        height: 5rem;
-
-        @media only screen and (max-width: 1052px) {
-          height: 5rem;
-          font-size: 1.1rem;
-        }
-      }
     }
   }
+
+  .admin_page-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    width: 100%;
+    height: 5rem;
+
+    @media only screen and (max-width: 1052px) {
+      height: 5rem;
+      font-size: 1.1rem;
+    }
+  }
+
+  // .admin_page-footer footer {
+  //   position: fixed;
+  // }
 
   .mobile-preview {
     text-align: center;

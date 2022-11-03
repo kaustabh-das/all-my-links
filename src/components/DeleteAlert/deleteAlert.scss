@@ -4,7 +4,7 @@
   // height: 71.5vh;
   height: 100vh;
   // margin-top: -207.4px;
-  margin-top: calc(-73.03px - 112px);
+  margin-top: calc(-80px - 88px);
   background-color: rgba(37, 37, 37, 0.8); //0.8 is the opacity.
   // opacity: 0.8;
   position: fixed;
@@ -12,19 +12,57 @@
   justify-content: center;
   align-items: center;
   z-index: 1;
+  // border-radius: 1rem;
 
   .delete-content {
-    // flex-direction: row;
-    width: 20rem;
-    height: 5rem;
-    background-color: red;
-    color: rgb(240, 227, 227);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30rem;
+    // height:5vh;
+    padding: 3rem;
+    background-color: #ffff;
+    color: black;
+    border-radius: 0.6rem;
+
+    .delete-title {
+      font-size: 1.5rem;
+    }
 
     .delete-button {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-top: 0.2rem;
+      margin-top: 1rem;
+
+      #delete-btn {
+        width: 5rem;
+        height: 2rem;
+        background-color: red;
+        color: #ffedc8;
+        border: none;
+        border-radius: 0.3rem;
+        margin-right: 1rem;
+      }
+
+      #delete-btn:hover {
+        background-color: rgb(224, 26, 26);
+      }
+
+      #cancel-btn {
+        width: 5rem;
+        height: 2rem;
+        background-color: #1322c2;
+        color: #ffedc8;
+        border: none;
+        border-radius: 0.3rem;
+        // margin-right: 1rem;
+      }
+
+      #cancel-btn:hover {
+        background-color: #0619f0;
+      }
     }
   }
 }

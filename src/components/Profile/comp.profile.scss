@@ -25,6 +25,7 @@
 .profile-view-section {
   width: 50%;
   // background-color: gray;
+  min-height: 81vh;
 
   @media only screen and (max-width: 600px) {
     width: 100%;

@@ -62,6 +62,27 @@
             font-weight: 600;
             margin-right: 0.8rem;
           }
+          #link-url {
+            display: inline-block;
+            width: 30rem;
+            // background-color: #1322c2;
+            white-space: nowrap;
+            overflow: hidden !important;
+            text-overflow: ellipsis;
+
+            @media only screen and (max-width: 1318px) {
+              width: 20rem;
+            }
+            @media only screen and (max-width: 1000px) {
+              width: 13rem;
+            }
+            @media only screen and (max-width: 676px) {
+              width: 20rem;
+            }
+            @media only screen and (max-width: 540px) {
+              width: 10rem;
+            }
+          }
         }
       }
 
@@ -71,11 +92,38 @@
       }
 
       .toggle-btn-true {
-        background-color: greenyellow;
+        display: flex;
+        align-items: center;
+        background-color: #00d775;
+        width: 3rem;
+        height: 1.5rem;
+        border-radius: 1rem;
+
+        .toggle-btn-circle {
+          width: 1.3rem;
+          height: 1.3rem;
+          background-color: #ffffff;
+          margin-left: 0.15rem;
+          border-radius: 0.7rem;
+        }
       }
 
       .toggle-btn-false {
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
         background-color: gray;
+        width: 3rem;
+        height: 1.5rem;
+        border-radius: 1rem;
+
+        .toggle-btn-circle {
+          width: 1.3rem;
+          height: 1.3rem;
+          background-color: #ffffff;
+          margin-right: 0.15rem;
+          border-radius: 0.7rem;
+        }
       }
 
       .info-bottom-div {
@@ -108,7 +156,7 @@
           .sensative-content-true {
             width: 1.2rem;
             height: 1.2rem;
-            background-color: rgb(17, 192, 17);
+            background-color: #00d775;
           }
 
           .sensative-content-false {
@@ -130,6 +178,7 @@
           background-color: #1322c2;
           margin-left: 2rem;
           margin-right: 2rem;
+          cursor: pointer;
 
           @media only screen and (max-width: 1056px) {
             width: 4rem;

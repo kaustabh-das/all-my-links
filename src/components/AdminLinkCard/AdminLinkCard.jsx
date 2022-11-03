@@ -122,11 +122,17 @@ const AdminLinkCard = ({
                 </span>
                 <span>
                   <span className="link-url">Url:</span>
-                  <a>{link}</a>
+                  <a id="link-url">{link}</a>
                 </span>
               </div>
-              <div className={`toggle-btn-${status}`}>
+              {/* <div className={`toggle-btn-${status}`}>
                 <ToggleLeftIcon onClick={() => toggleBtnFun(id, status)} />
+              </div> */}
+              <div
+                className={`toggle-btn-${status}`}
+                onClick={() => toggleBtnFun(id, status)}
+              >
+                <div className="toggle-btn-circle"></div>
               </div>
             </div>
             <div className="info-bottom-div">

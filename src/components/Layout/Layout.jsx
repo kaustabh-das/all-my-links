@@ -85,7 +85,7 @@ const Layout = (props) => {
                   ) : (
                     <img className="user-img" src={Avatar} />
                   )}
-                  <p className="user-name">@username: {user.username}</p>
+                  <p className="user-name">@{user.username}</p>
                   {/* <button onClick={clickMe}>click me</button> */}
                 </div>
               );
@@ -97,6 +97,7 @@ const Layout = (props) => {
                 <p key={index}>
                   My Link:<span> </span>
                   <a
+                    id="my-link-id"
                     href={`http://localhost:3000/${user.username}`}
                     target="_blank"
                   >

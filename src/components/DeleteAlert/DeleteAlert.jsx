@@ -31,10 +31,21 @@ const DeleteAlert = (props) => {
   return (
     <div className="delete-notification">
       <div className="delete-content">
-        <p>{props.title} will be deleted</p>
+        <div className="delete-title">
+          <p>
+            Do you want to delete
+            <snap> "</snap>
+            {props.title}
+            <snap>"</snap> ?
+          </p>
+        </div>
         <div className="delete-button">
-          <button onClick={() => deleteLink(props.linkId)}>Delete</button>
-          <button onClick={() => props.setDeleteCard(false)}>Cancel</button>
+          <button id="delete-btn" onClick={() => deleteLink(props.linkId)}>
+            Delete
+          </button>
+          <button id="cancel-btn" onClick={() => props.setDeleteCard(false)}>
+            Cancel
+          </button>
         </div>
         {loading && <p>loading...</p>}
       </div>

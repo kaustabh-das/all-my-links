@@ -56,7 +56,7 @@ const InputModel = (props) => {
     <div className="user-model">
       <div className="user-model-body">
         <div className="header-div">
-          <h1>Input Model</h1>
+          <p>Input Model</p>
           {/* <p>Link ID: {props.linkId}</p> */}
           <button
             className="input-close-btn"

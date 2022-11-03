@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import Layout from "../../components/Layout/Layout";
+import MobileModel from "../../components/MobileModel/MobileModel";
 import { useAuth } from "../../contexts/AuthContext";
 import { db, storage } from "../../firebase";
 import {
@@ -31,10 +32,12 @@ const Appearance = () => {
 
   const usernameRef = useRef();
   const bioRef = useRef();
+  const nameRef = useRef();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [usernameError, setUsernameError] = useState();
+  const [previewShow, setPreviewShow] = useState(false);
 
   const [imageName, setImageName] = useState();
 
@@ -43,14 +46,25 @@ const Appearance = () => {
 
   const [dbUsername, setDBUsername] = useState();
   const [dbBio, setDBBio] = useState();
+  const [dbName, setDBName] = useState();
 
   const [username, setUsername] = useState();
   const [bio, setBio] = useState();
+  const [name, setName] = useState();
 
   const [searchUsername, setSearchUsername] = useState([]);
   // let dbUsername = "";
 
   useEffect(() => {
+    onSnapshot(collection(db, "usernameDB"), (querySnapshot) => {
+      const items2 = [];
+      querySnapshot.forEach((doc) => {
+        items2.push(doc.data());
+        setSearchUsername(items2);
+      });
+      // console.log(items2);
+    });
+
     const getUsersInfo = () => {
       onSnapshot(
         collection(db, "users", currentUser.email, "user-info"),
@@ -68,9 +82,11 @@ const Appearance = () => {
           setUsername(items[0].username);
           setBio(items[0].bio);
           setProfilePic(items[0].profilePicLink);
+          setName(items[0].name);
           // console.log(items);
           setDBUsername(items[0].username);
           setDBBio(items[0].bio);
+          setDBName(items[0].name);
           // console.log(profilePic);
         }
         // (error) => {
@@ -91,6 +107,32 @@ const Appearance = () => {
     // });
   }, []);
 
+  function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height,
+    };
+  }
+
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions()
+  );
+  // let display_val=""
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    windowDimensions.width < 600 && setPreviewShow(false);
+  }, [windowDimensions.width]);
+
   // useEffect(() => {
   //   console.log(dbUsername);
   // }, [username]);
@@ -103,32 +145,39 @@ const Appearance = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userInfoDoc = "LO77RLzKIcdhEXNA1oer";
-    // const searchresult = searchUsername.find(
-    //   (x) => x.username === usernameRef.current.value
-    // );
-    // if (searchresult) {
-    //   setUsernameError("This username is not avaliable");
-    // } else {
-    try {
-      setLoading(true);
-      const userDoc = doc(
-        db,
-        "users",
-        currentUser.email,
-        "user-info",
-        userInfoDoc
-      );
-      const newUserInfoDB = { username: username, bio: bio };
-      await updateDoc(userDoc, newUserInfoDB);
 
-      const userDBDoc = doc(db, "usernameDB", currentUser.email);
-      const newUserDB = { username: username };
-      await updateDoc(userDBDoc, newUserDB);
-    } catch {
-      setError("Something is went wrong....");
-      console.log("Something is went wrong....");
+    console.log(searchUsername);
+    console.log(usernameRef.current.value);
+
+    const searchresult = searchUsername.find(
+      // (x) => x.username === usernameRef.current.value
+      (x) => x.username === username
+    );
+    console.log(searchresult);
+
+    if (searchresult) {
+      setUsernameError("This username is not avaliable");
+    } else {
+      try {
+        setLoading(true);
+        const userDoc = doc(
+          db,
+          "users",
+          currentUser.email,
+          "user-info",
+          userInfoDoc
+        );
+        const newUserInfoDB = { username: username, bio: bio, name: name };
+        await updateDoc(userDoc, newUserInfoDB);
+
+        const userDBDoc = doc(db, "usernameDB", currentUser.email);
+        const newUserDB = { username: username };
+        await updateDoc(userDBDoc, newUserDB);
+      } catch {
+        setError("Something is went wrong....");
+        console.log("Something is went wrong....");
+      }
     }
-    // }
     setDBUsername(username);
     setDBBio(bio);
     setLoading(false);
@@ -292,6 +341,12 @@ const Appearance = () => {
   return (
     <Layout>
       {loading && <LoadingComp style={"loading-comp-profile"} />}
+      {previewShow && (
+        <MobileModel
+          onRequestClose={() => setPreviewShow(false)}
+          setPreviewShow={setPreviewShow}
+        />
+      )}
       <div className="appearance_page">
         <div className="profile-section">
           <div className="profile-header">
@@ -344,16 +399,19 @@ const Appearance = () => {
               usersInfo.map((user, index) => {
                 return ( */}
             <div className="profile-data">
-              <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                  {searchUsername && <p>{searchUsername}</p>}
-                  <label for="exampleFormControlInput1" className="form-label">
+              <form className="profile-data-form" onSubmit={handleSubmit}>
+                {/* <div className="mb-3"> */}
+                <div className="profile-username">
+                  {/* {searchUsername && <p>{searchUsername}</p>} */}
+                  {usernameError && <p>{usernameError}</p>}
+                  <label for="exampleFormControlInput1" className="">
                     Username(username should be permanent) :
                   </label>
                   <input
                     type="text"
                     value={username}
-                    className="form-control"
+                    // className="form-control"
+                    className="profile-username-input"
                     id="exampleFormControlInput1"
                     // placeholder="facebook"
                     onChange={(e) => setUsername(e.target.value)}
@@ -361,23 +419,47 @@ const Appearance = () => {
                   />
                 </div>
 
-                <label for="floatingTextarea2">Bio:</label>
-                <div class="form-floating">
-                  <textarea
-                    class="form-control"
-                    placeholder="Leave a comment here"
-                    id="floatingTextarea2"
-                    value={bio}
-                    onChange={(e) => setBio(e.target.value)}
-                    ref={bioRef}
-                    style={{ height: "8rem" }}
-                  ></textarea>
+                <div className="profile-name">
+                  <label for="exampleFormControlInput1" className="">
+                    Name:
+                  </label>
+                  <input
+                    type="text"
+                    value={name}
+                    // className="form-control"
+                    className="profile-name-input"
+                    id="exampleFormControlInput1"
+                    // placeholder="facebook"
+                    onChange={(e) => setName(e.target.value)}
+                    ref={nameRef}
+                  />
                 </div>
+
+                <div className="profile-bio">
+                  <label for="floatingTextarea2">Bio:</label>
+                  <div class="form-floating">
+                    <textarea
+                      class="form-control profile-bio-input"
+                      placeholder="Leave a comment here"
+                      id="floatingTextarea2"
+                      value={bio}
+                      onChange={(e) => setBio(e.target.value)}
+                      ref={bioRef}
+                      style={{ height: "8rem" }}
+                    ></textarea>
+                  </div>
+                </div>
+
                 {/* <p>{dbUsername}</p> */}
-                {(username !== dbUsername || bio !== dbBio) && (
+                {(username !== dbUsername ||
+                  bio !== dbBio ||
+                  name !== dbName) && (
                   <div>
-                    <button type="submit">Save</button>
+                    <button className="save-btn" type="submit">
+                      Save
+                    </button>
                     <button
+                      className="cancel-btn"
                       onClick={() => {
                         cancelUpdate();
                       }}
@@ -408,6 +490,14 @@ const Appearance = () => {
             <div className="blue"></div> */}
           </div>
         </div>
+        <div className="admin_page-footer">
+          <footer>AfterClick</footer>
+        </div>
+        {windowDimensions.width < 700 && (
+          <div onClick={() => setPreviewShow(true)} className="mobile-preview">
+            <p>Preview</p>
+          </div>
+        )}
       </div>
     </Layout>
   );

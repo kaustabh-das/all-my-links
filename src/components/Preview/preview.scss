@@ -26,19 +26,26 @@
     cursor: pointer;
   }
 
-  .preview-user-img {
-    width: 6rem;
-    height: 6rem;
-    border-radius: 50%;
-    margin-top: 3.5rem;
-  }
+  .preview-profile-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-  .user-name {
-    margin-top: 1rem;
-  }
+    .preview-user-img {
+      width: 6rem;
+      height: 6rem;
+      border-radius: 50%;
+      margin-top: 3.5rem;
+    }
 
-  .user-bio {
-    margin-top: 0.5rem;
+    .user-name {
+      margin-top: 1rem;
+    }
+
+    .user-bio {
+      margin-top: 0.5rem;
+    }
   }
 
   .user-links {
